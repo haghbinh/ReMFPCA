@@ -1,0 +1,18 @@
+Package: ReMFPCA
+Type: Package
+Title: Regularized Multivariate Functional Principal Component Analysis
+Version: 1.0.0
+Date: 2022-01-27
+Author: c(
+    person("Hossein", "Haghbin", email = "haghbin@pgu.ac.ir", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-8416-2354")),
+    person("Mehdi", "Maadooliat", email = "mehdi.maadooliat@mu.edu", role = "aut", comment = c(ORCID = "0000-0002-5408-2676"))
+    )
+Maintainer: Hossein Haghbin <haghbin@pgu.ac.ir>
+Description: Methods and tools for implementing regularized multivariate functional crincipal component analysis
+              for multivariate functional data whose variables might be observed over different dimensional domains.
+License: GPL (>= 2)
+Encoding: UTF-8
+LazyData: TRUE
+Imports: fda, ggplot2
+RoxygenNote: 7.2.0
+Depends: R (>= 4.0)
