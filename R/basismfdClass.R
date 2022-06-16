@@ -1,22 +1,18 @@
 
 #================================basismfd class=============================================#
-# Class of multivariate functional data objects
-
-
-#' A class for univariate functional data
+#' A Class of multivariate functional data objects
 #' 
 #' The \code{basismfd} class represents functional data ...
-#' @slot support a list ....
-#' @slot B a matrix ....
+#' @slot p a numeric....
+#' @slot B a list ....
 #' 
 #' @aliases basismfd
 #' 
 #' @import methods
-NULL
+
 
 setClass("basismfd", slots = c(
   p = "numeric",
-  support = "list",
   B = "list"
 ))
 
@@ -24,32 +20,25 @@ setClass("basismfd", slots = c(
 #' @importFrom fda is.basis
 setValidity("basismfd", function(object) {
   p <- object@p
-  s <- object@support
   B <- object@B
   if (length(p)>1)
     return('p must be a numeric of length one.')
-  if(is.list(B) & !is.basis(B) & is.numeric(s))
-    return('support must be a list')
-  if(is.numeric(s) & length(s) != 2)
-    return('When the support is vector, the length must be 2.')
+  if(is.list(B) & !is.basis(B) & !all(sapply(B, function(x) is.basis(x) | inherits(x,"basisEmp"))))
+    return('All the elements of B must have the classes of types basisfd or basisEmp.')
   return(TRUE)
-  
 })
 
 
-#' Constructor for basismfd objects, third argument (B) passed as matrix or array of numerics
+#' Constructor for basismfd objects
 #' 
-#' @param support a numeric vector or list ...
-#' @param B a numeric matrix or list 
+#' @param B a list of basisEmp or basisfd 
 #' 
 #' @name basismfd-constructor
 #' @docType methods
 #' @export basismfd
 #' @keywords internal
 #' 
-setGeneric("basismfd", function(support, B){standardGeneric("basismfd")})
-
-
+setGeneric("basismfd", function(B){standardGeneric("basismfd")})
 
 #' @describeIn basismfd Constructor for basismfd objects when both \code{support} and \code{B} are given as list
 #' @param support a list ...
@@ -57,9 +46,9 @@ setGeneric("basismfd", function(support, B){standardGeneric("basismfd")})
 #' @docType methods
 #' 
 setMethod("basismfd",
-  signature = c(support = "list", B = "list"),
-  function(support, B) {
-    new("basismfd", p = length(B), support = support, B = B)
+  signature = c( B = "list"),
+  function(B) {
+    new("basismfd", p = length(B), B = B)
   }
 )
 
@@ -69,9 +58,9 @@ setMethod("basismfd",
 #'   
 #' @docType methods
 setMethod("basismfd",
-          signature = c(support = "numeric", B = "matrix"),
-          function(support, B) {
-            new("basismfd", p = 1, support = list(support), B = list(B))
+          signature = c(B = "basisEmp"),
+          function(B) {
+            new("basismfd", p = 1, B = list(B))
           }
 )
 
@@ -80,9 +69,9 @@ setMethod("basismfd",
 #'   
 #' @docType methods
 setMethod("basismfd",
-          signature = c(B = "basisfd"),
-          function(support, B) {
-            new("basismfd", p = 1, support = list(B$rangeval), B = list(B))
+          signature = c( B = "basisfd"),
+          function(B) {
+            new("basismfd", p = 1, B = list(B))
           }
 )
 
