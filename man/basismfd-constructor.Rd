@@ -3,18 +3,14 @@
 \docType{methods}
 \name{basismfd-constructor}
 \alias{basismfd-constructor}
-\title{Constructor for basismfd objects, third argument (B) passed as matrix or array of numerics}
+\title{Constructor for basismfd objects}
 \usage{
-basismfd(p, support, B)
+basismfd(B)
 }
 \arguments{
-\item{p}{a numeric specify number of variables}
-
-\item{support}{a list ...}
-
-\item{B}{a list ...}
+\item{B}{a list of basisEmp or basisfd}
 }
 \description{
-Constructor for basismfd objects, third argument (B) passed as matrix or array of numerics
+Constructor for basismfd objects
 }
 \keyword{internal}

@@ -7,9 +7,9 @@
 #' This function returns the support dimension of an object of class  \code{mfd}.
 #' @param object An object of  class \code{mfd}.
 #'  @return a numeric vector, giving the support dimension of each variable.
-#' @export dimSupp
-setGeneric("dimSupp", function(object) {standardGeneric("dimSupp")})
-setMethod("dimSupp", signature = "mfd",
+#' @export dimSupp1
+setGeneric("dimSupp1", function(object) {standardGeneric("dimSupp1")})
+setMethod("dimSupp1", signature = "mfd",
           function(object){
             vapply(object@grid, FUN = function(x) ncol(as.matrix(x)), FUN.VALUE = 0)})
             
