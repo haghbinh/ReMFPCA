@@ -1,4 +1,5 @@
 #' @include basisEmpClass.R
+#' @include basis2dClass.R
 setClass("basisfd")
 #================================basismfd class=============================================#
 #' A Class of multivariate functional data objects
@@ -39,7 +40,7 @@ setValidity("basismfd", function(object) {
   B <- object@B
   if (length(p)>1)
     return('p must be a numeric of length one.')
-  if(is.list(B) & !is.basis(B) & !all(sapply(B, function(x) is.basis(x) | inherits(x,"basisEmp"))))
+  if(is.list(B) & !is.basis(B) & !all(sapply(B, function(x) is.basis(x) | inherits(x,"basisEmp")| inherits(x,"basis2Dfd"))))
     return('All the elements of B must have the classes of types basisfd or basisEmp.')
   return(TRUE)
 })
@@ -100,4 +101,13 @@ setMethod("basismfd",
 
 
 
+#' @describeIn basismfd Constructor for basismfd objects
+#'
+#' @docType methods
+setMethod("basismfd",
+          signature = c( B = "basis2Dfd"),
+          function(B) {
+            new("basismfd",p = 1 ,support =list(B@support), B = list(B))
+          }
+)
 

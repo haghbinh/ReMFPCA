@@ -7,6 +7,7 @@
 \alias{basismfd,list-method}
 \alias{basismfd,basisEmp-method}
 \alias{basismfd,basisfd-method}
+\alias{basismfd,basis2Dfd-method}
 \title{A Class of multivariate functional data objects}
 \usage{
 \S4method{basismfd}{list}(B)
@@ -14,6 +15,8 @@
 \S4method{basismfd}{basisEmp}(B)
 
 \S4method{basismfd}{basisfd}(B)
+
+\S4method{basismfd}{basis2Dfd}(B)
 }
 \arguments{
 \item{B}{a list ...}
@@ -29,6 +32,8 @@ The \code{basismfd} class represents functional data ...
 and \code{B} is given as matrix.
 
 \item \code{basismfd}: Constructor for basismfd objects nd \code{B} is given as basisfd(from fda package)
+
+\item \code{basismfd}: Constructor for basismfd objects
 }}
 
 \section{Slots}{
