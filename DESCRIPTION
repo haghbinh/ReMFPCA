@@ -13,6 +13,10 @@ Description: Methods and tools for implementing regularized multivariate functio
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: TRUE
-Imports: fda, ggplot2
+Imports: fda
 RoxygenNote: 7.2.0
-Depends: R (>= 4.0)
+Depends: R (>= 4.0), methods
+Collate: 
+    'basisEmpClass.R'
+    'basismfdClass.R'
+    'basismfdMethods.R'
