@@ -7,8 +7,10 @@
 dimSupp(object)
 }
 \arguments{
-\item{object}{An object of  class \code{mfd}.
-@return a numeric vector, giving the support dimension of each variable.}
+\item{object}{An object of  class \code{mfd}.}
+}
+\value{
+a numeric vector, giving the support dimension of each variable.
 }
 \description{
 This function returns the support dimension of an object of class  \code{basismfd}.
