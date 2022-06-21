@@ -1,5 +1,5 @@
 #' A Class of Multidimensional Functional Data objects
-#' @description The \code{basismfd} class represents functional data ...
+#' @description The \code{mfd} class represents functional data ...
 #' @field basis a list of basisfd objects
 #' @field dimSupp  a positive integer specify the dimension...
 #' 
@@ -9,17 +9,17 @@
 #' @importFrom fda is.basis eval.basis
 #' 
 #' @export
-basismfd <- R6::R6Class("basismfd",
+mfd <- R6::R6Class("mfd",
                       public = list(
                         basis = NULL,
                         dimSupp = NULL,
                         nbasis = NULL,
                         supp = NULL,
                         #' @description
-                        #' Constructor for basismfd objects
+                        #' Constructor for mfd objects
                         #' @param basis a list of basisfd objects
                         initialize = function(basis) {
-                          init_basismfd_check(basis)
+                          init_mfd_check(basis)
                           if(is.basis(basis)){
                             self$basis <- list(basis)
                             self$dimSupp <- 1
@@ -35,11 +35,11 @@ basismfd <- R6::R6Class("basismfd",
                             }
                           }
                         },
-                        #' @description evalbasismfd
-                        #' @param evalarg a list of numeric vector of argument values at which the \code{basismfd} is to be evaluated.
+                        #' @description evalmfd
+                        #' @param evalarg a list of numeric vector of argument values at which the \code{mfd} is to be evaluated.
                         #' @return a list
                         eval = function(evalarg) {
-                          eval_basismf_validity_check(evalarg,self$dimSupp)
+                          eval_mfd_validity_check(evalarg,self$dimSupp)
                           if(is.numeric(evalarg)){
                             evalarg <- list(evalarg)
                           }
@@ -53,13 +53,13 @@ basismfd <- R6::R6Class("basismfd",
 )
 
 # a function to check the validity of initializer
-init_basismfd_check <- function(basis){
+init_mfd_check <- function(basis){
   if(!is.basis(basis) & is.list(basis)) if(!all(sapply(basis, is.basis))){
     stop("All the elements of basis list must be basisfd object.")
   }
 }
 # a function to check the validity of evaluation
-eval_basismf_validity_check <- function(evalarg,dimSupp){
+eval_mfd_validity_check <- function(evalarg,dimSupp){
   if(!is.list(evalarg)& !is.numeric(evalarg)){
     stop('evalarg must be a list or numeric vector')
   }
