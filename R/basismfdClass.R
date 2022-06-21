@@ -39,13 +39,13 @@ basismfd <- R6::R6Class("basismfd",
                         #' @param evalarg a list of numeric vector of argument values at which the \code{basismfd} is to be evaluated.
                         #' @return a list
                         eval = function(evalarg) {
-                          eval_basismf_validity_check(evalarg,self$dimSupp)
+                          eval_basismf_validity_check(evalarg, self$dimSupp)
                           if(is.numeric(evalarg)){
                             evalarg <- list(evalarg)
                           }
                           out <- list()
                           for (i in 1:length(evalarg)) {
-                            out[[i]] <- eval.basis(evalarg[[i]],self$basis[[i]])
+                            out[[i]] <- eval.basis(evalarg[[i]], self$basis[[i]])
                           }
                           return(out)
                           }

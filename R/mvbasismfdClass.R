@@ -21,6 +21,7 @@ mvbasismfd <- R6::R6Class("mvbasismfd",
                         #' @param basis a list of basisfd objects
                         initialize = function(basis) {
                           init_mvbasismfd_check(basis)
+                          if (is.basis(basis)) basis <- list(basis)
                           p <- length(basis)
                           for (i in 1:p) {
                             if(is.basis(basis[[i]])){

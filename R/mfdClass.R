@@ -12,13 +12,11 @@
 mfd <- R6::R6Class("mfd",
                       public = list(
                         basis = NULL,
-                        dimSupp = NULL,
-                        nbasis = NULL,
-                        supp = NULL,
+                        coeff = NULL,
                         #' @description
                         #' Constructor for mfd objects
                         #' @param basis a list of basisfd objects
-                        initialize = function(basis) {
+                        initialize = function(basis) {                          #initialize = function(argvals, X, basis) {
                           init_mfd_check(basis)
                           if(is.basis(basis)){
                             self$basis <- list(basis)
@@ -59,7 +57,7 @@ init_mfd_check <- function(basis){
   }
 }
 # a function to check the validity of evaluation
-eval_mfd_validity_check <- function(evalarg,dimSupp){
+eval_mfd_validity_check <- function(evalarg,dimSupp) {
   if(!is.list(evalarg)& !is.numeric(evalarg)){
     stop('evalarg must be a list or numeric vector')
   }
