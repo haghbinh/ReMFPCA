@@ -1,4 +1,4 @@
-#' A Class of Multidimensional Functional Data objects
+#' A Class of Multidimensional Basis Functions
 #' @description The \code{basismfd} class represents functional data ...
 #' @field basis a list of basisfd objects
 #' @field dimSupp  a positive integer specify the dimension...
@@ -11,27 +11,23 @@
 #' @export
 basismfd <- R6::R6Class("basismfd",
                       public = list(
-                        basis = NULL,
-                        dimSupp = NULL,
-                        nbasis = NULL,
-                        supp = NULL,
                         #' @description
                         #' Constructor for basismfd objects
                         #' @param basis a list of basisfd objects
                         initialize = function(basis) {
                           init_basismfd_check(basis)
                           if(is.basis(basis)){
-                            self$basis <- list(basis)
-                            self$dimSupp <- 1
-                            self$supp <- matrix(basis$rangeval,nrow=2,ncol=1)
-                            self$nbasis <- basis$nbasis
+                            private$.basis <- list(basis)
+                            private$.dimSupp <- 1
+                            private$.supp <- matrix(basis$rangeval,nrow=2,ncol=1)
+                            private$.nbasis <- basis$nbasis
                           }else{
-                            self$basis <- basis
-                            self$dimSupp <- length(basis)
-                            self$supp <- matrix(0,nrow=2,ncol=length(basis))
+                            private$.basis <- basis
+                            private$.dimSupp <- length(basis)
+                            private$.supp <- matrix(0,nrow=2,ncol=length(basis))
                             for (i in 1:length(basis)) {
-                              self$nbasis[i] <- basis[[i]]$nbasis
-                              self$supp[,i] <- basis[[i]]$rangeval
+                              private$.nbasis[i] <- basis[[i]]$nbasis
+                              private$.supp[,i] <- basis[[i]]$rangeval
                             }
                           }
                         },
@@ -39,16 +35,54 @@ basismfd <- R6::R6Class("basismfd",
                         #' @param evalarg a list of numeric vector of argument values at which the \code{basismfd} is to be evaluated.
                         #' @return a list
                         eval = function(evalarg) {
-                          eval_basismf_validity_check(evalarg, self$dimSupp)
+                          eval_basismf_validity_check(evalarg, private$.dimSupp)
                           if(is.numeric(evalarg)){
                             evalarg <- list(evalarg)
                           }
                           out <- list()
                           for (i in 1:length(evalarg)) {
-                            out[[i]] <- eval.basis(evalarg[[i]], self$basis[[i]])
+                            out[[i]] <- eval.basis(evalarg[[i]], private$.basis[[i]])
                           }
                           return(out)
+                        }
+                        #gram
+                        #m gram
+                      ),
+                      active = list(
+                        basis = function(value) {
+                          if (missing(value)) {
+                            private$.basis
+                          } else {
+                            stop("`$basis` is read only", call. = FALSE)
                           }
+                        },
+                        dimSupp = function(value) {
+                          if (missing(value)) {
+                            private$.dimSupp
+                          } else {
+                            stop("`$dimSupp` is read only", call. = FALSE)
+                          }
+                        },
+                        nbasis = function(value) {
+                          if (missing(value)) {
+                            private$.nbasis
+                          } else {
+                            stop("`$nbasis` is read only", call. = FALSE)
+                          }
+                        },
+                        supp = function(value) {
+                          if (missing(value)) {
+                            private$.supp
+                          } else {
+                            stop("`$supp` is read only", call. = FALSE)
+                          }
+                        }
+                      ),
+                      private = list(
+                        .basis = NULL,
+                        .dimSupp = NULL,
+                        .nbasis = list(),
+                        .supp = list()
                       )
 )
 

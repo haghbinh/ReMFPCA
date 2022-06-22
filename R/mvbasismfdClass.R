@@ -1,7 +1,7 @@
-#' A Class of Multidimensional Functional Data objects
-#' @description The \code{basismfd} class represents functional data ...
-#' @field basis a list of basisfd objects
-#' @field dimSupp  a positive integer specify the dimension...
+#' A Class of Multivariate Multidimensional Basis Functions
+#' @description The \code{mvbasismfd} class represents functional data ...
+#' @field basis a list of mvbasisfd objects
+#' @field dimSupp  a sequence of positive integer specify the dimension...
 #' 
 #' @examples
 #' x <- 1
@@ -11,46 +11,85 @@
 #' @export
 mvbasismfd <- R6::R6Class("mvbasismfd",
                       public = list(
-                        basis = NULL,
-                        dimSupp = NULL,
-                        nbasis = list(),
-                        supp = list(),
-                        nvar = NULL,
                         #' @description
                         #' Constructor for mvbasismfd objects
                         #' @param basis a list of basisfd objects
                         initialize = function(basis) {
                           init_mvbasismfd_check(basis)
                           if (is.basis(basis)) basis <- list(basis)
-                          p <- length(basis)
-                          for (i in 1:p) {
+                          private$.nvar <- length(basis)
+                          for (i in 1:private$.nvar) {
                             if(is.basis(basis[[i]])){
                               basis[[i]] <- basismfd$new(basis[[i]])
+                            } else {
+                              basis[[i]] <- basis[[i]]$clone()
                             }
-                            self$dimSupp[i] <- basis[[i]]$dimSupp
-                            self$nbasis[[i]] <- basis[[i]]$nbasis
-                            self$supp[[i]] <- basis[[i]]$supp 
+                            private$.dimSupp[i] <- basis[[i]]$dimSupp
+                            private$.nbasis[[i]] <- basis[[i]]$nbasis
+                            private$.supp[[i]] <- basis[[i]]$supp 
                           }
-                          self$basis <- basis
-                          self$nvar <- p
+                          private$.basis <- basis
                         },
                         #' @description evalbasismfd
                         #' @param evalarg a list of numeric vector of argument values at which the \code{basismfd} is to be evaluated.
                         #' @return a list
                         eval = function(evalarg) {
-                          eval_mvbasismf_validity_check(evalarg,self$nvar)
+                          eval_mvbasismf_validity_check(evalarg,private$.nvar)
                           if(is.numeric(evalarg)){
                             evalarg <- list(list(evalarg))
                           }
                           out <- list()
                           for (i in 1:length(evalarg)) {
-                            out[[i]]  <- (self$basis[[i]])$eval(evalarg[[i]])
+                            out[[i]]  <- (private$.basis[[i]])$eval(evalarg[[i]])
                           }
                           return(out)
                         }
+                      ),
+                      active = list(
+                        nvar = function(value) {
+                          if (missing(value)) {
+                            private$.nvar
+                          } else {
+                            stop("`$nvar` is read only", call. = FALSE)
+                          }
+                        },
+                        basis = function(value) {
+                          if (missing(value)) {
+                            private$.basis
+                          } else {
+                            stop("`$basis` is read only", call. = FALSE)
+                          }
+                        },
+                        dimSupp = function(value) {
+                          if (missing(value)) {
+                            private$.dimSupp
+                          } else {
+                            stop("`$dimSupp` is read only", call. = FALSE)
+                          }
+                        },
+                        nbasis = function(value) {
+                          if (missing(value)) {
+                            private$.nbasis
+                          } else {
+                            stop("`$nbasis` is read only", call. = FALSE)
+                          }
+                        },
+                        supp = function(value) {
+                          if (missing(value)) {
+                            private$.supp
+                          } else {
+                            stop("`$supp` is read only", call. = FALSE)
+                          }
+                        }
+                      ),
+                      private = list(
+                        .nvar = NULL,
+                        .basis = NULL,
+                        .dimSupp = NULL,
+                        .nbasis = list(),
+                        .supp = list()
                       )
 )
-
 
 
 
@@ -77,7 +116,7 @@ eval_mvbasismf_validity_check <- function(evalarg,nvar){
     stop('evalarg must be a list or numeric vector')
   }
   if(is.numeric(evalarg)){
-    if(self$nvar != 1){
+    if(nvar != 1){
       stop('evalarg is allowd be a numeric if nvar = 1.')
     }else{
       evalarg <- list(list(evalarg))
