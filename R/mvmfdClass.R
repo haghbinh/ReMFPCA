@@ -24,7 +24,7 @@ mvfd <- R6::R6Class("mvfd",
       private$.nvar <- length(mfd_list)
       for (i in 1:private$.nvar) {
         mfd_list[[i]] <- mfd_list[[i]]$clone()
-        basis_list[[i]] <- mfd_list$basis
+        basis_list[[i]] <- mfd_list[[i]]$basis
         private$.coefs <- mfd_list[[i]]$coefs
 
         if (is.matrix(mfd_list[[i]]$coefs)) {
@@ -97,7 +97,7 @@ init_mvfd_check <- function(mfd_list) {
   if (!all(sapply(mfd_list, function(x) inherits(x, "mfd")))) {
     stop("All the elements of the inputs list must have class of mfd")
   }
-  n <- mfd_list[[1]]$nobs ;browser()
+  n <- mfd_list[[1]]$nobs 
   for (y in mfd_list) {
     if (n != y$nobs) stop("Number of observations in all variables should be equal.")
   }
