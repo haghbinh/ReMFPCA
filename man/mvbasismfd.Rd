@@ -2,20 +2,20 @@
 % Please edit documentation in R/mvbasismfdClass.R
 \name{mvbasismfd}
 \alias{mvbasismfd}
-\title{A Class of Multidimensional Functional Data objects}
+\title{A Class of Multivariate Multidimensional Basis Functions}
 \description{
-The \code{basismfd} class represents functional data ...
+The \code{mvbasismfd} class represents functional data ...
 }
 \examples{
 x <- 1
 
 }
-\section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
-\item{\code{basis}}{a list of basisfd objects}
+\item{\code{basis}}{a list of mvbasisfd objects}
 
-\item{\code{dimSupp}}{a positive integer specify the dimension...}
+\item{\code{dimSupp}}{a sequence of positive integer specify the dimension...}
 }
 \if{html}{\out{</div>}}
 }

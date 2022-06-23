@@ -44,7 +44,7 @@ mfd <- R6::R6Class("mfd",
     #' @description evalmfd
     #' @param evalarg a list of numeric vector of argument values at which the \code{mfd} is to be evaluated.
     eval = function(evalarg) {
-      eval_mfd_validity_check(evalarg, self$dimSupp)
+      eval_mfd_validity_check(evalarg)
       if(is.numeric(evalarg)) evalarg <- list(evalarg)
       Bmat <- private$.basis$eval(evalarg)
       if (length(evalarg)>1) {
@@ -66,7 +66,14 @@ mfd <- R6::R6Class("mfd",
     },
     coefs = function(value) {
       if (missing(value)) {
-        array(private$.coefs, c(unlist(mdbs2$nbasis),dim(X)[3]))
+        array(private$.coefs, c(unlist(private$.basis$nbasis),private$.nobs))
+      } else {
+        stop("`$coefs` is read only", call. = FALSE)
+      }
+    },
+    nobs = function(value) {
+      if (missing(value)) {
+        private$.nobs
       } else {
         stop("`$coefs` is read only", call. = FALSE)
       }

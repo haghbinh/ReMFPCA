@@ -2,7 +2,7 @@
 % Please edit documentation in R/basismfdClass.R
 \name{basismfd}
 \alias{basismfd}
-\title{A Class of Multidimensional Functional Data objects}
+\title{A Class of Multidimensional Basis Functions}
 \description{
 The \code{basismfd} class represents functional data ...
 }
@@ -10,8 +10,8 @@ The \code{basismfd} class represents functional data ...
 x <- 1
 
 }
-\section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
 \item{\code{basis}}{a list of basisfd objects}
 

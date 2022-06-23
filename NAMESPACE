@@ -3,5 +3,8 @@
 export(basismfd)
 export(mfd)
 export(mvbasismfd)
+export(mvfd)
+importFrom(fda,Data2fd)
 importFrom(fda,eval.basis)
+importFrom(fda,inprod)
 importFrom(fda,is.basis)
