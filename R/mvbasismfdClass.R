@@ -7,6 +7,7 @@
 #' x <- 1
 #' 
 #' @importFrom fda is.basis eval.basis
+#' @importFrom Matrix Matrix bdiag
 #' 
 #' @export
 mvbasismfd <- R6::R6Class("mvbasismfd",
@@ -18,7 +19,7 @@ mvbasismfd <- R6::R6Class("mvbasismfd",
       init_mvbasismfd_check(basis)
       if (is.basis(basis)) basis <- list(basis)
       private$.nvar <- length(basis)
-      private$.gram <- Matrix::bdiag()
+      private$.gram <- bdiag()
       for (i in 1:private$.nvar) {
         if (is.basis(basis[[i]])) {
           basis[[i]] <- basismfd$new(basis[[i]])
@@ -28,7 +29,7 @@ mvbasismfd <- R6::R6Class("mvbasismfd",
         private$.dimSupp[i] <- basis[[i]]$dimSupp
         private$.nbasis[[i]] <- basis[[i]]$nbasis
         private$.supp[[i]] <- basis[[i]]$supp
-        private$.gram <- Matrix::bdiag(private$.gram,basis[[i]]$gram)
+        private$.gram <- bdiag(private$.gram,basis[[i]]$gram)
       }
       private$.basis <- basis
     },

@@ -7,6 +7,7 @@
 #' x <- 1
 #' 
 #' @importFrom fda is.basis eval.basis inprod
+#' @importFrom Matrix Matrix
 #' 
 #' @export
 basismfd <- R6::R6Class("basismfd",
@@ -17,7 +18,7 @@ basismfd <- R6::R6Class("basismfd",
     initialize = function(basis) {
       init_basismfd_check(basis)
       if (is.basis(basis)) {
-        private$.gram <- inprod(basis, basis)
+        private$.gram <- Matrix(inprod(basis, basis))
         private$.basis <- list(basis)
         private$.dimSupp <- 1
         private$.supp <- matrix(basis$rangeval, nrow = 2, ncol = 1)
@@ -28,7 +29,7 @@ basismfd <- R6::R6Class("basismfd",
         private$.supp <- matrix(0, nrow = 2, ncol = length(basis))
         private$.gram <- 1
         for (i in 1:private$.dimSupp) {
-          private$.gram <- inprod(basis[[i]], basis[[i]]) %x% private$.gram
+          private$.gram <- Matrix(inprod(basis[[i]], basis[[i]]) %x% private$.gram)
           private$.nbasis[i] <- basis[[i]]$nbasis
           private$.supp[, i] <- basis[[i]]$rangeval
         }
