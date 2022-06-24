@@ -62,7 +62,7 @@ mfd <- R6::R6Class("mfd",
       return(Xhat)
     },
     print = function(...) {
-      cat(private$.basis$dimSupp,"-Dimensional mfd object:",sep = "")
+      cat("A ",private$.basis$dimSupp,"-Dimensional 'mfd' object:",sep = "")
       cat("\nnobs:",private$.nobs,"\n")
       print(private$.basis)
 

@@ -44,10 +44,10 @@ mvmfd <- R6::R6Class("mvmfd",
       return(Xhat)
     },
     print = function(...) {
-      cat("mvbmfd object with",private$.nvar,"variable:\n")
+      cat("A 'mvbmfd' object with",private$.nvar,"variable(s):\n")
       for(i in 1:private$.nvar){
         cat("\nVariable ",i,":\n",sep = "")
-        print(self[i])
+        print(self[,i])
       }
       invisible(self)
     }
