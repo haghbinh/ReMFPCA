@@ -8,7 +8,6 @@ The \code{mfd} class represents functional data ...
 }
 \examples{
 x <- 1
-
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
@@ -31,6 +30,7 @@ x <- 1
 \itemize{
 \item \href{#method-mfd-new}{\code{mfd$new()}}
 \item \href{#method-mfd-eval}{\code{mfd$eval()}}
+\item \href{#method-mfd-print}{\code{mfd$print()}}
 \item \href{#method-mfd-clone}{\code{mfd$clone()}}
 }
 }
@@ -40,7 +40,7 @@ x <- 1
 \subsection{Method \code{new()}}{
 Constructor for mfd objects
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{mfd$new(argval = NULL, X, mdbs)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{mfd$new(argval = NULL, X, mdbs, method = "data")}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -67,6 +67,15 @@ evalmfd
 }
 \if{html}{\out{</div>}}
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-mfd-print"></a>}}
+\if{latex}{\out{\hypertarget{method-mfd-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{mfd$print(...)}\if{html}{\out{</div>}}
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-mfd-clone"></a>}}

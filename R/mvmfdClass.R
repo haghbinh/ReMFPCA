@@ -1,5 +1,5 @@
 #' A Class of Multidimensional Functional Data objects
-#' @description The \code{mvfd} class represents functional data ...
+#' @description The \code{mvmfd} class represents functional data ...
 #' @field basis a basismfd object
 #' @field coeff a matrix with nrow=subjects and ncol=total number of basis ...
 #' 
@@ -9,14 +9,14 @@
 #' @importFrom fda is.basis eval.basis Data2fd
 #' 
 #' @export
-mvfd <- R6::R6Class("mvfd",
+mvmfd <- R6::R6Class("mvmfd",
   public = list(
     #' @description
-    #' Constructor for mvfd objects
+    #' Constructor for mvmfd objects
     #' @param mfd_list a list of mfd objects
     initialize = function(mfd_list) {
-      if (inherits(mfd_list, "mfd")) mfd_list <- list(mfd_list)
-      init_mvfd_check(mfd_list)
+      if (is.mfd(mfd_list)) mfd_list <- list(mfd_list)
+      init_mvmfd_check(mfd_list)
       basis_list <- list()
       private$.nobs <- mfd_list[[1]]$nobs
       private$.nvar <- length(mfd_list)
@@ -28,9 +28,9 @@ mvfd <- R6::R6Class("mvfd",
       private$.basis <- mvbasismfd$new(basis_list)
     },
     #' @description evalmfd
-    #' @param evalarg a list of numeric vector of argument values at which the \code{mvfd} is to be evaluated.
+    #' @param evalarg a list of numeric vector of argument values at which the \code{mvmfd} is to be evaluated.
     eval = function(evalarg) {
-      eval_mvfd_validity_check(evalarg)
+      eval_mvmfd_validity_check(evalarg)
       Bmat <- private$.basis$eval(evalarg)
       Xhat <- list()
       for (i in 1:private$.nvar) {
@@ -42,6 +42,14 @@ mvfd <- R6::R6Class("mvfd",
         }
       }
       return(Xhat)
+    },
+    print = function(...) {
+      cat("mvbmfd object with",private$.nvar,"variable:\n")
+      for(i in 1:private$.nvar){
+        cat("\nVariable ",i,":\n",sep = "")
+        print(self[i])
+      }
+      invisible(self)
     }
   ),
   active = list(
@@ -83,8 +91,8 @@ mvfd <- R6::R6Class("mvfd",
 )
 
 # a function to check the validity of initializer
-init_mvfd_check <- function(mfd_list) {
-  if (!all(sapply(mfd_list, function(x) inherits(x, "mfd")))) {
+init_mvmfd_check <- function(mfd_list) {
+  if (!all(sapply(mfd_list, is.mfd))) {
     stop("All the elements of the inputs list must have class of mfd")
   }
   n <- mfd_list[[1]]$nobs 
@@ -93,7 +101,7 @@ init_mvfd_check <- function(mfd_list) {
   }
 }
 # a function to check the validity of evaluation
-eval_mvfd_validity_check <- function(evalarg, dimSupp) {
+eval_mvmfd_validity_check <- function(evalarg, dimSupp) {
   x <- 1
 }
 

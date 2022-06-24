@@ -13,7 +13,7 @@ mfd <- R6::R6Class("mfd",
     #' @description
     #' Constructor for mfd objects
     #' @param mdbs a basismfd object
-    initialize = function(argval = NULL, X, mdbs, method = c("data", "coefs")) {
+    initialize = function(argval = NULL, X, mdbs, method = "data") {  #c("data", "coefs")
       init_mfd_check(argval, X, mdbs, method)
       if (is.basis(mdbs)) {
         mdbs <- basismfd$new(mdbs)
@@ -60,6 +60,13 @@ mfd <- R6::R6Class("mfd",
         Xhat <- Bmat[[1]] %*% private$.coefs
       }
       return(Xhat)
+    },
+    print = function(...) {
+      cat(private$.basis$dimSupp,"-Dimensional mfd object:",sep = "")
+      cat("\nnobs:",private$.nobs,"\n")
+      print(private$.basis)
+
+      invisible(self)
     }
   ),
   active = list(

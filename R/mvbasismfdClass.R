@@ -16,8 +16,8 @@ mvbasismfd <- R6::R6Class("mvbasismfd",
     #' Constructor for mvbasismfd objects
     #' @param basis a list of basisfd objects
     initialize = function(basis) {
+      if (is.basis(basis) | is.basismfd(basis)) basis <- list(basis)
       init_mvbasismfd_check(basis)
-      if (is.basis(basis)) basis <- list(basis)
       private$.nvar <- length(basis)
       private$.gram <- bdiag()
       for (i in 1:private$.nvar) {
@@ -106,15 +106,9 @@ mvbasismfd <- R6::R6Class("mvbasismfd",
 
 # a function to check the validity of initializer
 init_mvbasismfd_check <- function(basis) {
-  if (is.basis(basis)) {
-    basis <- list(basismfd$new(basis))
-  }
-  if (inherits(basis, "basismfd")) {
-    basis <- list(basis)
-  }
   if (is.list(basis)) {
     if (!all(sapply(basis, function(x) {
-      return(is.basis(x) | inherits(x, "basismfd"))
+      return(is.basis(x) | is.basismfd(x))
     }))) {
       stop("All the elements of basis list must be basisfd or basismfd object.")
     }

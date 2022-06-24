@@ -48,9 +48,17 @@ basismfd <- R6::R6Class("basismfd",
         out[[i]] <- eval.basis(evalarg[[i]], private$.basis[[i]])
       }
       return(out)
+    },
+    print = function(...) {
+      for(i in 1:private$.dimSupp){
+        cat("basis ",i,":\n",sep = "")
+        cat("type:",private$.basis[[i]]$type)
+        cat("\nnbasis:",private$.nbasis[i])
+        cat("\nsupport:",private$.supp[,i],"\n")
+        if (i!=private$.dimSupp) cat("\n")
+      }
+      invisible(self)
     }
-    # gram
-    # m gram
   ),
   active = list(
     basis = function(value) {
@@ -92,8 +100,8 @@ basismfd <- R6::R6Class("basismfd",
   private = list(
     .basis = NULL,
     .dimSupp = NULL,
-    .nbasis = list(),
-    .supp = list(),
+    .nbasis = NULL,
+    .supp = NULL,
     .gram = NULL
   )
 )

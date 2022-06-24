@@ -24,6 +24,7 @@ x <- 1
 \itemize{
 \item \href{#method-basismfd-new}{\code{basismfd$new()}}
 \item \href{#method-basismfd-eval}{\code{basismfd$eval()}}
+\item \href{#method-basismfd-print}{\code{basismfd$print()}}
 \item \href{#method-basismfd-clone}{\code{basismfd$clone()}}
 }
 }
@@ -63,6 +64,15 @@ evalbasismfd
 \subsection{Returns}{
 a list
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-basismfd-print"></a>}}
+\if{latex}{\out{\hypertarget{method-basismfd-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{basismfd$print(...)}\if{html}{\out{</div>}}
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-basismfd-clone"></a>}}
