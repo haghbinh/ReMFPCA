@@ -10,6 +10,7 @@
 #' @importFrom Matrix Matrix
 #' 
 #' @export
+#' 
 basismfd <- R6::R6Class("basismfd",
   public = list(
     #' @description
@@ -129,3 +130,6 @@ eval_basismf_validity_check <- function(evalarg, dimSupp) {
     stop(" length of evalarg list must be equal to dimSupp")
   }
 }
+
+#' @export
+Basismfd <- function(basis) basismfd$new(basis)

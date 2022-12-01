@@ -14,8 +14,11 @@ mvmfd <- R6::R6Class("mvmfd",
     #' @description
     #' Constructor for mvmfd objects
     #' @param mfd_list a list of mfd objects
-    initialize = function(mfd_list) {
-      if (is.mfd(mfd_list)) mfd_list <- list(mfd_list)
+    initialize = function(...) {
+      mfd_list <- list(...)
+      if(is.list(mfd_list[[1]]))
+        mfd_list <- mfd_list[[1]]
+      # if (is.mfd(mfd_list)) mfd_list <- list(mfd_list)
       init_mvmfd_check(mfd_list)
       basis_list <- list()
       private$.nobs <- mfd_list[[1]]$nobs
@@ -105,3 +108,7 @@ eval_mvmfd_validity_check <- function(evalarg, dimSupp) {
   x <- 1
 }
 
+
+
+#' @export
+Mvmfd <- function(...) mvmfd$new(...)

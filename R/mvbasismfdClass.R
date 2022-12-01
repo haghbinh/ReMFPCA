@@ -136,3 +136,7 @@ eval_mvbasismf_validity_check <- function(evalarg, nvar) {
     stop("length of evalarg is not equal to nvar.")
   }
 }
+
+
+#' @export
+Mvbasismfd <- function(basis) mvbasismfd$new(basis)

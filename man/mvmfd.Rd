@@ -41,7 +41,7 @@ x <- 1
 \subsection{Method \code{new()}}{
 Constructor for mvmfd objects
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{mvmfd$new(mfd_list)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{mvmfd$new(...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

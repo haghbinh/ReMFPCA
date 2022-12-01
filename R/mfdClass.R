@@ -88,7 +88,7 @@ mfd <- R6::R6Class("mfd",
       if (missing(value)) {
         private$.nobs
       } else {
-        stop("`$coefs` is read only", call. = FALSE)
+        stop("`$nobs` is read only", call. = FALSE)
       }
     }
   ),
@@ -96,7 +96,7 @@ mfd <- R6::R6Class("mfd",
     .basis = NULL,
     .coefs = NULL, # we record vetorized of the coefs
     .nobs = NULL
-  )
+    )
 )
 
 # a function to check the validity of initializer
@@ -107,3 +107,7 @@ init_mfd_check <- function(argval, X, basis, method) {
 eval_mfd_validity_check <- function(evalarg, dimSupp) {
   x <- 1
 }
+
+
+#' @export
+Mfd <- function(argval = NULL, X, mdbs, method = "data") mfd$new(argval, X, mdbs, method)
