@@ -39,7 +39,11 @@ coefs2mvmfd <- function(coefs,mbsfd){
     bs <- mbsfd$basis[[i]]
     mvlist[[i]] <- mfd$new(X=X[[i]], mdbs =bs,method = 'coefs')
   }
+  if(p==1){
+    return(mvlist[[1]])
+  }else{
   return(Mvmfd(mvlist))
+  }
 }
 
 mvcenteriezed <- function(mvmfd_obj){

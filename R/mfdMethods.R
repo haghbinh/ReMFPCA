@@ -120,4 +120,27 @@ inprod_mvmfd <- function(mvmfd_obj1,mvmfd_obj2){
   return(inpr)
 }
 
+#' @export
+norm_mvmfd <- function(mvmfd_obj){
+  return(as.numeric(sqrt(inprod_mvmfd(mvmfd_obj,mvmfd_obj))))
+}
+#' @export
+"+.mvmfd" <- function(obj1, obj2=NULL) {
+  if (is.null(obj2)) return(obj1)
+  p <- obj1$nvar
+  mvlist <- list()
+  for (j in 1:p)
+    mvlist[[j]] <- obj1[,j] + obj2[,j]
+  return(Mvmfd(mvlist))
+}
+
+#' @export
+"-.mvmfd" <- function(obj1, obj2=NULL) {
+  if (is.null(obj2)) return((-1)*obj1)
+    p <- obj1$nvar
+    mvlist <- list()
+    for (j in 1:p)
+        mvlist[[j]] <- obj1[,j] + (-1)*obj2[,j]
+    return(Mvmfd(mvlist))
+}
 

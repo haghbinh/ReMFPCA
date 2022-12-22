@@ -11,6 +11,7 @@
 #' @importFrom expm sqrtm 
 #' @export
 remfpca <- R6::R6Class("remfpca",
+    
     public = list(
       #' @description
       #' Constructor for mfd objects
@@ -36,9 +37,7 @@ remfpca <- R6::R6Class("remfpca",
            I_a <- I_alpha(alpha,d)
            G <- as.matrix(bdiag(G))
            D <- bdiag(D)
-           # E <- eigen(G+I_a%*%D)
-           # S <- solve((E$vectors)%*%diag(sqrt(E$values))%*%t(E$vectors))
-           S <- solve(sqrtm(G+I_a%*%D))
+           S <- solve(sqrtm(G+as.matrix(I_a%*%D)))
            B <- B_coef(mvmfd_obj)
            V <- 1/(N-1)*t(B)%*%(diag(1,N)-1/N*matrix(1,nrow = N, ncol = N))%*%B
            Eig <- eigen(S%*%t(G)%*%V%*%G%*%t(S))
@@ -64,7 +63,6 @@ remfpca <- R6::R6Class("remfpca",
         }
       }
     ),
-    
     private = list(
       .Eigenfunctions = NULL,
       .values = NULL
