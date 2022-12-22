@@ -7,7 +7,7 @@ length.mfd <-  function(mfd_obj) {
 plot.mfd <- function(mfd_obj,obs=1,xlab="",ylab="",main="",...){
   dimSupp <- mfd_obj$basis$dimSupp
   supp <- mfd_obj$basis$supp
-  x_grids <- seq(supp[1,1],supp[2,1],len = 100)
+  x_grids <- seq(supp[1,1],supp[2,1],len = 1000)
   if(dimSupp == 1){
     X <- mfd_obj$eval(x_grids)
     matplot(x_grids,X,type="l",  lty=1,xlab=xlab,ylab=ylab,main=main,...)
@@ -91,3 +91,33 @@ mean.mvmfd <- function(mvmfd_obj){
   mvlist <- lapply(1:p,function(j) mean(mvmfd_obj[,j]))
   return(Mvmfd(mvlist))
 }
+
+# inprod <- function(object, ...) UseMethod("inprod")
+#' @importFrom fda fd inprod
+#' @export
+inprod_mfd <- function(mfd_obj1,mfd_obj2){
+  bs1 <- mfd_obj1$basis$basis[[1]]
+  bs2 <- mfd_obj2$basis$basis[[1]]
+  cof1 <- mfd_obj1$coefs
+  cof2 <- mfd_obj2$coefs
+  fd1 <- fd(coef = cof1,basisobj = bs1)
+  fd2 <- fd(coef = cof2,basisobj = bs2)
+  inpr <- fda::inprod(fd1,fd2)
+  return(inpr)
+}
+  
+
+#' @export
+inprod_mvmfd <- function(mvmfd_obj1,mvmfd_obj2){
+  p <- mvmfd_obj1$nvar
+  if (p!= mvmfd_obj2$nvar) stop('The number of variablles must be equal.')
+  m <- mvmfd_obj1$nobs
+  n <- mvmfd_obj2$nobs
+  inpr <- matrix(0,nrow = m,ncol = n)
+  for (j in 1:p) {
+    inpr <- inpr+inprod_mfd(mvmfd_obj1[,j],mvmfd_obj2[,j])
+  }
+  return(inpr)
+}
+
+
