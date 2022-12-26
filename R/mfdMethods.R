@@ -21,6 +21,32 @@ plot.mfd <- function(mfd_obj,obs=1,xlab="",ylab="",main="",...){
 }
 
 #' @export
+mean.mfd <- function(mfd_obj){
+  cof <- apply(mfd_obj$coefs,2,mean)
+  bs <- mfd_obj$basis
+  return(Mfd(X=cof,mdbs=bs,method = 'coefs'))
+}
+
+# inprod <- function(object, ...) UseMethod("inprod")
+#' @importFrom fda fd inprod
+#' @export
+inprod_mfd <- function(mfd_obj1,mfd_obj2){
+  bs1 <- mfd_obj1$basis$basis[[1]]
+  bs2 <- mfd_obj2$basis$basis[[1]]
+  cof1 <- mfd_obj1$coefs
+  cof2 <- mfd_obj2$coefs
+  fd1 <- fd(coef = cof1,basisobj = bs1)
+  fd2 <- fd(coef = cof2,basisobj = bs2)
+  inpr <- fda::inprod(fd1,fd2)
+  return(inpr)
+}
+
+#' @export
+norm_mfd <- function(mfd_obj){
+  return(as.numeric(sqrt(inprod_mfd(mfd_obj,mfd_obj))))
+}  
+
+#' @export
 "+.mfd" <- function(obj1, obj2=NULL) {
   if (is.null(obj2)) return(obj1)
   if (xor(is.mfd(obj1), is.mfd(obj2))) {
@@ -50,17 +76,16 @@ plot.mfd <- function(mfd_obj,obs=1,xlab="",ylab="",main="",...){
 "*.mfd" <- function(obj1, obj2) {
   if (xor(is.mfd(obj1), is.mfd(obj2))) {
     if (xor(is.double(obj1), is.double(obj2)))
-    if (is.double(obj1)) {
-      temp <- obj1
-      obj1 <- obj2
-      obj2 <- temp
-    }
+      if (is.double(obj1)) {
+        temp <- obj1
+        obj1 <- obj2
+        obj2 <- temp
+      }
     coef <- obj1$coefs * obj2
   } else 
     stop("One object must be an mfd, and the other one a scalar")
   return(mfd$new(X = coef, mdbs = obj1$basis$clone(), method = "coefs"))
 }
-
 
 #' @export
 "-.mfd" <- function(obj1, obj2=NULL) {
@@ -78,34 +103,11 @@ plot.mfd <- function(mfd_obj,obs=1,xlab="",ylab="",main="",...){
 }
 
 #' @export
-mean.mfd <- function(mfd_obj){
-  cof <- apply(mfd_obj$coefs,2,mean)
-  bs <- mfd_obj$basis
-  return(Mfd(X=cof,mdbs=bs,method = 'coefs'))
-}
-
-
-#' @export
 mean.mvmfd <- function(mvmfd_obj){
   p <- mvmfd_obj$nvar
   mvlist <- lapply(1:p,function(j) mean(mvmfd_obj[,j]))
   return(Mvmfd(mvlist))
 }
-
-# inprod <- function(object, ...) UseMethod("inprod")
-#' @importFrom fda fd inprod
-#' @export
-inprod_mfd <- function(mfd_obj1,mfd_obj2){
-  bs1 <- mfd_obj1$basis$basis[[1]]
-  bs2 <- mfd_obj2$basis$basis[[1]]
-  cof1 <- mfd_obj1$coefs
-  cof2 <- mfd_obj2$coefs
-  fd1 <- fd(coef = cof1,basisobj = bs1)
-  fd2 <- fd(coef = cof2,basisobj = bs2)
-  inpr <- fda::inprod(fd1,fd2)
-  return(inpr)
-}
-  
 
 #' @export
 inprod_mvmfd <- function(mvmfd_obj1,mvmfd_obj2){
@@ -124,6 +126,7 @@ inprod_mvmfd <- function(mvmfd_obj1,mvmfd_obj2){
 norm_mvmfd <- function(mvmfd_obj){
   return(as.numeric(sqrt(inprod_mvmfd(mvmfd_obj,mvmfd_obj))))
 }
+
 #' @export
 "+.mvmfd" <- function(obj1, obj2=NULL) {
   if (is.null(obj2)) return(obj1)
@@ -137,10 +140,10 @@ norm_mvmfd <- function(mvmfd_obj){
 #' @export
 "-.mvmfd" <- function(obj1, obj2=NULL) {
   if (is.null(obj2)) return((-1)*obj1)
-    p <- obj1$nvar
-    mvlist <- list()
-    for (j in 1:p)
-        mvlist[[j]] <- obj1[,j] + (-1)*obj2[,j]
-    return(Mvmfd(mvlist))
+  p <- obj1$nvar
+  mvlist <- list()
+  for (j in 1:p)
+    mvlist[[j]] <- obj1[,j] + (-1)*obj2[,j]
+  return(Mvmfd(mvlist))
 }
 
