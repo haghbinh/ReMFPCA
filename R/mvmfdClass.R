@@ -16,8 +16,7 @@ mvmfd <- R6::R6Class("mvmfd",
     #' @param mfd_list a list of mfd objects
     initialize = function(...) {
       mfd_list <- list(...)
-      if(is.list(mfd_list[[1]]))
-        mfd_list <- mfd_list[[1]]
+      if(is.list(mfd_list[[1]])) mfd_list <- mfd_list[[1]]
       # if (is.mfd(mfd_list)) mfd_list <- list(mfd_list)
       init_mvmfd_check(mfd_list)
       basis_list <- list()
@@ -103,12 +102,11 @@ init_mvmfd_check <- function(mfd_list) {
     if (n != y$nobs) stop("Number of observations in all variables should be equal.")
   }
 }
+
 # a function to check the validity of evaluation
 eval_mvmfd_validity_check <- function(evalarg, dimSupp) {
   x <- 1
 }
-
-
 
 #' @export
 Mvmfd <- function(...) mvmfd$new(...)
