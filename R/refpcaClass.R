@@ -13,6 +13,8 @@
 remfpca <- R6::R6Class("remfpca",
   public = list(
     initialize = function(mvmfd_obj, method = "eigen", ncomp, alpha = NULL, centerfns = TRUE, alpha_orth = TRUE, lambda_type = "variable") {
+      if (is.numeric(alpha)) alpha <- as.list(alpha)
+      if (is.mfd(mvmfd_obj)) mvmfd_obj <- mvmfd$new(mvmfd_obj)
       if (method == "power") {
         result <- power_algo_fun(mvmfd_obj = mvmfd_obj, n = ncomp, alpha = alpha, centerfns = centerfns, alpha_orth = alpha_orth, lambda_type = lambda_type)
       } else if (method == "halfsmooth") {
@@ -30,7 +32,12 @@ remfpca <- R6::R6Class("remfpca",
           pcmfd[[i]] <- Mfd(X = coef_new, mdbs = mvmfd_obj$basis$basis[[i]], method = "coefs")
         }
       }
-      private$.pc_mfd <- Mvmfd(pcmfd)
+      out <- Mvmfd(pcmfd)
+      if(mvmfd_obj$nvar==1) {
+        private$.pc_mfd <- pcmfd[[1]]
+        } else {
+        private$.pc_mfd <- Mvmfd(pcmfd) 
+      }
       private$.lsv <- result[[2]]
       private$.sigma <- result[[3]]
       private$.alpha <- result[[4]]
