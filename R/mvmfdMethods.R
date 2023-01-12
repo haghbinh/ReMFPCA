@@ -48,14 +48,25 @@
 
 
 #' @export
-plot.mvmfd <- function(mvfd_obj, obs = 1, xlab = "", main = "", ...) {
+plot.mvmfd <- function(mvfd_obj, type = "", xlab = "", main = "", ...) {
   p <- mvmfd_obj$nvar
-  par(mfrow=c(p,1))
+  par(mfrow = c(p, 1))
   for (i in 1:p) {
-    plot(mvfd_obj[,i],ylab=paste("Variable ",i), obs, xlab, main, ...)
+    plot(mvfd_obj[, i], ylab = paste("Variable ", i), obs, xlab, main, ...)
   }
 }
 
+#' @export
+bimfdplot <- function(mvmfd_obj, type = "l", lty = 1, xlab = "", ylab = "", main = "", ...) {
+  nvar <- mvmfd_obj$nvar
+  stopifnot(nvar == 2)
+  stopifnot(all(mvmfd_obj$basis$supp[[1]] == mvmfd_obj$basis$supp[[2]]))
+  supp <- mvmfd_obj$basis$supp[[1]]
+  x_grids <- seq(supp[1, 1], supp[2, 1], len = 1000)
+  X <- mvmfd_obj[, 1]$eval(x_grids)
+  Y <- mvmfd_obj[, 2]$eval(x_grids)
+  matplot(X, Y, type = type, lty = lty, xlab = xlab, ylab = ylab, main = main, ...)
+}
 
 
 #' @export
@@ -82,5 +93,3 @@ inprod_mvmfd <- function(mvmfd_obj1, mvmfd_obj2) {
 norm_mvmfd <- function(mvmfd_obj) {
   return(as.numeric(sqrt(inprod_mvmfd(mvmfd_obj, mvmfd_obj))))
 }
-
-
