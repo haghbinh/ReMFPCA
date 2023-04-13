@@ -1,5 +1,5 @@
 #' @importFrom expm sqrtm
-eigen_approach <- function(mvmfd_obj, alpha , n, centerfns) {
+eigen_approach <- function(mvmfd_obj, alpha , n, centerfns,penalty_type) {
   m.rep <- mvmfd_obj$nobs
   p <- mvmfd_obj$nvar
   if (is.null(alpha)) {
@@ -14,7 +14,7 @@ eigen_approach <- function(mvmfd_obj, alpha , n, centerfns) {
   alpha <- expand.grid(alpha)
   # G = as.matrix(mvmfd_obj$basis$gram)
   # G_half = sqrtm(G)
-  penalty <- pen_fun(mvmfd_obj, type = "coefpen")
+  penalty <- pen_fun(mvmfd_obj, type = penalty_type)
   G <- as.matrix(mvmfd_obj$basis$gram)
   G_half <- sqrtm(G)
 

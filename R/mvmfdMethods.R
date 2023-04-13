@@ -47,14 +47,19 @@
 }
 
 
+
 #' @export
-plot.mvmfd <- function(mvfd_obj, type = "", xlab = "", main = "", ...) {
+plot.mvmfd <- function(mvmfd_obj, type = "", xlab = "", main = "", ...) {
+  old <- par(no.readonly = TRUE,mfrow=c(1,1))
   p <- mvmfd_obj$nvar
   par(mfrow = c(p, 1))
   for (i in 1:p) {
-    plot(mvfd_obj[, i], ylab = paste("Variable ", i), obs, xlab, main, ...)
+    plot(mvmfd_obj[, i], ylab = paste("Variable ", i), obs, xlab, main, ...)
   }
+  par(mfrow = c(1, 1))
+  on.exit(options(old))
 }
+
 
 #' @export
 bimfdplot <- function(mvmfd_obj, type = "l", lty = 1, xlab = "", ylab = "", main = "", ...) {

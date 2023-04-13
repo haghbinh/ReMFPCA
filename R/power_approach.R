@@ -1,5 +1,5 @@
 #' @importFrom expm sqrtm
-power_algo_fun <- function(mvmfd_obj, n, alpha, centerfns, alpha_orth, alpha_type) {
+power_algo_fun <- function(mvmfd_obj, n, alpha, centerfns, alpha_orth, lambda_type) {
   p <- mvmfd_obj$nvar
   # penalty = pen_fun(mvmfd_obj,type = "basispen")
   penalty <- pen_fun(mvmfd_obj, type = "coefpen")
@@ -10,13 +10,13 @@ power_algo_fun <- function(mvmfd_obj, n, alpha, centerfns, alpha_orth, alpha_typ
     }
   }
 
-  if (alpha_type == "variable") {
+  if (lambda_type == "variable") {
     if (p == 2) {
       gcv_row <- length(alpha[[1]])
       gcv_column <- length(alpha[[2]])
     }
     alpha <- expand.grid(alpha)
-  } else if (alpha_type == "component") {
+  } else if (lambda_type == "component") {
     if (p == 2) {
       gcv_row <- 1
       gcv_column <- 1
@@ -81,7 +81,7 @@ power_algo_fun <- function(mvmfd_obj, n, alpha, centerfns, alpha_orth, alpha_typ
         error_b <- 1000
         # print(j)
         # if (i == 1) {
-        if (alpha_type == "variable") {
+        if (lambda_type == "variable") {
           if (i == 1) {
             I[[j]] <- I_alpha(mvmfd_obj, alpha[j, ])
             D[[j]] <- I[[j]] %*% penalty
@@ -104,7 +104,7 @@ power_algo_fun <- function(mvmfd_obj, n, alpha, centerfns, alpha_orth, alpha_typ
         # S = sqrtm(solve(G+D))
         # s_alpha_tilde = G_half%*%(S%*%S)%*%G_half
         while (error_b > 0.001) {
-          if (alpha_type == "variable") {
+          if (lambda_type == "variable") {
             b_previous <- b_temp
             v_temp <- (B %*% G %*% b_temp)
             b_temp <- (S[[j]] %*% S[[j]] %*% G %*% t(B) %*% v_temp)
@@ -121,7 +121,7 @@ power_algo_fun <- function(mvmfd_obj, n, alpha, centerfns, alpha_orth, alpha_typ
           }
         }
 
-        if (alpha_type == "variable") {
+        if (lambda_type == "variable") {
           if (all(alpha[j, ] == 0)) {
             GCV_score_temp <- 0
           } else {
@@ -137,7 +137,7 @@ power_algo_fun <- function(mvmfd_obj, n, alpha, centerfns, alpha_orth, alpha_typ
         }
         if (GCV_score_temp < GCV_score) {
           GCV_score <- GCV_score_temp
-          if (alpha_type == "variable") {
+          if (lambda_type == "variable") {
             GCV_result <- alpha[j, ]
           } else {
             GCV_result <- alpha[[i]]

@@ -4,13 +4,13 @@ length.mfd <- function(mfd_obj) {
 }
 
 #' @export
-plot.mfd <- function(mfd_obj, obs = 1, xlab = "", ylab = "", main = "", ...) {
+plot.mfd <- function(mfd_obj, obs = 1, xlab = "", ylab = "", main = "", type = "l" ,lty = 1, ...) {
   dimSupp <- mfd_obj$basis$dimSupp
   supp <- mfd_obj$basis$supp
   x_grids <- seq(supp[1, 1], supp[2, 1], len = 1000)
   if (dimSupp == 1) {
     X <- mfd_obj$eval(x_grids)
-    matplot(x_grids, X, type = "l", lty = 1, xlab = xlab, ylab = ylab, main = main, ...)
+    matplot(x_grids, X, type = type, lty = lty, xlab = xlab, ylab = ylab, main = main, ...)
   } else {
     y_grids <- seq(supp[1, 2], supp[2, 2], len = 100)
     X <- mfd_obj$eval(list(x_grids, y_grids))[, , obs]
@@ -22,11 +22,20 @@ plot.mfd <- function(mfd_obj, obs = 1, xlab = "", ylab = "", main = "", ...) {
 
 #' @export
 mean.mfd <- function(mfd_obj) {
-  cof <- apply(mfd_obj$coefs, 2, mean)
+  cof <- apply(mfd_obj$coefs, 1, mean)
   bs <- mfd_obj$basis
   return(Mfd(X = cof, mdbs = bs, method = "coefs"))
 }
 
+
+#' @export
+sd.mfd <- function(mfd_obj) {
+  cof <- apply(mfd_obj$coefs, 1, sd)
+  bs <- mfd_obj$basis
+  return(Mfd(X = cof, mdbs = bs, method = "coefs"))
+}
+
+  
 # inprod <- function(object, ...) UseMethod("inprod")
 #' @importFrom fda fd inprod
 #' @export
@@ -60,17 +69,27 @@ norm_mfd <- function(mfd_obj) {
     }
     coef <- obj1$coefs + obj2
   } else {
-    if (length(obj1) != length(obj2)) stop("Two objects must have same length")
-    if (obj1$basis$dimSupp != obj2$basis$dimSupp) stop("Two objects must have same basis dimSupp.")
-    if (obj1$basis$dimSupp == 1) {
-      if (obj1$basis$basis[[1]]$type != obj2$basis$basis[[1]]$type) stop("Two objects must have same basis types.")
-    } else {
-      for (i in 1:obj1$basis$dimSupp) {
-        if (obj1$basis$basis[[i]]$type != obj2$basis$basis[[i]]$type) stop("Two objects must have same basis types.")
+    if(length(obj1) == length(obj2)){
+      if (obj1$basis$dimSupp != obj2$basis$dimSupp) stop("Two objects must have same basis dimSupp.")
+      if (obj1$basis$dimSupp == 1) {
+        if (obj1$basis$basis[[1]]$type != obj2$basis$basis[[1]]$type) stop("Two objects must have same basis types.")
+      } else {
+        for (i in 1:obj1$basis$dimSupp) {
+          if (obj1$basis$basis[[i]]$type != obj2$basis$basis[[i]]$type) stop("Two objects must have same basis types.")
+        }
       }
-    }
-    coef <- obj1$coefs + obj2$coefs
-  }
+      coef <- obj1$coefs + obj2$coefs
+    }else{
+      if (length(obj1) > 1 & length(obj2) > 1) stop("Two objects must have same basis dimSupp.")
+      if(length(obj1) == 1 & length(obj2) > 1){
+        temp <- obj1
+        obj1 <- obj2
+        obj2 <- temp
+      }
+      nobs <- obj1$nobs
+      I_n <- matrix(1L,ncol=nobs,nrow=1)
+      coef <- obj1$coefs+as.matrix(obj2$coefs)%*%I_n
+  }}
   return(mfd$new(X = coef, mdbs = obj1$basis$clone(), method = "coefs"))
 }
 

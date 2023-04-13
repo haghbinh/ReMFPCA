@@ -16,7 +16,7 @@ half_smoothing_approach <- function(mvmfd_obj, alpha, n, centerfns) {
     gcv_column <- length(alpha[[2]])
   }
   alpha <- expand.grid(alpha)
-  if (centerfns == TRUE) {
+  if (centerfns) {
     for (i in 1:p) {
       if (is.matrix(mvmfd_obj$coefs[[i]])) {
         c <- mvmfd_obj$coefs[[i]] - rowMeans(mvmfd_obj$coefs[[i]])
@@ -39,7 +39,8 @@ half_smoothing_approach <- function(mvmfd_obj, alpha, n, centerfns) {
     }
   }
   B <- t(as.matrix(B))
-  penalty <- pen_fun(mvmfd_obj, type = "basispen")
+  # penalty <- pen_fun(mvmfd_obj, type = "basispen")
+  penalty <- pen_fun(mvmfd_obj, type = "coefpen")
   G <- mvmfd_obj$basis$gram
   G_half <- sqrtm(G)
   G_half_inverse <- solve(G_half)
@@ -49,8 +50,18 @@ half_smoothing_approach <- function(mvmfd_obj, alpha, n, centerfns) {
 
   GCVs <- c()
 
+  # Initializes the progress bar
+  n_iter <- dim(alpha)[1]
+  pb <- txtProgressBar(min = 0,      # Minimum value of the progress bar
+                       max = n_iter, # Maximum value of the progress bar
+                       style = 3,    # Progress bar style (also available style = 1 and style = 2)
+                       width = 50,   # Progress bar width. Defaults to getOption("width")
+                       char = "=")   # Character used to create the bar
+  
+  
   for (j in 1:dim(alpha)[1]) {
-    print(j)
+    ###setTxtProgressBar
+    setTxtProgressBar(pb, j)
     I <- I_alpha(mvmfd_obj, alpha[j, ])
     D <- I %*% penalty
     # S = G_half%*%solve(G+D)%*%G_half
@@ -61,10 +72,13 @@ half_smoothing_approach <- function(mvmfd_obj, alpha, n, centerfns) {
     X <- G_half %*% t(B_tilde)
     # start_time <- Sys.time()
     u <- svd(X)$u[, 1:n]
-    v_temp <- svd(X)$v[, 1:n] %*% diag(svd(X)$d[1:n])
     b_tilde <- G_half_inverse %*% u
     b_temp <- S %*% G_half %*% b_tilde
-    # GCV = GCVs_rc(mvmfd_obj,G,B_tilde_gcv,penalty,p,v_temp,alpha[j,])
+    # temp_b <- as.matrix((t(b_temp) %*% (G + D) %*% b_temp))
+    # b_temp <- as.matrix((b_temp) %*% solve(sqrtm(diag(diag(temp_b)))))
+    v_temp <- svd(X)$v[, 1:n] %*% diag(svd(X)$d[1:n])
+    # v_temp = as.matrix((v_temp) %*% (sqrtm(diag(diag(temp_b)))))
+    
     s_alpha_tilde <- G_half %*% (S %*% S) %*% G_half
 
     if (all(alpha[j, ] == 0)) {
@@ -81,6 +95,7 @@ half_smoothing_approach <- function(mvmfd_obj, alpha, n, centerfns) {
       GCV_result <- alpha[j, ]
     }
   }
+  close(pb) # Close the connection
   # GCVs = log(GCVs)
   if (p == 2) {
     GCVs <- matrix(GCVs, nrow = gcv_row, ncol = gcv_column)
@@ -100,6 +115,6 @@ half_smoothing_approach <- function(mvmfd_obj, alpha, n, centerfns) {
   for (kk in 1:p) {
     bbbb <- rbind(bbbb, pc[[kk]])
   }
-  # print(t(bbbb)%*%(G+I_alpha(mvmfd_obj,GCV_result)%*%penalty)%*%bbbb)
+   #print(t(bbbb)%*%(G+I_alpha(mvmfd_obj,GCV_result)%*%penalty)%*%bbbb)
   return(list(pc, lsv, sigma, GCV_result, GCVs))
 }

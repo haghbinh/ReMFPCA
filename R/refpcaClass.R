@@ -12,15 +12,15 @@
 #' @export
 remfpca <- R6::R6Class("remfpca",
   public = list(
-    initialize = function(mvmfd_obj, method = "eigen", ncomp, alpha = NULL, centerfns = TRUE, alpha_orth = TRUE, lambda_type = "variable") {
+    initialize = function(mvmfd_obj, method = "eigen", ncomp, alpha = NULL, centerfns = TRUE, alpha_orth = TRUE, lambda_type = "variable",penalty_type = "coefpen") {
       if (is.numeric(alpha)) alpha <- as.list(alpha)
       if (is.mfd(mvmfd_obj)) mvmfd_obj <- mvmfd$new(mvmfd_obj)
       if (method == "power") {
         result <- power_algo_fun(mvmfd_obj = mvmfd_obj, n = ncomp, alpha = alpha, centerfns = centerfns, alpha_orth = alpha_orth, lambda_type = lambda_type)
       } else if (method == "halfsmooth") {
-        result <- half_smoothing_approach(data = mvmfd_obj, n = ncomp, lambda = alpha, center = centerfns)
+        result <- half_smoothing_approach(mvmfd_obj = mvmfd_obj, n = ncomp, alpha = alpha, centerfns = centerfns)
       } else if (method == "eigen") {
-        result <- eigen_approach(mvmfd_obj = mvmfd_obj, n = ncomp, alpha = alpha, centerfns = centerfns)
+        result <- eigen_approach(mvmfd_obj = mvmfd_obj, n = ncomp, alpha = alpha, centerfns = centerfns,penalty_type = penalty_type)
       }
       coef <- result[[1]]
       pcmfd <- list()
@@ -91,4 +91,4 @@ remfpca <- R6::R6Class("remfpca",
 )
 
 #' @export
-Remfpca <- function(mvmfd_obj, method = "eigen", ncomp, alpha = NULL, centerfns = TRUE, alpha_orth = TRUE, lambda_type = "variable") remfpca$new(mvmfd_obj, method, ncomp, alpha, centerfns, alpha_orth, lambda_type)
+Remfpca <- function(mvmfd_obj, method = "eigen", ncomp, alpha = NULL, centerfns = TRUE, alpha_orth = TRUE, lambda_type = "variable",penalty_type = "coefpen") remfpca$new(mvmfd_obj, method, ncomp, alpha, centerfns, alpha_orth, lambda_type,penalty_type)

@@ -47,7 +47,8 @@ x <- 1
   alpha = NULL,
   centerfns = TRUE,
   alpha_orth = TRUE,
-  lambda_type = "variable"
+  lambda_type = "variable",
+  penalty_type = "coefpen"
 )}\if{html}{\out{</div>}}
 }
 
