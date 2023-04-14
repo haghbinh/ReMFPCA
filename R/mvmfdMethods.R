@@ -49,12 +49,14 @@
 
 
 #' @export
-plot.mvmfd <- function(mvmfd_obj, type = "", xlab = "", main = "", ...) {
-  old <- par(no.readonly = TRUE,mfrow=c(1,1))
+plot.mvmfd <- function(mvmfd_obj, xlab = NULL, ylab = NULL, ...) {
+  old <- par(no.readonly = TRUE, mfrow = c(1, 1))
   p <- mvmfd_obj$nvar
   par(mfrow = c(p, 1))
+  if (is.null(ylab)) ylab <- paste("Variable ", 1:p)
+  if (is.null(xlab)) xlab <- rep("time", p)
   for (i in 1:p) {
-    plot(mvmfd_obj[, i], ylab = paste("Variable ", i), obs, xlab, main, ...)
+    plot(mvmfd_obj[, i], ylab = ylab[i], xlab = xlab[i], ...)
   }
   par(mfrow = c(1, 1))
   on.exit(options(old))
