@@ -114,5 +114,5 @@ eigen_approach <- function(mvmfd_obj, alpha , n, centerfns,penalty_type) {
     bbbb <- rbind(bbbb, pc[[k]])
   }
   # print(t(bbbb) %*% (G + I_alpha(mvmfd_obj, GCV_result) %*% penalty) %*% bbbb)
-  return(list(pc, lsv, sigma, GCV_result, GCVs))
+  return(list(pc, lsv, variance, GCV_result, GCVs))
 }

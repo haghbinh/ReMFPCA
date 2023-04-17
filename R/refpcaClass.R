@@ -39,7 +39,7 @@ remfpca <- R6::R6Class("remfpca",
         private$.pc_mfd <- Mvmfd(pcmfd) 
       }
       private$.lsv <- result[[2]]
-      private$.sigma <- result[[3]]
+      private$.values <- result[[3]]
       private$.alpha <- result[[4]]
       private$.GCVs <- result[[5]]
       private$.mean_mfd <- mean(mvmfd_obj)
@@ -60,9 +60,9 @@ remfpca <- R6::R6Class("remfpca",
         stop("`$lsv` is read only", call. = FALSE)
       }
     },
-    sigma = function(value) {
+    values = function(value) {
       if (missing(value)) {
-        private$.sigma
+        private$.values
       } else {
         stop("`$sigma` is read only", call. = FALSE)
       }
@@ -92,7 +92,7 @@ remfpca <- R6::R6Class("remfpca",
   private = list(
     .pc_mfd = NULL,
     .lsv = NULL,
-    .sigma = NULL,
+    .values = NULL,
     .alpha = NULL,
     .GCVs = NULL,
     .mean_mfd = NULL
