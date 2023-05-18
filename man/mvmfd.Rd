@@ -4,25 +4,22 @@
 \alias{mvmfd}
 \title{A Class of Multidimensional Functional Data objects}
 \description{
-The \code{mvmfd} class represents functional data ...
+The 'mvmfd' class represents functional data ...
 }
 \examples{
 x <- 1
 
 }
-\section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{coeff}}{a matrix with nrow=subjects and ncol=total number of basis ...}
-}
-\if{html}{\out{</div>}}
-}
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
-\item{\code{basis}}{a basismfd object}
+\item{\code{basis}}{A `basismfd` object}
 
-\item{\code{coeff}}{a matrix with nrow=subjects and ncol=total number of basis ...}
+\item{\code{coefs}}{A matrix with nrow = subjects and ncol = total number of basis ...}
+
+\item{\code{nobs}}{description}
+
+\item{\code{nvar}}{description}
 }
 \if{html}{\out{</div>}}
 }
@@ -39,7 +36,6 @@ x <- 1
 \if{html}{\out{<a id="method-mvmfd-new"></a>}}
 \if{latex}{\out{\hypertarget{method-mvmfd-new}{}}}
 \subsection{Method \code{new()}}{
-Constructor for mvmfd objects
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{mvmfd$new(...)}\if{html}{\out{</div>}}
 }
@@ -47,7 +43,7 @@ Constructor for mvmfd objects
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{mfd_list}}{a list of mfd objects}
+\item{\code{...}}{A list of `mfd` objects}
 }
 \if{html}{\out{</div>}}
 }
@@ -56,7 +52,7 @@ Constructor for mvmfd objects
 \if{html}{\out{<a id="method-mvmfd-eval"></a>}}
 \if{latex}{\out{\hypertarget{method-mvmfd-eval}{}}}
 \subsection{Method \code{eval()}}{
-evalmfd
+Eval method for `mvmfd` objects
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{mvmfd$eval(evalarg)}\if{html}{\out{</div>}}
 }
@@ -64,19 +60,30 @@ evalmfd
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{evalarg}}{a list of numeric vector of argument values at which the \code{mvmfd} is to be evaluated.}
+\item{\code{evalarg}}{A list of numeric vectors of argument values at which the `mvmfd` is to be evaluated.}
 }
 \if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A list of evaluated values
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-mvmfd-print"></a>}}
 \if{latex}{\out{\hypertarget{method-mvmfd-print}{}}}
 \subsection{Method \code{print()}}{
+Print method for `mvmfd` objects
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{mvmfd$print(...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{Additional arguments to be passed to `print`}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-mvmfd-clone"></a>}}

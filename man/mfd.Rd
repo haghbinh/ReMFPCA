@@ -4,24 +4,20 @@
 \alias{mfd}
 \title{A Class of Multidimensional Functional Data objects}
 \description{
-The \code{mfd} class represents functional data ...
+The `mfd` class represents functional data ...
 }
 \examples{
 x <- 1
-}
-\section{Public fields}{
-\if{html}{\out{<div class="r6-fields">}}
-\describe{
-\item{\code{coeff}}{a matrix with nrow=subjects and ncol=total number of basis ...}
-}
-\if{html}{\out{</div>}}
+
 }
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
-\item{\code{basis}}{a basismfd object}
+\item{\code{basis}}{NULL,}
 
-\item{\code{coeff}}{a matrix with nrow=subjects and ncol=total number of basis ...}
+\item{\code{coefs}}{record vetorized of the coefs}
+
+\item{\code{nobs}}{description}
 }
 \if{html}{\out{</div>}}
 }
@@ -38,7 +34,6 @@ x <- 1
 \if{html}{\out{<a id="method-mfd-new"></a>}}
 \if{latex}{\out{\hypertarget{method-mfd-new}{}}}
 \subsection{Method \code{new()}}{
-Constructor for mfd objects
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{mfd$new(argval = NULL, X, mdbs, method = "data")}\if{html}{\out{</div>}}
 }
@@ -46,7 +41,13 @@ Constructor for mfd objects
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
+\item{\code{argval}}{description}
+
+\item{\code{X}}{description}
+
 \item{\code{mdbs}}{a basismfd object}
+
+\item{\code{method}}{description}
 }
 \if{html}{\out{</div>}}
 }
@@ -67,6 +68,10 @@ evalmfd
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Returns}{
+A matrix of evaluated values
+Print method for `mfd` objects
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-mfd-print"></a>}}
@@ -76,6 +81,13 @@ evalmfd
 \if{html}{\out{<div class="r">}}\preformatted{mfd$print(...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{Additional arguments to be passed to `print`}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-mfd-clone"></a>}}
