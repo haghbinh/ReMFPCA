@@ -1,8 +1,8 @@
 #' @importFrom expm sqrtm
-power_algo_fun <- function(mvmfd_obj, n, alpha, centerfns, alpha_orth, lambda_type) {
+power_algo_fun <- function(mvmfd_obj, n, alpha, centerfns, alpha_orth, lambda_type,penalty_type) {
   p <- mvmfd_obj$nvar
   # penalty = pen_fun(mvmfd_obj,type = "basispen")
-  penalty <- pen_fun(mvmfd_obj, type = "coefpen")
+  penalty <- pen_fun(mvmfd_obj, type = penalty_type)
   B <- c()
   if (is.null(alpha)) {
     for (i in 1:p) {
