@@ -1,22 +1,27 @@
-#' A Class of Multidimensional Basis Functions
+#' @title A Class of Multidimensional Basis Functions
 #' 
 #' @description
-#' The `basismfd` class represents functional data with multidimensional basis functions.
+#' The basismfd class represents functional data with multidimensional basis functions.
 #' 
-#' @field basis basis objects
-#' @field dimSupp description
-#' @field supp description
-#' @field gram description
-#' @field nbasis  NULL
-
+#'
+#' @field basis A list of basis objects from the fda library.
+#' @field dimSupp The dimension of the support domain of the `basismfd` object.
+#' @field supp The matrix representing the ranges of the dimensions.
+#' @field gram The Gram matrix.
+#' @field nbasis A numeric vector containing the number of bases.
+#' 
+#' 
 #' @importFrom fda is.basis eval.basis inprod
 #' @importFrom Matrix Matrix
 #' @export
-basismfd <- R6::R6Class(
-  "basismfd",
+basismfd <- R6::R6Class("basismfd",
   public = list(
-    #' @param basis A list of `basisfd` objects
-    initialize = function(basis) {
+    #' @description
+        #'  Constructor for `basismfd` objects (same as Basismfd(...) )
+    #' @usage Basismfd(...)
+    #' @param ... A list of `basisfd` objects
+    initialize = function(...) {
+      basis <- list(...)
       init_basismfd_check(basis)
       
       if (is.basis(basis)) {
@@ -37,9 +42,8 @@ basismfd <- R6::R6Class(
         }
       }
     },
-    
-    #' Evaluate the `basismfd` object at given argument values
-    #'
+    #' @description
+      #' Evaluate the `basismfd` object at given argument values
     #' @param evalarg A list of numeric vectors of argument values at which the `basismfd` is to be evaluated
     #' @return A list of evaluated values
     eval = function(evalarg) {
@@ -55,8 +59,8 @@ basismfd <- R6::R6Class(
       }
       return(out)
     },
-    
-    #' Print method for `basismfd` objects
+    #' @description
+      #' Print method for `basismfd` objects
     #'
     #' @param ... Additional arguments to be passed to `print`
     print = function(...) {
@@ -126,12 +130,9 @@ basismfd <- R6::R6Class(
   )
 )
 
-#' Create a `basismfd` object
-#'
-#' @param basis A list of `basisfd` objects
 #' @export
-Basismfd <- function(basis) {
-  basismfd$new(basis)
+Basismfd <- function(...) {
+  basismfd$new(...)
 }
 
 #' Check the validity of the initializer
