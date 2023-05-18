@@ -1,19 +1,26 @@
 #' A Class of Multidimensional Functional Data objects
-#' @description The \code{mfd} class represents functional data ...
-#' @field basis a basismfd object
-#' @field coeff a matrix with nrow=subjects and ncol=total number of basis ...
+#'
+#' @description
+#' The `mfd` class represents functional data ...
+#'
+#' @field basis NULL,
+#' @field coefs  record vetorized of the coefs
+#' @field nobs description
 #'
 #' @examples
 #' x <- 1
+#'
 #' @importFrom fda is.basis eval.basis Data2fd
 #'
 #' @export
 mfd <- R6::R6Class("mfd",
   public = list(
-    #' @description
-    #' Constructor for mfd objects
+    #'
+    #' @param argval description
+    #' @param X description
     #' @param mdbs a basismfd object
-    initialize = function(argval = NULL, X, mdbs, method = "data") {  #c("data", "coefs")
+    #' @param method description
+    initialize = function(argval = NULL, X, mdbs, method = "data") { # c("data", "coefs")
       init_mfd_check(argval, X, mdbs, method)
       if (is.basis(mdbs)) {
         mdbs <- basismfd$new(mdbs)
@@ -23,8 +30,9 @@ mfd <- R6::R6Class("mfd",
       private$.basis <- mdbs
       if (is.vector(X)) X <- matrix(X)
       if (method[1] == "coefs") {
-        if (length(dim(X))>2) X <- apply(X, length(dim(X)), as.vector)
-        else if (mdbs$dimSupp>1 && ncol(X)!=1) X <- matrix(X)
+        if (length(dim(X)) > 2) {
+          X <- apply(X, length(dim(X)), as.vector)
+        } else if (mdbs$dimSupp > 1 && ncol(X) != 1) X <- matrix(X)
         private$.coefs <- X
       } else {
         if (is.null(argval) && method != "coefs") {
@@ -49,6 +57,7 @@ mfd <- R6::R6Class("mfd",
     },
     #' @description evalmfd
     #' @param evalarg a list of numeric vector of argument values at which the \code{mfd} is to be evaluated.
+    #' @return A matrix of evaluated values
     eval = function(evalarg) {
       eval_mfd_validity_check(evalarg)
       if (is.numeric(evalarg)) evalarg <- list(evalarg)
@@ -61,9 +70,12 @@ mfd <- R6::R6Class("mfd",
       }
       return(Xhat)
     },
+    #' Print method for `mfd` objects
+    #'
+    #' @param ... Additional arguments to be passed to `print`
     print = function(...) {
-      cat("A ",private$.basis$dimSupp,"-Dimensional 'mfd' object:",sep = "")
-      cat("\nnobs:",private$.nobs,"\n")
+      cat("A ", private$.basis$dimSupp, "-Dimensional 'mfd' object:", sep = "")
+      cat("\nnobs:", private$.nobs, "\n")
       print(private$.basis)
 
       invisible(self)
@@ -99,6 +111,7 @@ mfd <- R6::R6Class("mfd",
   )
 )
 
+
 # a function to check the validity of initializer
 init_mfd_check <- function(argval, X, basis, method) {
   x <- 1
@@ -107,7 +120,3 @@ init_mfd_check <- function(argval, X, basis, method) {
 eval_mfd_validity_check <- function(evalarg, dimSupp) {
   x <- 1
 }
-
-
-#' @export
-Mfd <- function(argval = NULL, X, mdbs, method = "data") mfd$new(argval, X, mdbs, method)

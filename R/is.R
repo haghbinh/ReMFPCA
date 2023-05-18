@@ -1,26 +1,31 @@
-#' @export
+#' Check if an object is of class 'basismfd'
+#'
+#' @param fdobj The object to check.
+#' @return TRUE if the object is of class 'basismfd', FALSE otherwise.
 is.basismfd <- function(fdobj) {
-  #  check whether FDOBJ is a basismfd object
-  if (inherits(fdobj, "basismfd")) return(TRUE) else return(FALSE)
+  inherits(fdobj, "basismfd")
 }
 
-
-#' @export
+#' Check if an object is of class 'mvbasismfd'
+#'
+#' @param fdobj The object to check.
+#' @return TRUE if the object is of class 'mvbasismfd', FALSE otherwise.
 is.mvbasismfd <- function(fdobj) {
-  #  check whether FDOBJ is a mvbasismfd object
-  if (inherits(fdobj, "mvbasismfd")) return(TRUE) else return(FALSE)
+  inherits(fdobj, "mvbasismfd")
 }
 
-
-#' @export
+#' Check if an object is of class 'mfd'
+#'
+#' @param fdobj The object to check.
+#' @return TRUE if the object is of class 'mfd', FALSE otherwise.
 is.mfd <- function(fdobj) {
-  #  check whether FDOBJ is a mfd object
-  if (inherits(fdobj, "mfd")) return(TRUE) else return(FALSE)
+  inherits(fdobj, "mfd")
 }
 
-
-#' @export
+#' Check if an object is of class 'mvmfd'
+#'
+#' @param fdobj The object to check.
+#' @return TRUE if the object is of class 'mvmfd', FALSE otherwise.
 is.mvmfd <- function(fdobj) {
-  #  check whether FDOBJ is a mvmfd object
-  if (inherits(fdobj, "mvmfd")) return(TRUE) else return(FALSE)
+  inherits(fdobj, "mvmfd")
 }

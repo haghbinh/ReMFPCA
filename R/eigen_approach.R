@@ -1,5 +1,17 @@
+#' Eigen Approach
+#'
+#' Perform eigen approach for mvmfd_obj.
+#'
+#' @param mvmfd_obj The mvmfd object.
+#' @param alpha The alpha parameter.
+#' @param n The number of iterations.
+#' @param centerfns Logical indicating whether to center functions.
+#' @param penalty_type The type of penalty.
+#' @return A list containing the results.
 #' @importFrom expm sqrtm
-eigen_approach <- function(mvmfd_obj, alpha , n, centerfns,penalty_type) {
+#' @importFrom tidyr expand_grid
+
+eigen_approach <- function(mvmfd_obj, alpha, n, centerfns, penalty_type) {
   m.rep <- mvmfd_obj$nobs
   p <- mvmfd_obj$nvar
   if (is.null(alpha)) {
@@ -11,9 +23,7 @@ eigen_approach <- function(mvmfd_obj, alpha , n, centerfns,penalty_type) {
     gcv_row <- length(alpha[[1]])
     gcv_column <- length(alpha[[2]])
   }
-  alpha <- expand.grid(alpha)
-  # G = as.matrix(mvmfd_obj$basis$gram)
-  # G_half = sqrtm(G)
+  alpha <- expand_grid(alpha)
   penalty <- pen_fun(mvmfd_obj, type = penalty_type)
   G <- as.matrix(mvmfd_obj$basis$gram)
   G_half <- sqrtm(G)
@@ -56,11 +66,13 @@ eigen_approach <- function(mvmfd_obj, alpha , n, centerfns,penalty_type) {
   GCVs <- c()
   # Initializes the progress bar
   n_iter <- dim(alpha)[1]
-  pb <- txtProgressBar(min = 0,      # Minimum value of the progress bar
-                       max = n_iter, # Maximum value of the progress bar
-                       style = 3,    # Progress bar style (also available style = 1 and style = 2)
-                       width = 50,   # Progress bar width. Defaults to getOption("width")
-                       char = "=")   # Character used to create the bar
+  pb <- txtProgressBar(
+    min = 0, # Minimum value of the progress bar
+    max = n_iter, # Maximum value of the progress bar
+    style = 3, # Progress bar style (also available style = 1 and style = 2)
+    width = 50, # Progress bar width. Defaults to getOption("width")
+    char = "="
+  ) # Character used to create the bar
 
   for (j in 1:dim(alpha)[1]) {
     setTxtProgressBar(pb, j)
@@ -93,7 +105,6 @@ eigen_approach <- function(mvmfd_obj, alpha , n, centerfns,penalty_type) {
     }
   }
   close(pb) # Close the connection
-  # GCVs = log(GCVs)
   if (p == 2) {
     GCVs <- matrix(GCVs, nrow = gcv_row, ncol = gcv_column)
   }
@@ -113,6 +124,5 @@ eigen_approach <- function(mvmfd_obj, alpha , n, centerfns,penalty_type) {
   for (k in 1:p) {
     bbbb <- rbind(bbbb, pc[[k]])
   }
-  # print(t(bbbb) %*% (G + I_alpha(mvmfd_obj, GCV_result) %*% penalty) %*% bbbb)
   return(list(pc, lsv, variance, GCV_result, GCVs))
 }

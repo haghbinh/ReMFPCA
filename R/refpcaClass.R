@@ -1,8 +1,16 @@
 #' A Class for ReMFPCA objects
-#' @description The \code{remfpca} class represents functional data ...
-#' @field basis a basismfd object
-#' @field coeff a matrix with nrow=subjects and ncol=total number of basis ...
 #'
+#' The `remfpca` class represents functional data and provides methods for performing
+#' reduced-rank functional principal component analysis (ReMFPCA).
+#'
+
+#' @field pc_mfd NULL
+#' @field lsv = NULL,
+#' @field values = NULL,
+#' @field alpha = NULL,
+#' @field GCVs = NULL,
+#' @field mean_mfd ????
+
 #' @examples
 #' x <- 1
 #'
@@ -10,18 +18,22 @@
 #' @importFrom Matrix bdiag
 #' @importFrom expm sqrtm
 #' @export
-remfpca <- R6::R6Class("remfpca",
+remfpca <- R6::R6Class(
+  "remfpca",
   public = list(
-    initialize = function(mvmfd_obj, method = "eigen", ncomp, alpha = NULL, centerfns = TRUE, alpha_orth = TRUE, lambda_type = "variable",penalty_type = "coefpen") {
+    #' @param mvmfd_obj An mvmfd object representing the multivariate functional data.
+    #' @param method The method to be used for ReMFPCA. Currently, only "eigen" is supported.
+    #' @param ncomp The number of functional principal components to retain.
+    #' @param alpha A list or vector specifying the regularization parameter(s) for each variable.
+    #'              If NULL, the regularization parameter is estimated internally.
+    #' @param centerfns Logical indicating whether to center the functional data before analysis.
+    #' @param alpha_orth Logical indicating whether to perform orthogonalization of the regularization parameters.
+    #' @param lambda_type The type of penalty to be applied on the basis functions. Default is "variable".
+    #' @param penalty_type The type of penalty to be applied on the coefficients. Default is "coefpen".
+    initialize = function(mvmfd_obj, ncomp, alpha = NULL, centerfns = TRUE, alpha_orth = TRUE, lambda_type = "variable", penalty_type = "coefpen") {
       if (is.numeric(alpha)) alpha <- as.list(alpha)
       if (is.mfd(mvmfd_obj)) mvmfd_obj <- mvmfd$new(mvmfd_obj)
-      if (method == "power") {
-        result <- power_algo_fun(mvmfd_obj = mvmfd_obj, n = ncomp, alpha = alpha, centerfns = centerfns, alpha_orth = alpha_orth, lambda_type = lambda_type,penalty_type = penalty_type)
-      } else if (method == "halfsmooth") {
-        result <- half_smoothing_approach(mvmfd_obj = mvmfd_obj, n = ncomp, alpha = alpha, centerfns = centerfns)
-      } else if (method == "eigen") {
-        result <- eigen_approach(mvmfd_obj = mvmfd_obj, n = ncomp, alpha = alpha, centerfns = centerfns,penalty_type = penalty_type)
-      }
+      result <- eigen_approach(mvmfd_obj = mvmfd_obj, n = ncomp, alpha = alpha, centerfns = centerfns, penalty_type = penalty_type)
       coef <- result[[1]]
       pcmfd <- list()
       for (i in 1:mvmfd_obj$nvar) {
@@ -33,9 +45,9 @@ remfpca <- R6::R6Class("remfpca",
         }
       }
       out <- Mvmfd(pcmfd)
-      if(mvmfd_obj$nvar==1) {
+      if (mvmfd_obj$nvar == 1) {
         private$.pc_mfd <- pcmfd[[1]]
-        } else {
+      } else {
         private$.pc_mfd <- Mvmfd(pcmfd) 
       }
       private$.lsv <- result[[2]]
@@ -99,5 +111,28 @@ remfpca <- R6::R6Class("remfpca",
   )
 )
 
+#' Create a ReMFPCA object
+#'
+#' Create an instance of the `remfpca` class, which represents functional data and provides
+#' methods for performing reduced-rank functional principal component analysis (ReMFPCA).
+#'
+#' @param mvmfd_obj An mvmfd object representing the multivariate functional data.
+#' @param method The method to be used for ReMFPCA. Currently, only "eigen" is supported.
+#' @param ncomp The number of functional principal components to retain.
+#' @param alpha A list or vector specifying the regularization parameter(s) for each variable.
+#'              If NULL, the regularization parameter is estimated internally.
+#' @param centerfns Logical indicating whether to center the functional data before analysis.
+#' @param alpha_orth Logical indicating whether to perform orthogonalization of the regularization parameters.
+#' @param lambda_type The type of penalty to be applied on the basis functions. Default is "variable".
+#' @param penalty_type The type of penalty to be applied on the coefficients. Default is "coefpen".
+#'
+#' @return An object of class `remfpca`.
+#'
+#' @importFrom fda getbasispenalty
+#' @importFrom Matrix bdiag
+#' @importFrom expm sqrtm
 #' @export
-Remfpca <- function(mvmfd_obj, method = "eigen", ncomp, alpha = NULL, centerfns = TRUE, alpha_orth = TRUE, lambda_type = "variable",penalty_type = "coefpen") remfpca$new(mvmfd_obj, method, ncomp, alpha, centerfns, alpha_orth, lambda_type,penalty_type)
+#' 
+Remfpca <- function(mvmfd_obj, method = "eigen", ncomp, alpha = NULL, centerfns = TRUE, alpha_orth = TRUE, lambda_type = "variable", penalty_type = "coefpen") {
+  remfpca$new(mvmfd_obj, ncomp, alpha, centerfns, alpha_orth, lambda_type, penalty_type)
+}

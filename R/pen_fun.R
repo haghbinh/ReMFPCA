@@ -1,3 +1,11 @@
+#' Penalty Function
+#'
+#' Calculate the penalty matrix for data.
+#'
+#' @param data The data object.
+#' @param devorder The order of the derivative.
+#' @param type The type of penalty.
+#' @return The penalty matrix.
 #' @importFrom fda eval.penalty
 pen_fun <- function(data, devorder = 2, type) {
   D_final <- c()

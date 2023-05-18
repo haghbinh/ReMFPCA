@@ -1,3 +1,23 @@
+#' Plotting Method for remfpca Objects
+#'
+#' This function generates plots for remfpca objects, showing the functional principal components
+#' and the corresponding variability for each variable.
+#'
+#' @param remfpca_obj An object of class `remfpca` representing the results of reduced-rank functional principal component analysis.
+#' @param comp_index Numeric vector specifying the indices of the principal components to plot.
+#'                   If NULL, all components will be plotted.
+#' @param var_index Numeric vector specifying the indices of the variables to plot.
+#'                  If NULL, all variables will be plotted.
+#' @param ask Logical indicating whether to prompt the user before each plot.
+#' @param expand Numeric vector specifying the expansion factor for the width of the confidence bands.
+#'               If NULL, a default value will be used based on the eigenvalues.
+#' @param nx Integer specifying the number of points to generate along the x-axis.
+#' @param xlab Character vector specifying the labels for the x-axis.
+#' @param ylab Character vector specifying the labels for the y-axis.
+#' @param ... Additional arguments to be passed to the plot function.
+#'
+#' @return None
+#'
 #' @export
 plot.remfpca <- function(remfpca_obj, comp_index = NULL, var_index = NULL, ask = TRUE, expand = NULL, nx = 100, xlab = NULL, ylab = NULL, ...) {
   if (!(inherits(remfpca_obj, "remfpca"))) stop("Argument 'remfpca_obj' is not a remfpca object.")
@@ -15,7 +35,7 @@ plot.remfpca <- function(remfpca_obj, comp_index = NULL, var_index = NULL, ask =
   if (is.null(ylab)) ylab <- paste("Variable", var_index)
   if (is.null(xlab)) xlab <- rep("time", length(var_index))
   if (is.null(expand)) expand <- 2 * sqrt(remfpca_obj$values[comp_index])
-
+  
   if (flag) {
     for (ipc in comp_index) {
       op <- par(mfrow = c(length(var_index), 1), ask = ask)
@@ -28,8 +48,8 @@ plot.remfpca <- function(remfpca_obj, comp_index = NULL, var_index = NULL, ask =
         mu <- mean_mfd[1, j]$eval(x_grids)
         ylim <- range(mu - width, mu + width)
         plot(x_grids, mu,
-          type = "l", ylim = ylim, ylab = ylab[j], xlab = xlab[j],
-          main = paste("FPC", ipc, "(", percentvar[ipc], "%)"), ...
+             type = "l", ylim = ylim, ylab = ylab[j], xlab = xlab[j],
+             main = paste("FPC", ipc, "(", percentvar[ipc], "%)"), ...
         )
         points(x_grids, mu - width, pch = "-", col = 2, ...)
         points(x_grids, mu + width, pch = "+", col = 3, ...)
@@ -47,8 +67,8 @@ plot.remfpca <- function(remfpca_obj, comp_index = NULL, var_index = NULL, ask =
         mu <- mean_mfd[1, j]$eval(x_grids)
         ylim <- range(mu - width, mu + width)
         plot(x_grids, mu,
-          type = "l", ylim = ylim, ylab = ylab[j], xlab = xlab[j],
-          main = paste("FPC", ipc, "(", percentvar[ipc], "%)"), ...
+             type = "l", ylim = ylim, ylab = ylab[j], xlab = xlab[j],
+             main = paste("FPC", ipc, "(", percentvar[ipc], "%)"), ...
         )
         points(x_grids, mu - width, pch = "-", col = 2, ...)
         points(x_grids, mu + width, pch = "+", col = 3, ...)

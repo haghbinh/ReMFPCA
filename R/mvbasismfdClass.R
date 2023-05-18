@@ -1,20 +1,27 @@
 #' A Class of Multivariate Multidimensional Basis Functions
-#' @description The \code{mvbasismfd} class represents functional data ...
-#' @field basis a list of mvbasisfd objects
-#' @field dimSupp  a sequence of positive integer specify the dimension...
-#' 
+#'
+#' @description
+#' The `mvbasismfd` class represents functional data ...
+#'
+#' An object of class "mvbasismfd" is a list containing the following elements:
+#' @field nvar description
+#' @field basis A list of mvbasisfd objects
+#' @field dimSupp A sequence of positive integers specifying the dimension...
+#' @field nbasis A list of integers specifying the number of basis functions...
+#' @field supp A list of matrices specifying the support of basis functions...
+#' @field gram A block diagonal matrix
+#'
+#'
 #' @examples
 #' x <- 1
-#' 
+#'
 #' @importFrom fda is.basis eval.basis
 #' @importFrom Matrix Matrix bdiag
-#' 
+#'
 #' @export
 mvbasismfd <- R6::R6Class("mvbasismfd",
   public = list(
-    #' @description
-    #' Constructor for mvbasismfd objects
-    #' @param basis a list of basisfd objects
+    #' @param basis A list of `basismfd` objects
     initialize = function(basis) {
       if (is.basis(basis) | is.basismfd(basis)) basis <- list(basis)
       init_mvbasismfd_check(basis)
@@ -29,13 +36,15 @@ mvbasismfd <- R6::R6Class("mvbasismfd",
         private$.dimSupp[i] <- basis[[i]]$dimSupp
         private$.nbasis[[i]] <- basis[[i]]$nbasis
         private$.supp[[i]] <- basis[[i]]$supp
-        private$.gram <- bdiag(private$.gram,basis[[i]]$gram)
+        private$.gram <- bdiag(private$.gram, basis[[i]]$gram)
       }
       private$.basis <- basis
     },
-    #' @description evalbasismfd
-    #' @param evalarg a list of numeric vector of argument values at which the \code{basismfd} is to be evaluated.
-    #' @return a list
+
+    #' Evaluate the `mvbasismfd` object at given argument values
+    #'
+    #' @param evalarg A list of numeric vectors of argument values at which the `basismfd` is to be evaluated
+    #' @return A list of evaluated values
     eval = function(evalarg) {
       eval_mvbasismf_validity_check(evalarg, private$.nvar)
       if (is.numeric(evalarg)) {
@@ -43,12 +52,13 @@ mvbasismfd <- R6::R6Class("mvbasismfd",
       }
       out <- list()
       for (i in 1:length(evalarg)) {
-        out[[i]] <- (private$.basis[[i]])$eval(evalarg[[i]])
+        out[[i]] <- private$.basis[[i]]$eval(evalarg[[i]])
       }
       return(out)
     }
   ),
   active = list(
+    # nvar field
     nvar = function(value) {
       if (missing(value)) {
         private$.nvar
@@ -56,6 +66,8 @@ mvbasismfd <- R6::R6Class("mvbasismfd",
         stop("`$nvar` is read only", call. = FALSE)
       }
     },
+
+    # basis field
     basis = function(value) {
       if (missing(value)) {
         private$.basis
@@ -63,6 +75,8 @@ mvbasismfd <- R6::R6Class("mvbasismfd",
         stop("`$basis` is read only", call. = FALSE)
       }
     },
+
+    # dimSupp field
     dimSupp = function(value) {
       if (missing(value)) {
         private$.dimSupp
@@ -70,6 +84,8 @@ mvbasismfd <- R6::R6Class("mvbasismfd",
         stop("`$dimSupp` is read only", call. = FALSE)
       }
     },
+
+    # nbasis field
     nbasis = function(value) {
       if (missing(value)) {
         private$.nbasis
@@ -77,6 +93,8 @@ mvbasismfd <- R6::R6Class("mvbasismfd",
         stop("`$nbasis` is read only", call. = FALSE)
       }
     },
+
+    # supp field
     supp = function(value) {
       if (missing(value)) {
         private$.supp
@@ -84,6 +102,8 @@ mvbasismfd <- R6::R6Class("mvbasismfd",
         stop("`$supp` is read only", call. = FALSE)
       }
     },
+
+    # gram field
     gram = function(value) {
       if (missing(value)) {
         private$.gram
@@ -102,9 +122,7 @@ mvbasismfd <- R6::R6Class("mvbasismfd",
   )
 )
 
-
-
-# a function to check the validity of initializer
+# Function to check the validity of initializer
 init_mvbasismfd_check <- function(basis) {
   if (is.list(basis)) {
     if (!all(sapply(basis, function(x) {
@@ -115,16 +133,14 @@ init_mvbasismfd_check <- function(basis) {
   }
 }
 
-
-
-# a function to check the validity of evaluation
+# Function to check the validity of evaluation
 eval_mvbasismf_validity_check <- function(evalarg, nvar) {
   if (!is.list(evalarg) & !is.numeric(evalarg)) {
     stop("evalarg must be a list or numeric vector")
   }
   if (is.numeric(evalarg)) {
     if (nvar != 1) {
-      stop("evalarg is allowd be a numeric if nvar = 1.")
+      stop("evalarg is allowed to be a numeric if nvar = 1.")
     } else {
       evalarg <- list(list(evalarg))
     }
@@ -137,6 +153,9 @@ eval_mvbasismf_validity_check <- function(evalarg, nvar) {
   }
 }
 
-
+#' Constructor for mvbasismfd objects
+#'
+#' @param basis A list of basisfd objects
+#'
 #' @export
 Mvbasismfd <- function(basis) mvbasismfd$new(basis)

@@ -1,23 +1,24 @@
 #' A Class of Multidimensional Basis Functions
-#' @description The \code{basismfd} class represents functional data ...
-#' @field basis a list of basisfd objects
-#' @field dimSupp  a positive integer specify the dimension...
 #' 
-#' @examples
-#' x <- 1
+#' @description
+#' The `basismfd` class represents functional data with multidimensional basis functions.
 #' 
+#' @field basis basis objects
+#' @field dimSupp description
+#' @field supp description
+#' @field gram description
+#' @field nbasis  NULL
+
 #' @importFrom fda is.basis eval.basis inprod
 #' @importFrom Matrix Matrix
-#' 
 #' @export
-#' 
-basismfd <- R6::R6Class("basismfd",
+basismfd <- R6::R6Class(
+  "basismfd",
   public = list(
-    #' @description
-    #' Constructor for basismfd objects
-    #' @param basis a list of basisfd objects
+    #' @param basis A list of `basisfd` objects
     initialize = function(basis) {
       init_basismfd_check(basis)
+      
       if (is.basis(basis)) {
         private$.gram <- Matrix(inprod(basis, basis))
         private$.basis <- list(basis)
@@ -36,32 +37,41 @@ basismfd <- R6::R6Class("basismfd",
         }
       }
     },
-    #' @description evalbasismfd
-    #' @param evalarg a list of numeric vector of argument values at which the \code{basismfd} is to be evaluated.
-    #' @return a list
+    
+    #' Evaluate the `basismfd` object at given argument values
+    #'
+    #' @param evalarg A list of numeric vectors of argument values at which the `basismfd` is to be evaluated
+    #' @return A list of evaluated values
     eval = function(evalarg) {
       eval_basismf_validity_check(evalarg, private$.dimSupp)
+      
       if (is.numeric(evalarg)) {
         evalarg <- list(evalarg)
       }
+      
       out <- list()
       for (i in 1:length(evalarg)) {
         out[[i]] <- eval.basis(evalarg[[i]], private$.basis[[i]])
       }
       return(out)
     },
+    
+    #' Print method for `basismfd` objects
+    #'
+    #' @param ... Additional arguments to be passed to `print`
     print = function(...) {
-      for(i in 1:private$.dimSupp){
-        cat("basis ",i,":\n",sep = "")
-        cat("type:",private$.basis[[i]]$type)
-        cat("\nnbasis:",private$.nbasis[i])
-        cat("\nsupport:",private$.supp[,i],"\n")
-        if (i!=private$.dimSupp) cat("\n")
+      for (i in 1:private$.dimSupp) {
+        cat("basis ", i, ":\n", sep = "")
+        cat("type:", private$.basis[[i]]$type)
+        cat("\nnbasis:", private$.nbasis[i])
+        cat("\nsupport:", private$.supp[, i], "\n")
+        if (i != private$.dimSupp) cat("\n")
       }
       invisible(self)
     }
   ),
   active = list(
+    #' Getter and setter for `basis` field
     basis = function(value) {
       if (missing(value)) {
         private$.basis
@@ -69,6 +79,8 @@ basismfd <- R6::R6Class("basismfd",
         stop("`$basis` is read only", call. = FALSE)
       }
     },
+    
+    #' Getter and setter for `dimSupp` field
     dimSupp = function(value) {
       if (missing(value)) {
         private$.dimSupp
@@ -76,6 +88,8 @@ basismfd <- R6::R6Class("basismfd",
         stop("`$dimSupp` is read only", call. = FALSE)
       }
     },
+    
+    #' Getter and setter for `nbasis` field
     nbasis = function(value) {
       if (missing(value)) {
         private$.nbasis
@@ -83,6 +97,8 @@ basismfd <- R6::R6Class("basismfd",
         stop("`$nbasis` is read only", call. = FALSE)
       }
     },
+    
+    #' Getter and setter for `supp` field
     supp = function(value) {
       if (missing(value)) {
         private$.supp
@@ -90,6 +106,8 @@ basismfd <- R6::R6Class("basismfd",
         stop("`$supp` is read only", call. = FALSE)
       }
     },
+    
+    #' Getter and setter for `gram` field
     gram = function(value) {
       if (missing(value)) {
         private$.gram
@@ -98,6 +116,7 @@ basismfd <- R6::R6Class("basismfd",
       }
     }
   ),
+  
   private = list(
     .basis = NULL,
     .dimSupp = NULL,
@@ -107,29 +126,38 @@ basismfd <- R6::R6Class("basismfd",
   )
 )
 
-# a function to check the validity of initializer
+#' Create a `basismfd` object
+#'
+#' @param basis A list of `basisfd` objects
+#' @export
+Basismfd <- function(basis) {
+  basismfd$new(basis)
+}
+
+#' Check the validity of the initializer
+#' @param basis A list of `basisfd` objects
 init_basismfd_check <- function(basis) {
   if (!is.basis(basis) & is.list(basis)) {
     if (!all(sapply(basis, is.basis))) {
-      stop("All the elements of basis list must be basisfd object.")
+      stop("All elements of the basis list must be `basisfd` objects.")
     }
   }
 }
-# a function to check the validity of evaluation
+
+#' Check the validity of the evaluation
+#' @param evalarg A list or numeric vector
+#' @param dimSupp Dimension of the `basismfd` object
 eval_basismf_validity_check <- function(evalarg, dimSupp) {
   if (!is.list(evalarg) & !is.numeric(evalarg)) {
-    stop("evalarg must be a list or numeric vector")
+    stop("evalarg must be a list or numeric vector.")
   }
   if (!all(sapply(evalarg, is.numeric))) {
-    stop("evalarg must be a list of numeric vector")
+    stop("evalarg must be a list of numeric vectors.")
   }
   if (is.numeric(evalarg)) {
     evalarg <- list(evalarg)
   }
   if (length(evalarg) != dimSupp) {
-    stop(" length of evalarg list must be equal to dimSupp")
+    stop("Length of evalarg list must be equal to dimSupp.")
   }
 }
-
-#' @export
-Basismfd <- function(basis) basismfd$new(basis)
