@@ -4,20 +4,43 @@
 \alias{mfd}
 \title{A Class of Multidimensional Functional Data objects}
 \description{
-The `mfd` class represents functional data ...
+The `mfd` class represents class of multidimensional functional data.
 }
 \examples{
-x <- 1
+require(fda)
+bs1 <- create.fourier.basis(c(0,2*pi),5)
+bs2 <- create.bspline.basis(c(0,1),7)
+bs3 <- create.exponential.basis(c(0,2),3)
+
+#1-D mfd :_____________________________
+argval <- seq(0,2*pi,length.out=100)
+nobs <- 10;
+X <- outer(sin(argval),seq(0.5,1.5,len=nobs))
+mdbs1 <- Basismfd(bs1)
+mfd1 <- Mfd(X=X, mdbs = mdbs1)
+inprod_mfd(mfd1,mfd1)
+norm_mfd(mfd1)
+mfd0 <- 2.5*mfd1
+mfd1-mfd0
+mfd1[1:3]
+
+mfd1$eval(argval)
+mfd1c <- Mfd(X=mfd1$coefs, mdbs = mdbs1, method = "coefs")
+all.equal(c(mfd1$basis,mfd1$coefs,mfd1$nobs),c(mfd1c$basis,mfd1c$coefs,mfd1c$nobs))
+length(mfd1)
+mean(mfd1)
+plot(mfd1)
+
 
 }
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
-\item{\code{basis}}{NULL,}
+\item{\code{basis}}{an object of the class basismfd or fda::bsaia,}
 
 \item{\code{coefs}}{record vetorized of the coefs}
 
-\item{\code{nobs}}{description}
+\item{\code{nobs}}{number of the observation}
 }
 \if{html}{\out{</div>}}
 }
@@ -41,13 +64,14 @@ x <- 1
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{argval}}{description}
+\item{\code{argval}}{A list of numeric vectors of argument values at which the `mfd` object is to be evaluated}
 
-\item{\code{X}}{description}
+\item{\code{X}}{A numeric matrix corresponds to basis expansion coefficients
+if `method="coefs"` and discrete observations if `method="data"`.}
 
 \item{\code{mdbs}}{a basismfd object}
 
-\item{\code{method}}{description}
+\item{\code{method}}{determine the `X` matrix type as "coefs" and "data".}
 }
 \if{html}{\out{</div>}}
 }
@@ -56,7 +80,7 @@ x <- 1
 \if{html}{\out{<a id="method-mfd-eval"></a>}}
 \if{latex}{\out{\hypertarget{method-mfd-eval}{}}}
 \subsection{Method \code{eval()}}{
-evalmfd
+Evaluation an `mfd` object in some arguments.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{mfd$eval(evalarg)}\if{html}{\out{</div>}}
 }
@@ -70,13 +94,13 @@ evalmfd
 }
 \subsection{Returns}{
 A matrix of evaluated values
-Print method for `mfd` objects
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-mfd-print"></a>}}
 \if{latex}{\out{\hypertarget{method-mfd-print}{}}}
 \subsection{Method \code{print()}}{
+Print method for `mfd` objects
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{mfd$print(...)}\if{html}{\out{</div>}}
 }
@@ -84,7 +108,10 @@ Print method for `mfd` objects
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{...}}{Additional arguments to be passed to `print`}
+\item{\code{...}}{Additional arguments to be passed to `print`
+Getter and setter for `basis` field
+Getter and setter for `coefs` field
+Getter and setter for `nobs` field}
 }
 \if{html}{\out{</div>}}
 }

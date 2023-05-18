@@ -15,3 +15,6 @@ An 'mfd' object representing the mean
 \description{
 Compute the mean of an 'mfd' object
 }
+\seealso{
+\code{\link{basismfd}}, \code{\link{mfd}}
+}

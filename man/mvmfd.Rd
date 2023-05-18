@@ -7,8 +7,36 @@
 The 'mvmfd' class represents functional data ...
 }
 \examples{
-x <- 1
+require(fda)
+bs1 <- create.fourier.basis(c(0, 2 * pi), 5)
+bs2 <- create.bspline.basis(c(0, 1), 7)
+bs3 <- create.exponential.basis(c(0, 2), 3)
+argval1 <- seq(0,2*pi,len=12)
+X1 <- outer(sin(argval1),seq(0.5,1.5,len=nobs))
+mdbs1 <- Basismfd(bs1)
+mfd1 <- Mfd(argval1,X1,mdbs1)
+mdbs2 <- Basismfd(bs1)
+argval2 <- argval1
+X2 <- outer(cos(argval2),seq(0.2,1.5,len=nobs))
+mfd2 <- Mfd(argval2,X2,mdbs1)
+mvmfd1 <- Mvmfd(mfd1,mfd2)
+mvmfd1[1]
+mvmfd1[1,1]
+mvmfd1[1:5,2]
+mvmfd1[,1]
+mvmfd1[1:5,]
+evalarg <- list(argval1,argval2)
+mvmfd1$eval(evalarg)
+mvmfd1+mvmfd1
+mean(mvmfd1)
+inprod_mvmfd(mvmfd1,mvmfd1)
+norm_mvmfd(mvmfd1)
+plot(mvmfd1)
+bimfdplot(mvmfd1)
 
+}
+\seealso{
+\code{\link{basismfd}}
 }
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}

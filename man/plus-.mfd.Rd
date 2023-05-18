@@ -17,3 +17,6 @@ The sum of the two 'mfd' objects
 \description{
 Add two 'mfd' objects
 }
+\seealso{
+\code{\link{basismfd}}, \code{\link{mfd}}
+}

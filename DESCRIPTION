@@ -16,3 +16,6 @@ LazyData: TRUE
 Imports: fda, expm
 RoxygenNote: 7.2.3
 Depends: R (>= 4.0), R6
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3

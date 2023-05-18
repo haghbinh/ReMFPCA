@@ -17,3 +17,6 @@ An mvmfd object
 \description{
 Addition of two mvmfd objects
 }
+\seealso{
+\code{\link{mvmfd}}
+}

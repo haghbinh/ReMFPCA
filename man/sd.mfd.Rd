@@ -15,3 +15,6 @@ An 'mfd' object representing the standard deviation
 \description{
 Compute the standard deviation of an 'mfd' object
 }
+\seealso{
+\code{\link{basismfd}}, \code{\link{mfd}}
+}

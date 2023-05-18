@@ -15,3 +15,6 @@ The norm of the mvmfd object
 \description{
 Norm of an mvmfd object
 }
+\seealso{
+\code{\link{mvmfd}}
+}

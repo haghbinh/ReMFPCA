@@ -1,14 +1,14 @@
-#' Length of an 'mfd' object
+#' @title Length of an 'mfd' object
 #'
 #' @param mfd_obj An 'mfd' object
 #' @return The number of observations in the 'mfd' object
-#'
+#' @seealso \code{\link{basismfd}}, \code{\link{mfd}}
 #' @export
 length.mfd <- function(mfd_obj) {
   return(mfd_obj$nobs)
 }
 
-#' Plot an 'mfd' object
+#' @title Plot an 'mfd' object
 #'
 #' @param mfd_obj An 'mfd' object
 #' @param obs Observation number to plot (default: 1)
@@ -18,7 +18,7 @@ length.mfd <- function(mfd_obj) {
 #' @param type Type of plot (default: "l")
 #' @param lty Line type (default: 1)
 #' @param ... Additional arguments passed to the plot function
-#'
+#' @seealso \code{\link{basismfd}}, \code{\link{mfd}}
 #' @export
 plot.mfd <- function(mfd_obj, obs = 1, xlab = "", ylab = "", main = "", type = "l", lty = 1, ...) {
   dimSupp <- mfd_obj$basis$dimSupp
@@ -36,11 +36,11 @@ plot.mfd <- function(mfd_obj, obs = 1, xlab = "", ylab = "", main = "", type = "
   }
 }
 
-#' Compute the mean of an 'mfd' object
+#' @title Compute the mean of an 'mfd' object
 #'
 #' @param mfd_obj An 'mfd' object
 #' @return An 'mfd' object representing the mean
-#'
+#' @seealso \code{\link{basismfd}}, \code{\link{mfd}}
 #' @export
 mean.mfd <- function(mfd_obj) {
   cof <- apply(mfd_obj$coefs, 1, mean)
@@ -48,11 +48,11 @@ mean.mfd <- function(mfd_obj) {
   return(Mfd(X = cof, mdbs = bs, method = "coefs"))
 }
 
-#' Compute the standard deviation of an 'mfd' object
+#' @title Compute the standard deviation of an 'mfd' object
 #'
 #' @param mfd_obj An 'mfd' object
 #' @return An 'mfd' object representing the standard deviation
-#'
+#' @seealso \code{\link{basismfd}}, \code{\link{mfd}}
 #' @export
 sd.mfd <- function(mfd_obj) {
   cof <- apply(mfd_obj$coefs, 1, sd)
@@ -60,12 +60,12 @@ sd.mfd <- function(mfd_obj) {
   return(Mfd(X = cof, mdbs = bs, method = "coefs"))
 }
 
-#' Compute the inner product between two 'mfd' objects
+#' @title Compute the inner product between two 'mfd' objects
 #'
 #' @param mfd_obj1 An 'mfd' object
 #' @param mfd_obj2 An 'mfd' object
 #' @return The inner product between the two 'mfd' objects
-#'
+#' @seealso \code{\link{basismfd}}, \code{\link{mfd}}
 #' @importFrom fda fd inprod
 #' @export
 inprod_mfd <- function(mfd_obj1, mfd_obj2) {
@@ -79,24 +79,24 @@ inprod_mfd <- function(mfd_obj1, mfd_obj2) {
   return(inpr)
 }
 
-#' Compute the norm of an 'mfd' object
+#' @title Compute the norm of an 'mfd' object
 #'
 #' @param mfd_obj An 'mfd' object
 #' @return The norm of the 'mfd' object
-#'
+#' @seealso \code{\link{basismfd}}, \code{\link{mfd}}
 #' @export
 norm_mfd <- function(mfd_obj) {
   return(as.numeric(sqrt(inprod_mfd(mfd_obj, mfd_obj))))
 }
 
-#' Add two 'mfd' objects
+#' @title Add two 'mfd' objects
 #'
 #' @param obj1 An 'mfd' object
 #' @param obj2 An 'mfd' object or a scalar
 #' @return The sum of the two 'mfd' objects
-#'
+#' @seealso \code{\link{basismfd}}, \code{\link{mfd}}
 #' @export
-`+.mfd` <- function(obj1, obj2 = NULL) {
+"+.mfd" <- function(obj1, obj2 = NULL) {
   if (is.null(obj2)) {
     return(obj1)
   }
@@ -134,14 +134,14 @@ norm_mfd <- function(mfd_obj) {
   return(mfd$new(X = coef, mdbs = obj1$basis$clone(), method = "coefs"))
 }
 
-#' Multiply two 'mfd' objects
+#' @title Multiply two 'mfd' objects
 #'
 #' @param obj1 An 'mfd' object
 #' @param obj2 An 'mfd' object or a scalar
 #' @return The product of the two 'mfd' objects
-#'
+#' @seealso \code{\link{basismfd}}, \code{\link{mfd}}
 #' @export
-`*.mfd` <- function(obj1, obj2) {
+"*.mfd" <- function(obj1, obj2) {
   if (xor(is.mfd(obj1), is.mfd(obj2))) {
     if (xor(is.double(obj1), is.double(obj2))) {
       if (is.double(obj1)) {
@@ -157,14 +157,14 @@ norm_mfd <- function(mfd_obj) {
   return(mfd$new(X = coef, mdbs = obj1$basis$clone(), method = "coefs"))
 }
 
-#' Subtract two 'mfd' objects
+#' @title Subtract two 'mfd' objects
 #'
 #' @param obj1 An 'mfd' object
 #' @param obj2 An 'mfd' object or a scalar
 #' @return The difference between the two 'mfd' objects
-#'
+#' @seealso \code{\link{basismfd}}, \code{\link{mfd}}
 #' @export
-`-.mfd` <- function(obj1, obj2 = NULL) {
+"-.mfd" <- function(obj1, obj2 = NULL) {
   if (is.null(obj2)) {
     return((-1) * obj1)
   }
@@ -182,40 +182,21 @@ norm_mfd <- function(mfd_obj) {
   return(mfd$new(X = coef, mdbs = obj1$basis$clone(), method = "coefs"))
 }
 
-#' Extract subsets of an 'mfd' object
+#' @title Extract subsets of an 'mfd' object
 #'
 #' @param mfd_obj An 'mfd' object
 #' @param i An index or indices specifying the subsets to extract
 #' @return An 'mfd' object containing the specified subsets
-#'
+#' @seealso \code{\link{basismfd}}, \code{\link{mfd}}
 #' @export
-`[.mfd` <- function(mfd_obj, i = "index") {
-  if (is.null(i)) i <- 1:mfd_obj$nobs
-  if (max(i) > mfd_obj$nobs | min(i) < 1) stop("Subscript i out of bounds")
+"[.mfd" <- function(mfd_obj, i = "index") {
+  if(is.null(i)) i <- 1:mfd_obj$nobs
+  if (max(i) > mfd_obj$nobs | min(i) < 1) stop(" subscript i out of bounds")
   bs <- mfd_obj$basis$clone()
-  if (mfd_obj$basis$dimSupp == 1) {
+  if(mfd_obj$basis$dimSupp==1){
     coef <- mfd_obj$coefs[, i]
-  } else {
+  }else{
     coef <- mfd_obj$coefs[, , i]
   }
   return(mfd$new(X = coef, mdbs = bs, method = "coefs"))
-}
-
-#' Extract subsets of an 'mvmfd' object
-#'
-#' @param mvmfd_obj An 'mvmfd' object
-#' @param i An index or indices specifying the subsets to extract for the first dimension
-#' @param j An index or indices specifying the subsets to extract for the second dimension
-#' @return An 'mfd' object containing the specified subsets
-#'
-#' @export
-`[.mvmfd` <- function(mvmfd_obj, i = "index", j = "index") {
-  if (is.null(i)) i <- 1:mvmfd_obj$nobs
-  if (is.null(j)) j <- 1:mvmfd_obj$nobs
-  if (max(i) > mvmfd_obj$nobs | min(i) < 1) stop("Subscript i out of bounds")
-  if (max(j) > mvmfd_obj$nobs | min(j) < 1) stop("Subscript j out of bounds")
-  bs1 <- mvmfd_obj$basis$basis[[1]]
-  bs2 <- mvmfd_obj$basis$basis[[2]]
-  coef <- mvmfd_obj$coefs[, i, j]
-  return(mfd$new(X = coef, mdbs = list(bs1, bs2), method = "coefs"))
 }

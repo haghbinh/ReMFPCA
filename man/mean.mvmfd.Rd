@@ -15,3 +15,6 @@ An mvmfd object
 \description{
 Mean of each variable in an mvmfd object
 }
+\seealso{
+\code{\link{mvmfd}}
+}

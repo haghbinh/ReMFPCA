@@ -17,3 +17,6 @@ An mvmfd object
 \description{
 Subtraction of two mvmfd objects
 }
+\seealso{
+\code{\link{mvmfd}}
+}

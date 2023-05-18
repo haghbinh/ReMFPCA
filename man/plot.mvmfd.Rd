@@ -18,3 +18,6 @@
 \description{
 Plotting method for mvmfd objects
 }
+\seealso{
+\code{\link{mvmfd}}
+}

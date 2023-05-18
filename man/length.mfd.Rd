@@ -15,3 +15,6 @@ The number of observations in the 'mfd' object
 \description{
 Length of an 'mfd' object
 }
+\seealso{
+\code{\link{basismfd}}, \code{\link{mfd}}
+}

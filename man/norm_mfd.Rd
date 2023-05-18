@@ -15,3 +15,6 @@ The norm of the 'mfd' object
 \description{
 Compute the norm of an 'mfd' object
 }
+\seealso{
+\code{\link{basismfd}}, \code{\link{mfd}}
+}

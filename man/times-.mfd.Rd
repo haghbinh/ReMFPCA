@@ -17,3 +17,6 @@ The product of the two 'mfd' objects
 \description{
 Multiply two 'mfd' objects
 }
+\seealso{
+\code{\link{basismfd}}, \code{\link{mfd}}
+}

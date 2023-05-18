@@ -17,3 +17,6 @@ The difference between the two 'mfd' objects
 \description{
 Subtract two 'mfd' objects
 }
+\seealso{
+\code{\link{basismfd}}, \code{\link{mfd}}
+}

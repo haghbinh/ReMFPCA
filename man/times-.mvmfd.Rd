@@ -17,3 +17,6 @@ An mvmfd object
 \description{
 Multiplication of an mvmfd object with a scalar
 }
+\seealso{
+\code{\link{mvmfd}}
+}

@@ -11,13 +11,11 @@
 #' @field supp A list of matrices specifying the support of basis functions...
 #' @field gram A block diagonal matrix
 #'
-#'
-#' @examples
-#' x <- 1
+#
 #'
 #' @importFrom fda is.basis eval.basis
 #' @importFrom Matrix Matrix bdiag
-#'
+#' @seealso \code{\link{mvmfd}}
 #' @export
 mvbasismfd <- R6::R6Class("mvbasismfd",
   public = list(
@@ -159,3 +157,21 @@ eval_mvbasismf_validity_check <- function(evalarg, nvar) {
 #'
 #' @export
 Mvbasismfd <- function(basis) mvbasismfd$new(basis)
+
+#' 
+#' @param mvbasismfd_obj An 'mvmfd' object
+#' @param i An index or indices specifying the subsets to extract for the first dimension
+#' @return An 'mvbasismfd' object containing the specified subsets
+#' @export
+"[.mvbasismfd" <- function(mvbasismfd_obj, i = "index") {
+  if(max(i)> mvbasismfd_obj$nvar | min(i)<1) stop(" subscript i out of bounds")
+  if(length(i)==1){
+    return(mvbasismfd_obj$basis[[i]])
+  }else{
+    mvbasismfd_list <- list()
+    for(j in 1:length(i)) {
+      mvbasismfd_list[[j]] <- mvbasismfd_obj$basis[[j]]
+    }    
+    return(mvbasismfd$new(mvbasismfd_list))
+  }
+}

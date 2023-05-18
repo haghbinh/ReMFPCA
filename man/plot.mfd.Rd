@@ -35,3 +35,6 @@
 \description{
 Plot an 'mfd' object
 }
+\seealso{
+\code{\link{basismfd}}, \code{\link{mfd}}
+}

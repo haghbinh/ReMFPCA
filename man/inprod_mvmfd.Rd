@@ -17,3 +17,6 @@ A matrix of inner products
 \description{
 Inner product of two mvmfd objects
 }
+\seealso{
+\code{\link{mvmfd}}
+}

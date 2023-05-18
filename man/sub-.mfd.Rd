@@ -17,3 +17,6 @@ An 'mfd' object containing the specified subsets
 \description{
 Extract subsets of an 'mfd' object
 }
+\seealso{
+\code{\link{basismfd}}, \code{\link{mfd}}
+}
