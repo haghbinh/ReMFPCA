@@ -1,4 +1,4 @@
-#' A Class of Multivariate Multidimensional Basis Functions
+#' @title A Class of Multivariate Multidimensional Basis Functions
 #'
 #' @description
 #' The `mvbasismfd` class represents functional data ...
@@ -126,45 +126,17 @@ mvbasismfd <- R6::R6Class("mvbasismfd",
   )
 )
 #' @rdname mvbasismfd
+#' @seealso \code{\link{basismfd}}
 
-# Function to check the validity of initializer
-init_mvbasismfd_check <- function(basis) {
-  if (is.list(basis)) {
-    if (!all(sapply(basis, function(x) {
-      return(is.basis(x) | is.basismfd(x))
-    }))) {
-      stop("All the elements of basis list must be basisfd or basismfd object.")
-    }
-  }
-}
-
-# Function to check the validity of evaluation
-eval_mvbasismf_validity_check <- function(evalarg, nvar) {
-  if (!is.list(evalarg) & !is.numeric(evalarg)) {
-    stop("evalarg must be a list or numeric vector")
-  }
-  if (is.numeric(evalarg)) {
-    if (nvar != 1) {
-      stop("evalarg is allowed to be a numeric if nvar = 1.")
-    } else {
-      evalarg <- list(list(evalarg))
-    }
-  }
-  if (!all(sapply(evalarg, function(x) is.numeric(x) | is.list(x)))) {
-    stop("evalarg list elements must be a list or numeric vector")
-  }
-  if (length(evalarg) != nvar) {
-    stop("length of evalarg is not equal to nvar.")
-  }
-}
-
-#' Constructor for mvbasismfd objects
+#' @title Constructor for mvbasismfd objects
 #'
+#' @description
+#' Constructor for `mvbasismfd` objects (same as Mvbasismfd(...) )
 #' @param basis A list of basisfd objects
-#'
 #' @export
 Mvbasismfd <- function(basis) mvbasismfd$new(basis)
 #' @rdname mvbasismfd
+#' @seealso \code{\link{basismfd}}
 
 #' 
 #' @param mvbasismfd_obj An 'mvmfd' object

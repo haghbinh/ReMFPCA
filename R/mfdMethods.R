@@ -53,6 +53,7 @@ mean.mfd <- function(mfd_obj) {
 #' @param mfd_obj An 'mfd' object
 #' @return An 'mfd' object representing the standard deviation
 #' @seealso \code{\link{basismfd}}, \code{\link{mfd}}
+#' @importFrom stats sd
 #' @export
 sd.mfd <- function(mfd_obj) {
   cof <- apply(mfd_obj$coefs, 1, sd)

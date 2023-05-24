@@ -9,8 +9,13 @@ Basismfd(...)
 
 Basismfd(...)
 }
+\arguments{
+\item{...}{A list of `basisfd` objects}
+}
 \description{
 The basismfd class represents functional data with multidimensional basis functions.
+
+Constructor for `basismfd` objects (same as Basismfd(...) )
 }
 \examples{
 require(fda)

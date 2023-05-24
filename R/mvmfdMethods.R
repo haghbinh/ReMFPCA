@@ -1,9 +1,10 @@
-#' @title Addition of two mvmfd objects
+#'  Addition of two mvmfd objects
 #'
 #' @param obj1 An mvmfd object
 #' @param obj2 An optional mvmfd object
 #' @return An mvmfd object
 #' @seealso \code{\link{mvmfd}} 
+#' @importFrom graphics image axis par points matplot
 #' @export
 "+.mvmfd" <- function(obj1, obj2 = NULL) {
   if (is.null(obj2)) {
@@ -17,7 +18,7 @@
   return(Mvmfd(mvlist))
 }
 
-#' @title Subtraction of two mvmfd objects
+#'  Subtraction of two mvmfd objects
 #'
 #' @param obj1 An mvmfd object
 #' @param obj2 An optional mvmfd object
@@ -36,7 +37,7 @@
   return(Mvmfd(mvlist))
 }
 
-#' @title Multiplication of an mvmfd object with a scalar
+#'  Multiplication of an mvmfd object with a scalar
 #'
 #'
 #' @param obj1 An mvmfd object or a scalar
@@ -64,7 +65,7 @@
   return(Mvmfd(mvlist))
 }
 
-#' @title Extract subsets of an 'mvmfd' object
+#'  Extract subsets of an 'mvmfd' object
 #'
 #' @param mvmfd_obj An 'mvmfd' object
 #' @param i An index or indices specifying the subsets to extract for the first dimension
@@ -101,7 +102,7 @@
 }
 
 
-#' @title Plotting method for mvmfd objects
+#'  Plotting method for mvmfd objects
 #'
 #'
 #' @param mvmfd_obj An mvmfd object
@@ -123,7 +124,7 @@ plot.mvmfd <- function(mvmfd_obj, xlab = NULL, ylab = NULL, ...) {
   on.exit(options(old))
 }
 
-#' @title  Bivariate plot for mvmfd objects
+#'   Bivariate plot for mvmfd objects
 #'
 #' @param mvmfd_obj An mvmfd object
 #' @param type Type of plot ('l' for lines, 'p' for points, etc.)
@@ -146,7 +147,7 @@ bimfdplot <- function(mvmfd_obj, type = "l", lty = 1, xlab = "", ylab = "", main
   matplot(X, Y, type = type, lty = lty, xlab = xlab, ylab = ylab, main = main, ...)
 }
 
-#' @title Mean of each variable in an mvmfd object
+#'  Mean of each variable in an mvmfd object
 #'
 #'
 #' @param mvmfd_obj An mvmfd object
@@ -159,7 +160,7 @@ mean.mvmfd <- function(mvmfd_obj) {
   return(Mvmfd(mvlist))
 }
 
-#' @title Inner product of two mvmfd objects
+#'  Inner product of two mvmfd objects
 #'
 #' @export
 #'
@@ -179,7 +180,7 @@ inprod_mvmfd <- function(mvmfd_obj1, mvmfd_obj2) {
   return(inpr)
 }
 
-#' @title Norm of an mvmfd object
+#'  Norm of an mvmfd object
 #'
 #' @export
 #'

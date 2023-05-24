@@ -1,6 +1,6 @@
 #' @importFrom expm sqrtm
 #' @importFrom tidyr expand_grid
-
+#' @importFrom utils  txtProgressBar setTxtProgressBar
 eigen_approach <- function(mvmfd_obj, n, alpha, centerfns, penalty_type) {
   m.rep <- mvmfd_obj$nobs
   p <- mvmfd_obj$nvar

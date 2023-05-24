@@ -39,10 +39,6 @@
 #' @export
 mfd <- R6::R6Class("mfd",
   public = list(
-    #' @description
-    #' Constructor for `mfd` objects (same as Mfd(...) )
-    #' 
-    #' @usage Mfd(argval = NULL, X, mdbs, method = "data")
     #' @param argval A list of numeric vectors of argument values at which the `mfd` object is to be evaluated
     #' @param X A numeric matrix corresponds to basis expansion coefficients
     #' if `method="coefs"` and discrete observations if `method="data"`.
@@ -142,17 +138,19 @@ mfd <- R6::R6Class("mfd",
   )
 )
 #' @rdname mfd
+#' @seealso \code{\link{basismfd}}
 
-
-# a function to check the validity of initializer
-init_mfd_check <- function(argval, X, basis, method) {
-  stopifnot((is.numeric(argval)|is.list(argval)|is.null(argval)),
-            (is.matrix(X)|is.vector(X)),
-            (is.basismfd(basis)|is.basis(basis)),
-            (method=="coefs"|method=="data")
-  )
-}
-
+#' @title  A Class of Multidimensional Functional Data objects
+#'
+#' @description
+#' Constructor for `mfd` objects (same as Mfd(...) )
+#' 
+#' @param argval A list of numeric vectors of argument values at which the `mfd` object is to be evaluated
+#' @param X A numeric matrix corresponds to basis expansion coefficients
+#'        if `method="coefs"` and discrete observations if `method="data"`.
+#' @param mdbs a basismfd object
+#' @param method determine the `X` matrix type as "coefs" and "data".
 #' @export
 Mfd <- function(argval = NULL, X, mdbs, method = "data") mfd$new(argval, X, mdbs, method)
 #' @rdname mfd
+#' @seealso \code{\link{basismfd}}

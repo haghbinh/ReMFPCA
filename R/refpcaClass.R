@@ -8,7 +8,7 @@
 #' represents harmonics (Pcs) and  second indices represents valriables
 #' @field lsv = NULL,
 #' @field values = the set of eigenvalues
-#' @field alpha = The vector of \alpha[i]'s parameters
+#' @field alpha = The vector of penalties parameters
 #' @field GCVs = generalized cross validations
 #' @field mean_mfd a functional data object giving the mean function
 

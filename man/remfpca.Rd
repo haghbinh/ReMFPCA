@@ -89,7 +89,7 @@ represents harmonics (Pcs) and  second indices represents valriables}
 
 \item{\code{values}}{= the set of eigenvalues}
 
-\item{\code{alpha}}{= The vector of \alpha[i]'s parameters}
+\item{\code{alpha}}{= The vector of penalties parameters}
 
 \item{\code{GCVs}}{= generalized cross validations}
 

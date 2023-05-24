@@ -143,19 +143,16 @@ mvmfd <- R6::R6Class("mvmfd",
                      )
 )
 #' @rdname mvmfd
+#' @seealso \code{\link{mvbasismfd}}, \code{\link{mfd}}
 
-# A function to check the validity of initializer
-init_mfd_list_check <- function(mfd_list) {
-  if (!all(sapply(mfd_list, is.mfd))) {
-    stop("All the elements of the inputs list must have the class of `mfd`")
-  }
-  n <- mfd_list[[1]]$nobs
-  for (y in mfd_list) {
-    if (n != y$nobs) stop("The number of observations in all variables should be equal.")
-  }
-}
-
-
+#' @title A Class of Multidimensional Functional Data objects
+#'
+#' @description
+#' #' Constructor for `mvmfd` objects (same as Mvmfd(...) )
+#' 
+#' @usage Mvmfd(...)
+#' @param ... A `mfd` objects which have separated by comma
 #' @export
 Mvmfd <- function(...) mvmfd$new(...)
 #' @rdname mvmfd
+#' @seealso \code{\link{mvbasismfd}}, \code{\link{mfd}}

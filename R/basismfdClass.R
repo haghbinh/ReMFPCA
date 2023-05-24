@@ -153,36 +153,15 @@ basismfd <- R6::R6Class("basismfd",
 )
 #' @rdname basismfd
 #' 
+#' @description
+#'  Constructor for `basismfd` objects (same as Basismfd(...) )
+
+#' @title A Class of Multidimensional Basis Functions
+#' @param ... A list of `basisfd` objects
 #' @export
 Basismfd <- function(...) {
   basismfd$new(...)
 }
 #' @rdname basismfd
 
-#' Check the validity of the initializer
-#' @param basis A list of `basisfd` objects
-init_basismfd_check <- function(basis) {
-  if (!is.basis(basis) & is.list(basis)) {
-    if (!all(sapply(basis, is.basis))) {
-      stop("All elements of the basis list must be `basisfd` objects.")
-    }
-  }
-}
 
-#' Check the validity of the evaluation
-#' @param evalarg A list or numeric vector
-#' @param dimSupp Dimension of the `basismfd` object
-eval_basismf_validity_check <- function(evalarg, dimSupp) {
-  if (!is.list(evalarg) & !is.numeric(evalarg)) {
-    stop("evalarg must be a list or numeric vector.")
-  }
-  if (!all(sapply(evalarg, is.numeric))) {
-    stop("evalarg must be a list of numeric vectors.")
-  }
-  if (is.numeric(evalarg)) {
-    evalarg <- list(evalarg)
-  }
-  if (length(evalarg) != dimSupp) {
-    stop("Length of evalarg list must be equal to dimSupp.")
-  }
-}

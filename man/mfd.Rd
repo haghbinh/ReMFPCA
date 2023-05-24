@@ -2,15 +2,25 @@
 % Please edit documentation in R/mfdClass.R
 \name{mfd}
 \alias{mfd}
-\alias{init_mfd_check}
+\alias{Mfd}
 \title{A Class of Multidimensional Functional Data objects}
 \usage{
 Mfd(argval = NULL, X, mdbs, method = "data")
+}
+\arguments{
+\item{argval}{A list of numeric vectors of argument values at which the `mfd` object is to be evaluated}
 
-init_mfd_check(argval, X, basis, method)
+\item{X}{A numeric matrix corresponds to basis expansion coefficients
+if `method="coefs"` and discrete observations if `method="data"`.}
+
+\item{mdbs}{a basismfd object}
+
+\item{method}{determine the `X` matrix type as "coefs" and "data".}
 }
 \description{
 The `mfd` class represents class of multidimensional functional data.
+
+Constructor for `mfd` objects (same as Mfd(...) )
 }
 \examples{
 require(fda)
@@ -39,6 +49,9 @@ plot(mfd1)
 
 
 }
+\seealso{
+\code{\link{basismfd}}
+}
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
@@ -63,7 +76,6 @@ plot(mfd1)
 \if{html}{\out{<a id="method-mfd-new"></a>}}
 \if{latex}{\out{\hypertarget{method-mfd-new}{}}}
 \subsection{Method \code{new()}}{
-Constructor for `mfd` objects (same as Mfd(...) )
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{mfd$new(argval = NULL, X, mdbs, method = "data")}\if{html}{\out{</div>}}
 }

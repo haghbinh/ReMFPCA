@@ -2,15 +2,20 @@
 % Please edit documentation in R/mvmfdClass.R
 \name{mvmfd}
 \alias{mvmfd}
-\alias{init_mfd_list_check}
+\alias{Mvmfd}
 \title{A Class of Multidimensional Functional Data objects}
 \usage{
 Mvmfd(...)
 
-init_mfd_list_check(mfd_list)
+Mvmfd(...)
+}
+\arguments{
+\item{...}{A `mfd` objects which have separated by comma}
 }
 \description{
 The 'mvmfd' class represents functional data ...
+
+#' Constructor for `mvmfd` objects (same as Mvmfd(...) )
 }
 \examples{
 require(fda)
@@ -44,6 +49,8 @@ bimfdplot(mvmfd1)
 }
 \seealso{
 \code{\link{basismfd}}
+
+\code{\link{mvbasismfd}}, \code{\link{mfd}}
 }
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
