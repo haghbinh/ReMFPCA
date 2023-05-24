@@ -2,7 +2,13 @@
 % Please edit documentation in R/mvmfdClass.R
 \name{mvmfd}
 \alias{mvmfd}
+\alias{init_mfd_list_check}
 \title{A Class of Multidimensional Functional Data objects}
+\usage{
+Mvmfd(...)
+
+init_mfd_list_check(mfd_list)
+}
 \description{
 The 'mvmfd' class represents functional data ...
 }
@@ -11,13 +17,14 @@ require(fda)
 bs1 <- create.fourier.basis(c(0, 2 * pi), 5)
 bs2 <- create.bspline.basis(c(0, 1), 7)
 bs3 <- create.exponential.basis(c(0, 2), 3)
-argval1 <- seq(0,2*pi,len=12)
-X1 <- outer(sin(argval1),seq(0.5,1.5,len=nobs))
+nobs <- 10
+argval1 <- seq(0,2*pi,length.out=12)
+X1 <- outer(sin(argval1),seq(0.5,1.5,length.out=nobs))
 mdbs1 <- Basismfd(bs1)
 mfd1 <- Mfd(argval1,X1,mdbs1)
 mdbs2 <- Basismfd(bs1)
 argval2 <- argval1
-X2 <- outer(cos(argval2),seq(0.2,1.5,len=nobs))
+X2 <- outer(cos(argval2),seq(0.2,1.5,length.out=nobs))
 mfd2 <- Mfd(argval2,X2,mdbs1)
 mvmfd1 <- Mvmfd(mfd1,mfd2)
 mvmfd1[1]
@@ -45,9 +52,9 @@ bimfdplot(mvmfd1)
 
 \item{\code{coefs}}{A matrix with nrow = subjects and ncol = total number of basis ...}
 
-\item{\code{nobs}}{description}
+\item{\code{nobs}}{number of observation}
 
-\item{\code{nvar}}{description}
+\item{\code{nvar}}{number of variables}
 }
 \if{html}{\out{</div>}}
 }
@@ -64,6 +71,7 @@ bimfdplot(mvmfd1)
 \if{html}{\out{<a id="method-mvmfd-new"></a>}}
 \if{latex}{\out{\hypertarget{method-mvmfd-new}{}}}
 \subsection{Method \code{new()}}{
+#' Constructor for `mvmfd` objects (same as Mvmfd(...) )
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{mvmfd$new(...)}\if{html}{\out{</div>}}
 }
@@ -71,7 +79,7 @@ bimfdplot(mvmfd1)
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{...}}{A list of `mfd` objects}
+\item{\code{...}}{A `mfd` objects which have separated by comma}
 }
 \if{html}{\out{</div>}}
 }

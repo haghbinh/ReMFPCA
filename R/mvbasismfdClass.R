@@ -4,7 +4,7 @@
 #' The `mvbasismfd` class represents functional data ...
 #'
 #' An object of class "mvbasismfd" is a list containing the following elements:
-#' @field nvar description
+#' @field nvar number of variables
 #' @field basis A list of mvbasisfd objects
 #' @field dimSupp A sequence of positive integers specifying the dimension...
 #' @field nbasis A list of integers specifying the number of basis functions...
@@ -15,10 +15,15 @@
 #'
 #' @importFrom fda is.basis eval.basis
 #' @importFrom Matrix Matrix bdiag
-#' @seealso \code{\link{mvmfd}}
+#' @seealso \code{\link{mvmfd}}, \code{\link{basismfd}}
 #' @export
 mvbasismfd <- R6::R6Class("mvbasismfd",
   public = list(
+    #' @description
+    #' Constructor for `mvbasismfd` objects (same as Mvbasismfd(...) )
+    #' 
+    #' @usage Mvbasismfd(basis)
+    #' 
     #' @param basis A list of `basismfd` objects
     initialize = function(basis) {
       if (is.basis(basis) | is.basismfd(basis)) basis <- list(basis)
@@ -39,6 +44,7 @@ mvbasismfd <- R6::R6Class("mvbasismfd",
       private$.basis <- basis
     },
 
+    #' @description
     #' Evaluate the `mvbasismfd` object at given argument values
     #'
     #' @param evalarg A list of numeric vectors of argument values at which the `basismfd` is to be evaluated
@@ -119,6 +125,7 @@ mvbasismfd <- R6::R6Class("mvbasismfd",
     .gram = NULL
   )
 )
+#' @rdname mvbasismfd
 
 # Function to check the validity of initializer
 init_mvbasismfd_check <- function(basis) {
@@ -157,6 +164,7 @@ eval_mvbasismf_validity_check <- function(evalarg, nvar) {
 #'
 #' @export
 Mvbasismfd <- function(basis) mvbasismfd$new(basis)
+#' @rdname mvbasismfd
 
 #' 
 #' @param mvbasismfd_obj An 'mvmfd' object

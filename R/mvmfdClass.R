@@ -5,21 +5,22 @@
 #'
 #' @field basis A `basismfd` object
 #' @field coefs A matrix with nrow = subjects and ncol = total number of basis ...
-#' @field nobs description
-#' @field nvar description
+#' @field nobs number of observation
+#' @field nvar number of variables
 #' 
 #' @examples
 #' require(fda)
 #' bs1 <- create.fourier.basis(c(0, 2 * pi), 5)
 #' bs2 <- create.bspline.basis(c(0, 1), 7)
 #' bs3 <- create.exponential.basis(c(0, 2), 3)
-#' argval1 <- seq(0,2*pi,len=12)
-#' X1 <- outer(sin(argval1),seq(0.5,1.5,len=nobs))
+#' nobs <- 10
+#' argval1 <- seq(0,2*pi,length.out=12)
+#' X1 <- outer(sin(argval1),seq(0.5,1.5,length.out=nobs))
 #' mdbs1 <- Basismfd(bs1)
 #' mfd1 <- Mfd(argval1,X1,mdbs1)
 #' mdbs2 <- Basismfd(bs1)
 #' argval2 <- argval1
-#' X2 <- outer(cos(argval2),seq(0.2,1.5,len=nobs))
+#' X2 <- outer(cos(argval2),seq(0.2,1.5,length.out=nobs))
 #' mfd2 <- Mfd(argval2,X2,mdbs1)
 #' mvmfd1 <- Mvmfd(mfd1,mfd2)
 #' mvmfd1[1]
@@ -43,13 +44,16 @@
 #' @export
 mvmfd <- R6::R6Class("mvmfd",
                      public = list(
-                       #' @param ... A list of `mfd` objects
+                       #' @description
+                       #' #' Constructor for `mvmfd` objects (same as Mvmfd(...) )
+                       #' 
+                       #' @usage Mvmfd(...)
+                       #' @param ... A `mfd` objects which have separated by comma
                        #'
                        initialize = function(...) {
                          mfd_list <- list(...)
                          if (is.list(mfd_list[[1]])) mfd_list <- mfd_list[[1]]
-                         # if (is.mfd(mfd_list)) mfd_list <- list(mfd_list)
-                         init_mvmfd_check(mfd_list)
+                         init_mfd_list_check(mfd_list)
                          basis_list <- list()
                          private$.nobs <- mfd_list[[1]]$nobs
                          private$.nvar <- length(mfd_list)
@@ -67,7 +71,6 @@ mvmfd <- R6::R6Class("mvmfd",
                        #' @param evalarg A list of numeric vectors of argument values at which the `mvmfd` is to be evaluated.
                        #' @return A list of evaluated values
                        eval = function(evalarg) {
-                         eval_mvmfd_validity_check(evalarg)
                          Bmat <- private$.basis$eval(evalarg)
                          Xhat <- list()
                          for (i in 1:private$.nvar) {
@@ -139,9 +142,10 @@ mvmfd <- R6::R6Class("mvmfd",
                        .nvar = NULL
                      )
 )
+#' @rdname mvmfd
 
 # A function to check the validity of initializer
-init_mvmfd_check <- function(mfd_list) {
+init_mfd_list_check <- function(mfd_list) {
   if (!all(sapply(mfd_list, is.mfd))) {
     stop("All the elements of the inputs list must have the class of `mfd`")
   }
@@ -151,10 +155,7 @@ init_mvmfd_check <- function(mfd_list) {
   }
 }
 
-# A function to check the validity of evaluation
-eval_mvmfd_validity_check <- function(evalarg, dimSupp) {
-  x <- 1
-}
 
 #' @export
 Mvmfd <- function(...) mvmfd$new(...)
+#' @rdname mvmfd

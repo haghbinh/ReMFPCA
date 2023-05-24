@@ -15,8 +15,8 @@ I_alpha <- function(data, lambda) {
 }
 
 
-GCVs_rc <- function(data, G, B_tilde, penalty, p, v, lambda) {
-  s_alpha_tilde <- G_half %*% solve(G + I_alpha(data, lambda) %*% penalty) %*% G_half
-  gcv_score <- (sum(((diag(dim(s_alpha_tilde)[1]) - s_alpha_tilde) %*% (t(B_tilde) %*% v))^2) / ((1 - sum(diag(s_alpha_tilde)) / dim(G)[1])^2)) / dim(G)[1]
-  return(gcv_score)
-}
+# GCVs_rc <- function(data, G, G_half, B_tilde, penalty, p, v, lambda) {
+#   s_alpha_tilde <- G_half %*% solve(G + I_alpha(data, lambda) %*% penalty) %*% G_half
+#   gcv_score <- (sum(((diag(dim(s_alpha_tilde)[1]) - s_alpha_tilde) %*% (t(B_tilde) %*% v))^2) / ((1 - sum(diag(s_alpha_tilde)) / dim(G)[1])^2)) / dim(G)[1]
+#   return(gcv_score)
+# }

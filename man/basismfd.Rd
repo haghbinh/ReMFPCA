@@ -2,8 +2,11 @@
 % Please edit documentation in R/basismfdClass.R
 \name{basismfd}
 \alias{basismfd}
+\alias{Basismfd}
 \title{A Class of Multidimensional Basis Functions}
 \usage{
+Basismfd(...)
+
 Basismfd(...)
 }
 \description{

@@ -16,7 +16,7 @@
 #' #1-D mfd :_____________________________
 #' argval <- seq(0,2*pi,length.out=100)
 #' nobs <- 10;
-#' X <- outer(sin(argval),seq(0.5,1.5,len=nobs))
+#' X <- outer(sin(argval),seq(0.5,1.5,length.out=nobs))
 #' mdbs1 <- Basismfd(bs1)
 #' mfd1 <- Mfd(X=X, mdbs = mdbs1)
 #' inprod_mfd(mfd1,mfd1)
@@ -39,7 +39,10 @@
 #' @export
 mfd <- R6::R6Class("mfd",
   public = list(
-    #'
+    #' @description
+    #' Constructor for `mfd` objects (same as Mfd(...) )
+    #' 
+    #' @usage Mfd(argval = NULL, X, mdbs, method = "data")
     #' @param argval A list of numeric vectors of argument values at which the `mfd` object is to be evaluated
     #' @param X A numeric matrix corresponds to basis expansion coefficients
     #' if `method="coefs"` and discrete observations if `method="data"`.
@@ -138,6 +141,7 @@ mfd <- R6::R6Class("mfd",
     .nobs = NULL
   )
 )
+#' @rdname mfd
 
 
 # a function to check the validity of initializer
@@ -151,3 +155,4 @@ init_mfd_check <- function(argval, X, basis, method) {
 
 #' @export
 Mfd <- function(argval = NULL, X, mdbs, method = "data") mfd$new(argval, X, mdbs, method)
+#' @rdname mfd

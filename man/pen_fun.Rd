@@ -7,15 +7,15 @@
 pen_fun(data, devorder = 2, type)
 }
 \arguments{
-\item{data}{The data object.}
+\item{data}{an object of class `mvmfd`.}
 
 \item{devorder}{The order of the derivative.}
 
-\item{type}{The type of penalty.}
+\item{type}{The type of penalty. The types "coefpen" and "basispen" is supported.}
 }
 \value{
 The penalty matrix.
 }
 \description{
-Calculate the penalty matrix for data.
+Calculate the penalty matrix for mvmfd objects.
 }

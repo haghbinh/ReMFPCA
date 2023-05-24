@@ -2,7 +2,13 @@
 % Please edit documentation in R/mfdClass.R
 \name{mfd}
 \alias{mfd}
+\alias{init_mfd_check}
 \title{A Class of Multidimensional Functional Data objects}
+\usage{
+Mfd(argval = NULL, X, mdbs, method = "data")
+
+init_mfd_check(argval, X, basis, method)
+}
 \description{
 The `mfd` class represents class of multidimensional functional data.
 }
@@ -15,7 +21,7 @@ bs3 <- create.exponential.basis(c(0,2),3)
 #1-D mfd :_____________________________
 argval <- seq(0,2*pi,length.out=100)
 nobs <- 10;
-X <- outer(sin(argval),seq(0.5,1.5,len=nobs))
+X <- outer(sin(argval),seq(0.5,1.5,length.out=nobs))
 mdbs1 <- Basismfd(bs1)
 mfd1 <- Mfd(X=X, mdbs = mdbs1)
 inprod_mfd(mfd1,mfd1)
@@ -57,6 +63,7 @@ plot(mfd1)
 \if{html}{\out{<a id="method-mfd-new"></a>}}
 \if{latex}{\out{\hypertarget{method-mfd-new}{}}}
 \subsection{Method \code{new()}}{
+Constructor for `mfd` objects (same as Mfd(...) )
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{mfd$new(argval = NULL, X, mdbs, method = "data")}\if{html}{\out{</div>}}
 }

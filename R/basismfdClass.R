@@ -151,11 +151,13 @@ basismfd <- R6::R6Class("basismfd",
     .gram = NULL
   )
 )
-
+#' @rdname basismfd
+#' 
 #' @export
 Basismfd <- function(...) {
   basismfd$new(...)
 }
+#' @rdname basismfd
 
 #' Check the validity of the initializer
 #' @param basis A list of `basisfd` objects

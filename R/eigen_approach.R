@@ -1,17 +1,7 @@
-#' Eigen Approach
-#'
-#' Perform eigen approach for mvmfd_obj.
-#'
-#' @param mvmfd_obj The mvmfd object.
-#' @param alpha The alpha parameter.
-#' @param n The number of iterations.
-#' @param centerfns Logical indicating whether to center functions.
-#' @param penalty_type The type of penalty.
-#' @return A list containing the results.
 #' @importFrom expm sqrtm
 #' @importFrom tidyr expand_grid
 
-eigen_approach <- function(mvmfd_obj, alpha, n, centerfns, penalty_type) {
+eigen_approach <- function(mvmfd_obj, n, alpha, centerfns, penalty_type) {
   m.rep <- mvmfd_obj$nobs
   p <- mvmfd_obj$nvar
   if (is.null(alpha)) {
@@ -23,10 +13,10 @@ eigen_approach <- function(mvmfd_obj, alpha, n, centerfns, penalty_type) {
     gcv_row <- length(alpha[[1]])
     gcv_column <- length(alpha[[2]])
   }
-  alpha <- expand_grid(alpha)
+  alpha <- tidyr::expand_grid(!!!alpha) #The operator !!! unquotes and splices a list, allowing you to expand the elements of a list into individual arguments
   penalty <- pen_fun(mvmfd_obj, type = penalty_type)
   G <- as.matrix(mvmfd_obj$basis$gram)
-  G_half <- sqrtm(G)
+  G_half <- expm::sqrtm(G)
 
   B <- c()
   B_c <- c()

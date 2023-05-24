@@ -1,5 +1,6 @@
-#' Plotting Method for remfpca Objects
+#' @title Plotting Method for remfpca Objects
 #'
+#' @description
 #' This function generates plots for remfpca objects, showing the functional principal components
 #' and the corresponding variability for each variable.
 #'
