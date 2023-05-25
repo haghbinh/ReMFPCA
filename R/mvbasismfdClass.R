@@ -132,6 +132,8 @@ mvbasismfd <- R6::R6Class("mvbasismfd",
 #'
 #' @description
 #' Constructor for `mvbasismfd` objects (same as Mvbasismfd(...) )
+#'
+#' @import R6
 #' @param basis A list of basisfd objects
 #' @export
 Mvbasismfd <- function(basis) mvbasismfd$new(basis)

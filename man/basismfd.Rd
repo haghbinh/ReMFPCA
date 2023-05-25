@@ -41,7 +41,6 @@ mdbs2$gram
 arg_mdbs <- list(1:10, 1:9 / 10)
 mdbs2$eval(arg_mdbs)
 image(as.matrix(mdbs2$gram))
-
 }
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}

@@ -19,8 +19,7 @@
 #'
 #' @return None
 #'
-#' @export
-plot.remfpca <- function(remfpca_obj, comp_index = NULL, var_index = NULL, ask = TRUE, expand = NULL, nx = 100, xlab = NULL, ylab = NULL, ...) {
+plot_remfpca <- function(remfpca_obj, comp_index = NULL, var_index = NULL, ask = TRUE, expand = NULL, nx = 100, xlab = NULL, ylab = NULL, ...) {
   if (!(inherits(remfpca_obj, "remfpca"))) stop("Argument 'remfpca_obj' is not a remfpca object.")
   percentvar <- round(100 * (remfpca_obj$values) / sum(remfpca_obj$values), 1)
   mean_mfd <- remfpca_obj$mean_mfd
