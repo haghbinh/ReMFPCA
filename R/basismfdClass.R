@@ -33,7 +33,7 @@
 #' mdbs2$eval(arg_mdbs)
 #' image(as.matrix(mdbs2$gram))
 
-#'
+#' @import R6
 #' @importFrom fda is.basis eval.basis inprod
 #' @importFrom Matrix Matrix
 #' @export

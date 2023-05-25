@@ -47,7 +47,6 @@ length(mfd1)
 mean(mfd1)
 plot(mfd1)
 
-
 }
 \seealso{
 \code{\link{basismfd}}
@@ -76,6 +75,7 @@ plot(mfd1)
 \if{html}{\out{<a id="method-mfd-new"></a>}}
 \if{latex}{\out{\hypertarget{method-mfd-new}{}}}
 \subsection{Method \code{new()}}{
+Constructor for `mfd` objects (same as Mfd(...) )
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{mfd$new(argval = NULL, X, mdbs, method = "data")}\if{html}{\out{</div>}}
 }
@@ -127,10 +127,7 @@ Print method for `mfd` objects
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{...}}{Additional arguments to be passed to `print`
-Getter and setter for `basis` field
-Getter and setter for `coefs` field
-Getter and setter for `nobs` field}
+\item{\code{...}}{Additional arguments to be passed to `print`}
 }
 \if{html}{\out{</div>}}
 }

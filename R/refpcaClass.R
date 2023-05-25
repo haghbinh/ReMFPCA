@@ -45,9 +45,6 @@
 #' FPC_1 <- Mfd(X=PC_1, mdbs = mdbs)
 #' FPC_2 <- Mfd(X=PC_2, mdbs = mdbs)
 #' FPC_obj <- Mvmfd(FPC_1,FPC_2)
-#' plot(mvmfd_obj,main = 'Observations')
-#' bimfdplot(mvmfd_obj,lwd=2,xlab='Var 1',ylab='Var 2')
-
 #________________________________________________________________________________________
 
 #' k <- 2
@@ -59,7 +56,7 @@
 
 
 
-#'
+#' @import R6
 #' @importFrom fda getbasispenalty
 #' @importFrom Matrix bdiag
 #' @importFrom expm sqrtm

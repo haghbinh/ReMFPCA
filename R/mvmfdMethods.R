@@ -1,3 +1,38 @@
+#' @title Mean of each variable in an mvmfd object
+#' @description
+#'  Mean of each variable in an mvmfd object
+#'
+#' @param mvmfd_obj An mvmfd object
+#' @return An mvmfd object
+#' @seealso \code{\link{mvbasismfd}}, \code{\link{mvmfd}}
+mean_mvmfd <- function(mvmfd_obj) {
+  p <- mvmfd_obj$nvar
+  mvlist <- lapply(1:p, function(j) mean(mvmfd_obj[, j]))
+  return(Mvmfd(mvlist))
+}
+
+#' @title  Plotting method for mvmfd objects
+#' @description
+#'   Plotting method for mvmfd objects
+
+#' @seealso \code{\link{mvbasismfd}}, \code{\link{mvmfd}}
+#' @param mvmfd_obj An mvmfd object
+#' @param xlab Label for the x-axis
+#' @param ylab Label for the y-axis
+#' @param ... Additional arguments for the plot function
+plot_mvmfd <- function(mvmfd_obj, xlab = NULL, ylab = NULL, ...) {
+  old <- par(no.readonly = TRUE, mfrow = c(1, 1))
+  p <- mvmfd_obj$nvar
+  par(mfrow = c(p, 1))
+  if (is.null(ylab)) ylab <- paste("Variable ", 1:p)
+  if (is.null(xlab)) xlab <- rep("time", p)
+  for (i in 1:p) {
+    plot(mvmfd_obj[, i], ylab = ylab[i], xlab = xlab[i], ...)
+  }
+  par(mfrow = c(1, 1))
+  on.exit(options(old))
+}
+
 #'  Addition of two mvmfd objects
 #'
 #' @param obj1 An mvmfd object
@@ -102,28 +137,6 @@
 }
 
 
-#'  Plotting method for mvmfd objects
-#'
-#'
-#' @param mvmfd_obj An mvmfd object
-#' @param xlab Label for the x-axis
-#' @param ylab Label for the y-axis
-#' @param ... Additional arguments for the plot function
-#' @seealso \code{\link{mvmfd}} 
-#' @export
-plot.mvmfd <- function(mvmfd_obj, xlab = NULL, ylab = NULL, ...) {
-  old <- par(no.readonly = TRUE, mfrow = c(1, 1))
-  p <- mvmfd_obj$nvar
-  par(mfrow = c(p, 1))
-  if (is.null(ylab)) ylab <- paste("Variable ", 1:p)
-  if (is.null(xlab)) xlab <- rep("time", p)
-  for (i in 1:p) {
-    plot(mvmfd_obj[, i], ylab = ylab[i], xlab = xlab[i], ...)
-  }
-  par(mfrow = c(1, 1))
-  on.exit(options(old))
-}
-
 #'   Bivariate plot for mvmfd objects
 #'
 #' @param mvmfd_obj An mvmfd object
@@ -147,18 +160,6 @@ bimfdplot <- function(mvmfd_obj, type = "l", lty = 1, xlab = "", ylab = "", main
   matplot(X, Y, type = type, lty = lty, xlab = xlab, ylab = ylab, main = main, ...)
 }
 
-#'  Mean of each variable in an mvmfd object
-#'
-#'
-#' @param mvmfd_obj An mvmfd object
-#' @return An mvmfd object
-#' @seealso \code{\link{mvmfd}} 
-#' @export
-mean.mvmfd <- function(mvmfd_obj) {
-  p <- mvmfd_obj$nvar
-  mvlist <- lapply(1:p, function(j) mean(mvmfd_obj[, j]))
-  return(Mvmfd(mvlist))
-}
 
 #'  Inner product of two mvmfd objects
 #'
@@ -190,3 +191,4 @@ inprod_mvmfd <- function(mvmfd_obj1, mvmfd_obj2) {
 norm_mvmfd <- function(mvmfd_obj) {
   return(as.numeric(sqrt(inprod_mvmfd(mvmfd_obj, mvmfd_obj))))
 }
+

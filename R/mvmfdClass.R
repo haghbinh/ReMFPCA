@@ -2,7 +2,7 @@
 #'
 #' @description
 #' The 'mvmfd' class represents functional data ...
-#'
+
 #' @field basis A `basismfd` object
 #' @field coefs A matrix with nrow = subjects and ncol = total number of basis ...
 #' @field nobs number of observation
@@ -37,17 +37,15 @@
 #' plot(mvmfd1)
 #' bimfdplot(mvmfd1)
 #' 
-#' @seealso \code{\link{basismfd}} 
-#' 
+#' @import R6
 #' @importFrom fda is.basis eval.basis Data2fd
 #'
 #' @export
 mvmfd <- R6::R6Class("mvmfd",
                      public = list(
                        #' @description
-                       #' #' Constructor for `mvmfd` objects (same as Mvmfd(...) )
+                       #' Constructor for `mvmfd` objects (same as Mvmfd(...) )
                        #' 
-                       #' @usage Mvmfd(...)
                        #' @param ... A `mfd` objects which have separated by comma
                        #'
                        initialize = function(...) {
@@ -83,7 +81,6 @@ mvmfd <- R6::R6Class("mvmfd",
                          }
                          return(Xhat)
                        },
-                       
                        #' @description
                        #' Print method for `mvmfd` objects
                        #'
@@ -145,14 +142,11 @@ mvmfd <- R6::R6Class("mvmfd",
 #' @rdname mvmfd
 #' @seealso \code{\link{mvbasismfd}}, \code{\link{mfd}}
 
-#' @title A Class of Multidimensional Functional Data objects
+#' @title A Class of Multivariate Multidimensional Functional Data objects
 #'
 #' @description
-#' #' Constructor for `mvmfd` objects (same as Mvmfd(...) )
+#' Constructor for `mvmfd` objects (same as Mvmfd(...) )
 #' 
-#' @usage Mvmfd(...)
 #' @param ... A `mfd` objects which have separated by comma
 #' @export
 Mvmfd <- function(...) mvmfd$new(...)
-#' @rdname mvmfd
-#' @seealso \code{\link{mvbasismfd}}, \code{\link{mfd}}

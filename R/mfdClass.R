@@ -33,12 +33,15 @@
 #' mean(mfd1)
 #' plot(mfd1)
 #' 
-#'
+#' @import R6
 #' @importFrom fda is.basis eval.basis Data2fd
-#'
+#' @importFrom stats sd
 #' @export
 mfd <- R6::R6Class("mfd",
   public = list(
+    #' @description
+        #' Constructor for `mfd` objects (same as Mfd(...) )
+        #' 
     #' @param argval A list of numeric vectors of argument values at which the `mfd` object is to be evaluated
     #' @param X A numeric matrix corresponds to basis expansion coefficients
     #' if `method="coefs"` and discrete observations if `method="data"`.
@@ -106,7 +109,7 @@ mfd <- R6::R6Class("mfd",
     }
   ),
   active = list(
-    #' Getter and setter for `basis` field
+    # Getter and setter for `basis` field
     basis = function(value) {
       if (missing(value)) {
         private$.basis
@@ -114,7 +117,7 @@ mfd <- R6::R6Class("mfd",
         stop("`$basis` is read only", call. = FALSE)
       }
     },
-    #' Getter and setter for `coefs` field
+    # Getter and setter for `coefs` field
     coefs = function(value) {
       if (missing(value)) {
         array(private$.coefs, c(unlist(private$.basis$nbasis), private$.nobs))
@@ -122,7 +125,7 @@ mfd <- R6::R6Class("mfd",
         stop("`$coefs` is read only", call. = FALSE)
       }
     },
-    #' Getter and setter for `nobs` field
+    # Getter and setter for `nobs` field
     nobs = function(value) {
       if (missing(value)) {
         private$.nobs
@@ -137,14 +140,14 @@ mfd <- R6::R6Class("mfd",
     .nobs = NULL
   )
 )
-#' @rdname mfd
-#' @seealso \code{\link{basismfd}}
 
-#' @title  A Class of Multidimensional Functional Data objects
-#'
+#' @title A Class of Multidimensional Functional Data objects
+
 #' @description
 #' Constructor for `mfd` objects (same as Mfd(...) )
 #' 
+#' @rdname mfd
+#' @seealso \code{\link{basismfd}}
 #' @param argval A list of numeric vectors of argument values at which the `mfd` object is to be evaluated
 #' @param X A numeric matrix corresponds to basis expansion coefficients
 #'        if `method="coefs"` and discrete observations if `method="data"`.
@@ -152,5 +155,3 @@ mfd <- R6::R6Class("mfd",
 #' @param method determine the `X` matrix type as "coefs" and "data".
 #' @export
 Mfd <- function(argval = NULL, X, mdbs, method = "data") mfd$new(argval, X, mdbs, method)
-#' @rdname mfd
-#' @seealso \code{\link{basismfd}}

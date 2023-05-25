@@ -1,14 +1,26 @@
-#' @title Length of an 'mfd' object
+#' @title Compute the mean deviation of an 'mfd' object
 #'
 #' @param mfd_obj An 'mfd' object
-#' @return The number of observations in the 'mfd' object
+#' @return An 'mfd' object
 #' @seealso \code{\link{basismfd}}, \code{\link{mfd}}
-#' @export
-length.mfd <- function(mfd_obj) {
-  return(mfd_obj$nobs)
+mean_mfd <- function(mfd_obj) {
+  cof <- apply(mfd_obj$coefs, 1, mean)
+  bs <- mfd_obj$basis
+  return(Mfd(X = cof, mdbs = bs, method = "coefs"))
 }
-
-#' @title Plot an 'mfd' object
+#' @title Compute the standard deviation of an 'mfd' object
+#'
+#' @param mfd_obj An 'mfd' object
+#' @seealso \code{\link{basismfd}}, \code{\link{mfd}}
+sd_mfd <- function(mfd_obj) {
+  cof <- apply(mfd_obj$coefs, 1, sd)
+  bs <- mfd_obj$basis
+  return(Mfd(X = cof, mdbs = bs, method = "coefs"))
+}
+#' @title plot an 'mfd' object
+#'
+#' @description
+#' plot an 'mfd' object
 #'
 #' @param mfd_obj An 'mfd' object
 #' @param obs Observation number to plot (default: 1)
@@ -19,8 +31,7 @@ length.mfd <- function(mfd_obj) {
 #' @param lty Line type (default: 1)
 #' @param ... Additional arguments passed to the plot function
 #' @seealso \code{\link{basismfd}}, \code{\link{mfd}}
-#' @export
-plot.mfd <- function(mfd_obj, obs = 1, xlab = "", ylab = "", main = "", type = "l", lty = 1, ...) {
+plot_mfd <- function(mfd_obj, obs = 1, xlab = "", ylab = "", main = "", type = "l", lty = 1, ...) {
   dimSupp <- mfd_obj$basis$dimSupp
   supp <- mfd_obj$basis$supp
   x_grids <- seq(supp[1, 1], supp[2, 1], len = 1000)
@@ -28,38 +39,81 @@ plot.mfd <- function(mfd_obj, obs = 1, xlab = "", ylab = "", main = "", type = "
     X <- mfd_obj$eval(x_grids)
     matplot(x_grids, X, type = type, lty = lty, xlab = xlab, ylab = ylab, main = main, ...)
   } else {
-    y_grids <- seq(supp[1, 2], supp[2, 2], len = 100)
+    y_grids <- seq(from = supp[1, 2], to =supp[2, 2], length.out = 100)
     X <- mfd_obj$eval(list(x_grids, y_grids))[, , obs]
     image(X, xlab = xlab, ylab = ylab, axes = FALSE, main = paste(main, " Observation:", obs))
-    axis(side = 1, at = seq(0, 1, len = 10), labels = round(seq(supp[1, 1], supp[2, 1], len = 10), 1))
-    axis(side = 2, at = seq(0, 1, len = 10), labels = round(seq(supp[1, 2], supp[2, 2], len = 10), 1))
+    axis(side = 1, at = seq(from =0, to =1, length.out = 10), labels = round(seq(supp[1, 1], supp[2, 1], len = 10), 1))
+    axis(side = 2, at = seq(from =0, to =1, length.out = 10), labels = round(seq(supp[1, 2], supp[2, 2], len = 10), 1))
   }
 }
 
-#' @title Compute the mean of an 'mfd' object
+#' @title Length of an object of classes `mfd`or `mvmfd`.
 #'
-#' @param mfd_obj An 'mfd' object
-#' @return An 'mfd' object representing the mean
-#' @seealso \code{\link{basismfd}}, \code{\link{mfd}}
+#' @description
+#' Length of an object of an object of classes `mfd` or `mvmfd`.
+#'
+#' @param x An object of classes `mfd` or `mvmfd`.
+#' @param ... all `length` function arguments.
 #' @export
-mean.mfd <- function(mfd_obj) {
-  cof <- apply(mfd_obj$coefs, 1, mean)
-  bs <- mfd_obj$basis
-  return(Mfd(X = cof, mdbs = bs, method = "coefs"))
+length <- function(x, ...) {
+  if (inherits(x, c("mfd", "mvmfd"))) {
+    return(x$nobs)
+  } else {
+    return(base::length(x, ...))
+  }
 }
 
-#' @title Compute the standard deviation of an 'mfd' object
+#' @title plots an object of classes `mfd`, `mvmfd` or `remfpca`
 #'
-#' @param mfd_obj An 'mfd' object
-#' @return An 'mfd' object representing the standard deviation
-#' @seealso \code{\link{basismfd}}, \code{\link{mfd}}
-#' @importFrom stats sd
+#' @description
+#' plot an object of classes `mfd`, `mvmfd` or `remfpca`
+#' @param x An object of classes `mfd`, `mvmfd` or `remfpca`
+#' @param ... all `plot` function arguments.
 #' @export
-sd.mfd <- function(mfd_obj) {
-  cof <- apply(mfd_obj$coefs, 1, sd)
-  bs <- mfd_obj$basis
-  return(Mfd(X = cof, mdbs = bs, method = "coefs"))
+plot <- function(x, ...) {
+  if (inherits(x, "mfd")) {
+    return(plot_mfd(x, ...))
+  } else if (inherits(x, "mvmfd")) {
+    return(plot_mvmfd(x, ...))
+  } else if (inherits(x, "remfpca")) {
+    return(plot_remfpca(x, ...))
+  } else {
+    return(base::plot(x, ...))
+  }
 }
+
+#' @title mean of an object of classes `mfd`or `mvmfd`.
+#'
+#' @description
+#' mean of an object of classes `mfd`or `mvmfd`.
+#' @param x An object of classes `mfd` or `mvmfd`.
+#' @param ... all `mean` function arguments.
+#' @export
+mean <- function(x, ...) {
+  if (inherits(x,"mfd")) {
+    return(mean_mfd(x))
+  } else if(inherits(x, "mvmfd")) {
+    return(mean_mvmfd(x))
+  } else {
+    return(base::mean(x, ...))
+  }
+}
+
+#' @title sd of an object of classes `mfa`.
+#'
+#' @description
+#' sdof an object of classes `mfd`.
+#' @param x An object of classes `mfd`, `mvmfd`.
+#' @param ... all `sd` function arguments.
+#' @export
+sd <- function(x, ...) {
+  if (inherits(x, "mfd")) {
+    return(sd_mfd(x))
+  } else {
+    return(stats::sd(x, ...))
+  }
+}
+
 
 #' @title Compute the inner product between two 'mfd' objects
 #'
@@ -191,12 +245,12 @@ norm_mfd <- function(mfd_obj) {
 #' @seealso \code{\link{basismfd}}, \code{\link{mfd}}
 #' @export
 "[.mfd" <- function(mfd_obj, i = "index") {
-  if(is.null(i)) i <- 1:mfd_obj$nobs
+  if (is.null(i)) i <- 1:mfd_obj$nobs
   if (max(i) > mfd_obj$nobs | min(i) < 1) stop(" subscript i out of bounds")
   bs <- mfd_obj$basis$clone()
-  if(mfd_obj$basis$dimSupp==1){
+  if (mfd_obj$basis$dimSupp == 1) {
     coef <- mfd_obj$coefs[, i]
-  }else{
+  } else {
     coef <- mfd_obj$coefs[, , i]
   }
   return(mfd$new(X = coef, mdbs = bs, method = "coefs"))

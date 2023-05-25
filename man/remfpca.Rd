@@ -66,15 +66,12 @@ mvmfd_obj <- Mvmfd(mfd1,mfd2)
 FPC_1 <- Mfd(X=PC_1, mdbs = mdbs)
 FPC_2 <- Mfd(X=PC_2, mdbs = mdbs)
 FPC_obj <- Mvmfd(FPC_1,FPC_2)
-plot(mvmfd_obj,main = 'Observations')
-bimfdplot(mvmfd_obj,lwd=2,xlab='Var 1',ylab='Var 2')
 k <- 2
 Re0 <- Remfpca(mvmfd_obj, ncomp=k,alpha=c(0,0))
 fpc0 <- Re0$pc_mfd
 coefs0 <- inprod_mvmfd(mvmfd_obj,fpc0)
 
 remfpca_obj <- Remfpca(mvmfd_obj, ncomp=3)
-
 }
 \seealso{
 \code{\link{Remfpca}}, \code{\link{mvmfd}}
