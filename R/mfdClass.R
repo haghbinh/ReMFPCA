@@ -1,10 +1,13 @@
-#' @title  A Class of Multidimensional Functional Data objects
+#' @title  Define a Set of Multidimensional Functional Data objects
 #'
 #' @description
-#' The `mfd` class represents class of multidimensional functional data.
-#'
-#' @field basis an object of the class basismfd or fda::bsaia,
-#' @field coefs  record vetorized of the coefs
+#' The `mfd` class represents a set of multidimensional functional data with 
+#' `basismfd` object. Functional data objects are constructed by 
+#' specifying a set of basis functions and a set of coefficients defining a 
+#' linear combination of these basis functions. 
+#' 
+#' @field basis an object of the class `basismfd`.
+#' @field coefs  a matrix of the coefficients.
 #' @field nobs number of the observation
 #'
 #' @examples

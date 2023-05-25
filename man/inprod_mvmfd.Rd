@@ -7,9 +7,9 @@
 inprod_mvmfd(mvmfd_obj1, mvmfd_obj2)
 }
 \arguments{
-\item{mvmfd_obj1}{An mvmfd object}
+\item{mvmfd_obj1}{An `mvmfd` object}
 
-\item{mvmfd_obj2}{An mvmfd object}
+\item{mvmfd_obj2}{An `mvmfd` object}
 }
 \value{
 A matrix of inner products

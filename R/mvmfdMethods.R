@@ -11,9 +11,9 @@ mean_mvmfd <- function(mvmfd_obj) {
   return(Mvmfd(mvlist))
 }
 
-#' @title  Plotting method for mvmfd objects
+#' @title  Plotting `mvmfd` objects
 #' @description
-#'   Plotting method for mvmfd objects
+#'   Plotting  `mvmfd` objects
 
 #' @seealso \code{\link{mvbasismfd}}, \code{\link{mvmfd}}
 #' @param mvmfd_obj An mvmfd object
@@ -33,12 +33,12 @@ plot_mvmfd <- function(mvmfd_obj, xlab = NULL, ylab = NULL, ...) {
   on.exit(options(old))
 }
 
-#'  Addition of two mvmfd objects
+#'  Addition of two `mvmfd` objects
 #'
-#' @param obj1 An mvmfd object
-#' @param obj2 An optional mvmfd object
-#' @return An mvmfd object
-#' @seealso \code{\link{mvmfd}} 
+#' @param obj1 An `mvmfd` object
+#' @param obj2 An optional `mvmfd` object
+#' @return An `mvmfd` object
+#' @seealso \code{\link{mvmfd}}
 #' @importFrom graphics image axis par points matplot
 #' @export
 "+.mvmfd" <- function(obj1, obj2 = NULL) {
@@ -53,12 +53,12 @@ plot_mvmfd <- function(mvmfd_obj, xlab = NULL, ylab = NULL, ...) {
   return(Mvmfd(mvlist))
 }
 
-#'  Subtraction of two mvmfd objects
+#'  Subtraction of two `mvmfd` objects
 #'
-#' @param obj1 An mvmfd object
-#' @param obj2 An optional mvmfd object
-#' @return An mvmfd object
-#' @seealso \code{\link{mvmfd}} 
+#' @param obj1 An `mvmfd` object
+#' @param obj2 An optional `mvmfd` object
+#' @return An `mvmfd` object
+#' @seealso \code{\link{mvmfd}}
 #' @export
 "-.mvmfd" <- function(obj1, obj2 = NULL) {
   if (is.null(obj2)) {
@@ -72,13 +72,13 @@ plot_mvmfd <- function(mvmfd_obj, xlab = NULL, ylab = NULL, ...) {
   return(Mvmfd(mvlist))
 }
 
-#'  Multiplication of an mvmfd object with a scalar
+#'  Multiplication of an `mvmfd` object with a scalar
 #'
 #'
-#' @param obj1 An mvmfd object or a scalar
-#' @param obj2 An mvmfd object or a scalar
-#' @return An mvmfd object
-#' @seealso \code{\link{mvmfd}} 
+#' @param obj1 An `mvmfd` object or a scalar
+#' @param obj2 An `mvmfd` object or a scalar
+#' @return An `mvmfd` object
+#' @seealso \code{\link{mvmfd}}
 #' @export
 "*.mvmfd" <- function(obj1, obj2) {
   if (xor(is.mvmfd(obj1), is.mvmfd(obj2))) {
@@ -100,13 +100,13 @@ plot_mvmfd <- function(mvmfd_obj, xlab = NULL, ylab = NULL, ...) {
   return(Mvmfd(mvlist))
 }
 
-#'  Extract subsets of an 'mvmfd' object
+#'  Extract subsets of an `mvmfd` object
 #'
-#' @param mvmfd_obj An 'mvmfd' object
+#' @param mvmfd_obj An `mvmfd` object
 #' @param i An index or indices specifying the subsets to extract for the first dimension
 #' @param j An index or indices specifying the subsets to extract for the second dimension
-#' @return An 'mvmfd' object containing the specified subsets
-#' @seealso \code{\link{mvmfd}} 
+#' @return An `mvmfd` object containing the specified subsets
+#' @seealso \code{\link{mvmfd}}
 #' @export
 "[.mvmfd" <- function(mvmfd_obj, i = "index", j = "index") {
   if (i[1] == "index") i <- 1:mvmfd_obj$nobs
@@ -137,17 +137,17 @@ plot_mvmfd <- function(mvmfd_obj, xlab = NULL, ylab = NULL, ...) {
 }
 
 
-#'   Bivariate plot for mvmfd objects
+#'   Bivariate plot for `mvmfd` objects
 #'
-#' @param mvmfd_obj An mvmfd object
+#' @param mvmfd_obj An `mvmfd` object
 #' @param type Type of plot ('l' for lines, 'p' for points, etc.)
 #' @param lty Line type
 #' @param xlab Label for the x-axis
 #' @param ylab Label for the y-axis
 #' @param main Main title
 #' @param ... Additional arguments for the matplot function
-#' @seealso \code{\link{mvmfd}} 
-#' 
+#' @seealso \code{\link{mvmfd}}
+#'
 #' @export
 bimfdplot <- function(mvmfd_obj, type = "l", lty = 1, xlab = "", ylab = "", main = "", ...) {
   nvar <- mvmfd_obj$nvar
@@ -165,10 +165,10 @@ bimfdplot <- function(mvmfd_obj, type = "l", lty = 1, xlab = "", ylab = "", main
 #'
 #' @export
 #'
-#' @param mvmfd_obj1 An mvmfd object
-#' @param mvmfd_obj2 An mvmfd object
+#' @param mvmfd_obj1 An `mvmfd` object
+#' @param mvmfd_obj2 An `mvmfd` object
 #' @return A matrix of inner products
-#' @seealso \code{\link{mvmfd}} 
+#' @seealso \code{\link{mvmfd}}
 inprod_mvmfd <- function(mvmfd_obj1, mvmfd_obj2) {
   p <- mvmfd_obj1$nvar
   if (p != mvmfd_obj2$nvar) stop("The number of variables must be equal.")
@@ -181,14 +181,13 @@ inprod_mvmfd <- function(mvmfd_obj1, mvmfd_obj2) {
   return(inpr)
 }
 
-#'  Norm of an mvmfd object
+#'  Norm of an `mvmfd` object
 #'
 #' @export
 #'
-#' @param mvmfd_obj An mvmfd object
-#' @return The norm of the mvmfd object
-#' @seealso \code{\link{mvmfd}} 
+#' @param mvmfd_obj An `mvmfd` object
+#' @return The norm of the `mvmfd` object
+#' @seealso \code{\link{mvmfd}}
 norm_mvmfd <- function(mvmfd_obj) {
   return(as.numeric(sqrt(inprod_mvmfd(mvmfd_obj, mvmfd_obj))))
 }
-

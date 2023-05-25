@@ -15,3 +15,6 @@ TRUE if the object is of class 'mvmfd', FALSE otherwise.
 \description{
 Check if an object is of class 'mvmfd'
 }
+\seealso{
+\code{\link{is.mvbasismfd}}, \code{\link{is.mfd}}, \code{\link{is.basismfd}}
+}

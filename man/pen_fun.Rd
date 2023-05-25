@@ -17,5 +17,5 @@ pen_fun(data, devorder = 2, type)
 The penalty matrix.
 }
 \description{
-Calculate the penalty matrix for mvmfd objects.
+Calculate the penalty matrix for `mvmfd` objects.
 }

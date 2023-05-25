@@ -1,15 +1,15 @@
-#' @title A Class of Multivariate Multidimensional Basis Functions
+#' @title Define a Set of Multivariate Multidimensional Functional Basis
 #'
 #' @description
-#' The `mvbasismfd` class represents functional data ...
+#' The `mvbasismfd` a set of  multivariate multidimensional basis functions.
+#' This class utilizes basis objects `basismfd`.
 #'
-#' An object of class "mvbasismfd" is a list containing the following elements:
 #' @field nvar number of variables
-#' @field basis A list of mvbasisfd objects
-#' @field dimSupp A sequence of positive integers specifying the dimension...
-#' @field nbasis A list of integers specifying the number of basis functions...
-#' @field supp A list of matrices specifying the support of basis functions...
-#' @field gram A block diagonal matrix
+#' @field basis A list of `mvbasisfd` objects
+#' @field dimSupp A sequence of positive integers specifying support domain of the `mvbasismfd` object.
+#' @field nbasis A list of integers specifying the number of basis functions
+#' @field supp A list of matrices specifying the support of basis functions
+#' @field gram The Gram matrix.
 #'
 #
 #'
@@ -21,9 +21,9 @@ mvbasismfd <- R6::R6Class("mvbasismfd",
   public = list(
     #' @description
     #' Constructor for `mvbasismfd` objects (same as Mvbasismfd(...) )
-    #' 
+    #'
     #' @usage Mvbasismfd(basis)
-    #' 
+    #'
     #' @param basis A list of `basismfd` objects
     initialize = function(basis) {
       if (is.basis(basis) | is.basismfd(basis)) basis <- list(basis)
@@ -47,7 +47,7 @@ mvbasismfd <- R6::R6Class("mvbasismfd",
     #' @description
     #' Evaluate the `mvbasismfd` object at given argument values
     #'
-    #' @param evalarg A list of numeric vectors of argument values at which the `basismfd` is to be evaluated
+    #' @param evalarg A list of numeric vectors of argument values at which the `mvbasismfd` is to be evaluated
     #' @return A list of evaluated values
     eval = function(evalarg) {
       eval_mvbasismf_validity_check(evalarg, private$.nvar)
@@ -140,20 +140,20 @@ Mvbasismfd <- function(basis) mvbasismfd$new(basis)
 #' @rdname mvbasismfd
 #' @seealso \code{\link{basismfd}}
 
-#' 
+#'
 #' @param mvbasismfd_obj An 'mvmfd' object
 #' @param i An index or indices specifying the subsets to extract for the first dimension
-#' @return An 'mvbasismfd' object containing the specified subsets
+#' @return An `mvbasismfd` object containing the specified subsets
 #' @export
 "[.mvbasismfd" <- function(mvbasismfd_obj, i = "index") {
-  if(max(i)> mvbasismfd_obj$nvar | min(i)<1) stop(" subscript i out of bounds")
-  if(length(i)==1){
+  if (max(i) > mvbasismfd_obj$nvar | min(i) < 1) stop(" subscript i out of bounds")
+  if (length(i) == 1) {
     return(mvbasismfd_obj$basis[[i]])
-  }else{
+  } else {
     mvbasismfd_list <- list()
-    for(j in 1:length(i)) {
+    for (j in 1:length(i)) {
       mvbasismfd_list[[j]] <- mvbasismfd_obj$basis[[j]]
-    }    
+    }
     return(mvbasismfd$new(mvbasismfd_list))
   }
 }

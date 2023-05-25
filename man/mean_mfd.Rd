@@ -2,18 +2,18 @@
 % Please edit documentation in R/mfdMethods.R
 \name{mean_mfd}
 \alias{mean_mfd}
-\title{Compute the mean deviation of an 'mfd' object}
+\title{Compute the mean of an `mfd` object}
 \usage{
 mean_mfd(mfd_obj)
 }
 \arguments{
-\item{mfd_obj}{An 'mfd' object}
+\item{mfd_obj}{An `mfd` object}
 }
 \value{
-An 'mfd' object
+An `mfd` object
 }
 \description{
-Compute the mean deviation of an 'mfd' object
+Compute the mean of an `mfd` object
 }
 \seealso{
 \code{\link{basismfd}}, \code{\link{mfd}}

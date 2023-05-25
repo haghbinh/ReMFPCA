@@ -2,20 +2,20 @@
 % Please edit documentation in R/mfdMethods.R
 \name{[.mfd}
 \alias{[.mfd}
-\title{Extract subsets of an 'mfd' object}
+\title{Extract subsets of an `mfd` object}
 \usage{
 \method{[}{mfd}(mfd_obj, i = "index")
 }
 \arguments{
-\item{mfd_obj}{An 'mfd' object}
+\item{mfd_obj}{An `mfd` object}
 
 \item{i}{An index or indices specifying the subsets to extract}
 }
 \value{
-An 'mfd' object containing the specified subsets
+An `mfd` object containing the specified subsets
 }
 \description{
-Extract subsets of an 'mfd' object
+Extract subsets of an `mfd` object
 }
 \seealso{
 \code{\link{basismfd}}, \code{\link{mfd}}

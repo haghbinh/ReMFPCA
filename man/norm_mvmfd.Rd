@@ -2,18 +2,18 @@
 % Please edit documentation in R/mvmfdMethods.R
 \name{norm_mvmfd}
 \alias{norm_mvmfd}
-\title{Norm of an mvmfd object}
+\title{Norm of an `mvmfd` object}
 \usage{
 norm_mvmfd(mvmfd_obj)
 }
 \arguments{
-\item{mvmfd_obj}{An mvmfd object}
+\item{mvmfd_obj}{An `mvmfd` object}
 }
 \value{
-The norm of the mvmfd object
+The norm of the `mvmfd` object
 }
 \description{
-Norm of an mvmfd object
+Norm of an `mvmfd` object
 }
 \seealso{
 \code{\link{mvmfd}}

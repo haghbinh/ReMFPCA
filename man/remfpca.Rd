@@ -35,37 +35,37 @@ The `remfpca` class represents regularized functional principal components (ReMF
 }
 \examples{
 require(fda)
- # Brownian Bridge simulation on [0,1]
- M <- 110 # number of components
- N <- 20  # number of instances
- n <- 100 # number of grides
- t0 <- seq(0,1,len=n)
- j <- 1:M
- alpha1 <- list(a1=2^seq(-20,20,length.out=10), a2=2^seq(-20,20,length.out=10))
- psi_1 <- function(t,m) sin(m*pi*t) # eigenfunction of BB
- psi_2 <- function(t,m) sin((2*m-1)*pi/2*t) # eigenfunction of BM
- PC_1 <- outer(t0,j,FUN = psi_1)  # n by M matrix
- PC_2 <- outer(t0,j,FUN = psi_2)  # n by M matrix
- Z <- matrix(rnorm(N*M),nr=M)
- lambda <- matrix(2/(pi*(2*j-1)),nr=M,nc=N)
- X_1t <- PC_1\%*\%(lambda*Z)
- X_2t <- PC_2\%*\%(lambda*Z)
- noise <- rnorm(n*N,0,0.1)
- X_1 <- X_1t + noise
- X_2 <- X_2t + noise
- #___________________________________________________
- 
-bs <- create.bspline.basis(c(0,1),51)
+# Brownian Bridge simulation on [0,1]
+M <- 110 # number of components
+N <- 20 # number of instances
+n <- 100 # number of grides
+t0 <- seq(0, 1, len = n)
+j <- 1:M
+alpha1 <- list(a1 = 2^seq(-20, 20, length.out = 10), a2 = 2^seq(-20, 20, length.out = 10))
+psi_1 <- function(t, m) sin(m * pi * t) # eigenfunction of BB
+psi_2 <- function(t, m) sin((2 * m - 1) * pi / 2 * t) # eigenfunction of BM
+PC_1 <- outer(t0, j, FUN = psi_1) # n by M matrix
+PC_2 <- outer(t0, j, FUN = psi_2) # n by M matrix
+Z <- matrix(rnorm(N * M), nr = M)
+lambda <- matrix(2 / (pi * (2 * j - 1)), nr = M, nc = N)
+X_1t <- PC_1 \%*\% (lambda * Z)
+X_2t <- PC_2 \%*\% (lambda * Z)
+noise <- rnorm(n * N, 0, 0.1)
+X_1 <- X_1t + noise
+X_2 <- X_2t + noise
+# ___________________________________________________
+
+bs <- create.bspline.basis(c(0, 1), 51)
 mdbs <- Basismfd(bs)
-mfd1t <- Mfd(X=X_1t, mdbs = mdbs)
-mfd2t <- Mfd(X=X_2t, mdbs = mdbs)
-mvmfd_objt <- Mvmfd(mfd1t,mfd2t)
-mfd1 <- Mfd(X=X_1, mdbs = mdbs)
-mfd2 <- Mfd(X=X_2, mdbs = mdbs)
-mvmfd_obj <- Mvmfd(mfd1,mfd2)
-FPC_1 <- Mfd(X=PC_1, mdbs = mdbs)
-FPC_2 <- Mfd(X=PC_2, mdbs = mdbs)
-FPC_obj <- Mvmfd(FPC_1,FPC_2)
+mfd1t <- Mfd(X = X_1t, mdbs = mdbs)
+mfd2t <- Mfd(X = X_2t, mdbs = mdbs)
+mvmfd_objt <- Mvmfd(mfd1t, mfd2t)
+mfd1 <- Mfd(X = X_1, mdbs = mdbs)
+mfd2 <- Mfd(X = X_2, mdbs = mdbs)
+mvmfd_obj <- Mvmfd(mfd1, mfd2)
+FPC_1 <- Mfd(X = PC_1, mdbs = mdbs)
+FPC_2 <- Mfd(X = PC_2, mdbs = mdbs)
+FPC_obj <- Mvmfd(FPC_1, FPC_2)
 k <- 2
 Re0 <- Remfpca(mvmfd_obj, ncomp=k,alpha=c(0,0))
 fpc0 <- Re0$pc_mfd
@@ -79,8 +79,8 @@ remfpca_obj <- Remfpca(mvmfd_obj, ncomp=3)
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
-\item{\code{pc_mfd}}{an object of class mvmfd where the first indices (fields) 
-represents harmonics (Pcs) and  second indices represents valriables}
+\item{\code{pc_mfd}}{an object of class `mvmfd` where the first indices (fields)
+represents harmonics (Pc's) and  second indices represents variables}
 
 \item{\code{lsv}}{= NULL,}
 
@@ -90,7 +90,7 @@ represents harmonics (Pcs) and  second indices represents valriables}
 
 \item{\code{GCVs}}{= generalized cross validations}
 
-\item{\code{mean_mfd}}{a functional data object giving the mean function}
+\item{\code{mean_mfd}}{a multivariate functional data object giving the mean function}
 }
 \if{html}{\out{</div>}}
 }

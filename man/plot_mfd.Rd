@@ -2,7 +2,7 @@
 % Please edit documentation in R/mfdMethods.R
 \name{plot_mfd}
 \alias{plot_mfd}
-\title{plot an 'mfd' object}
+\title{plot an `mfd` object}
 \usage{
 plot_mfd(
   mfd_obj,
@@ -16,7 +16,7 @@ plot_mfd(
 )
 }
 \arguments{
-\item{mfd_obj}{An 'mfd' object}
+\item{mfd_obj}{An `mfd` object}
 
 \item{obs}{Observation number to plot (default: 1)}
 
@@ -33,7 +33,7 @@ plot_mfd(
 \item{...}{Additional arguments passed to the plot function}
 }
 \description{
-plot an 'mfd' object
+plot an `mfd` object
 }
 \seealso{
 \code{\link{basismfd}}, \code{\link{mfd}}

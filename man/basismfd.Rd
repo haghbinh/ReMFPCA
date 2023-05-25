@@ -3,7 +3,7 @@
 \name{basismfd}
 \alias{basismfd}
 \alias{Basismfd}
-\title{A Class of Multidimensional Basis Functions}
+\title{Define a Set of Multidimensional Functional Basis}
 \usage{
 Basismfd(...)
 
@@ -13,7 +13,8 @@ Basismfd(...)
 \item{...}{A list of `basisfd` objects}
 }
 \description{
-The basismfd class represents functional data with multidimensional basis functions.
+The `basismfd` class represents a set of  multidimensional basis functions. This class utilizes basis objects 
+from the `fda` package, such as B-splines and Fourier bases.
 
 Constructor for `basismfd` objects (same as Basismfd(...) )
 }
@@ -45,7 +46,7 @@ image(as.matrix(mdbs2$gram))
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
-\item{\code{basis}}{A list of basis objects from the fda library.}
+\item{\code{basis}}{A list of basis objects from the `fda` package.}
 
 \item{\code{dimSupp}}{The dimension of the support domain of the `basismfd` object.}
 
@@ -70,7 +71,7 @@ image(as.matrix(mdbs2$gram))
 \if{html}{\out{<a id="method-basismfd-new"></a>}}
 \if{latex}{\out{\hypertarget{method-basismfd-new}{}}}
 \subsection{Method \code{new()}}{
-Constructor for `basismfd` objects (same as Basismfd(...) )
+The constructor function for objects of the class `basismfd` (same as Basismfd(...) )
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{basismfd$new(...)}\if{html}{\out{</div>}}
 }

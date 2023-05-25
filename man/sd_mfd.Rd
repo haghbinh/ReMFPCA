@@ -2,15 +2,15 @@
 % Please edit documentation in R/mfdMethods.R
 \name{sd_mfd}
 \alias{sd_mfd}
-\title{Compute the standard deviation of an 'mfd' object}
+\title{Compute the standard deviation of an `mfd` object}
 \usage{
 sd_mfd(mfd_obj)
 }
 \arguments{
-\item{mfd_obj}{An 'mfd' object}
+\item{mfd_obj}{An `mfd` object}
 }
 \description{
-Compute the standard deviation of an 'mfd' object
+Compute the standard deviation of an `mfd` object
 }
 \seealso{
 \code{\link{basismfd}}, \code{\link{mfd}}

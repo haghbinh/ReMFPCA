@@ -2,20 +2,20 @@
 % Please edit documentation in R/mvmfdMethods.R
 \name{-.mvmfd}
 \alias{-.mvmfd}
-\title{Subtraction of two mvmfd objects}
+\title{Subtraction of two `mvmfd` objects}
 \usage{
 \method{-}{mvmfd}(obj1, obj2 = NULL)
 }
 \arguments{
-\item{obj1}{An mvmfd object}
+\item{obj1}{An `mvmfd` object}
 
-\item{obj2}{An optional mvmfd object}
+\item{obj2}{An optional `mvmfd` object}
 }
 \value{
-An mvmfd object
+An `mvmfd` object
 }
 \description{
-Subtraction of two mvmfd objects
+Subtraction of two `mvmfd` objects
 }
 \seealso{
 \code{\link{mvmfd}}

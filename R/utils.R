@@ -23,10 +23,11 @@ I_alpha <- function(data, lambda) {
 
 # a function to check the validity of initializer
 init_mfd_check <- function(argval, X, basis, method) {
-  stopifnot((is.numeric(argval)|is.list(argval)|is.null(argval)),
-            (is.matrix(X)|is.vector(X)),
-            (is.basismfd(basis)|is.basis(basis)),
-            (method=="coefs"|method=="data")
+  stopifnot(
+    (is.numeric(argval) | is.list(argval) | is.null(argval)),
+    (is.matrix(X) | is.vector(X)),
+    (is.basismfd(basis) | is.basis(basis)),
+    (method == "coefs" | method == "data")
   )
 }
 
@@ -99,4 +100,3 @@ eval_basismf_validity_check <- function(evalarg, dimSupp) {
     stop("Length of evalarg list must be equal to dimSupp.")
   }
 }
-

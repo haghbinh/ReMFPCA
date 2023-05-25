@@ -1,7 +1,7 @@
 #' @title  Penalty Function
 #'
 #' @description
-#' Calculate the penalty matrix for mvmfd objects.
+#' Calculate the penalty matrix for `mvmfd` objects.
 #'
 #' @param data an object of class `mvmfd`.
 #' @param devorder The order of the derivative.

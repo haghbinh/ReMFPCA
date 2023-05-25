@@ -2,18 +2,18 @@
 % Please edit documentation in R/mfdMethods.R
 \name{norm_mfd}
 \alias{norm_mfd}
-\title{Compute the norm of an 'mfd' object}
+\title{Compute the norm of an `mfd` object}
 \usage{
 norm_mfd(mfd_obj)
 }
 \arguments{
-\item{mfd_obj}{An 'mfd' object}
+\item{mfd_obj}{An `mfd` object}
 }
 \value{
-The norm of the 'mfd' object
+The norm of the `mfd` object
 }
 \description{
-Compute the norm of an 'mfd' object
+Compute the norm of an `mfd` object
 }
 \seealso{
 \code{\link{basismfd}}, \code{\link{mfd}}

@@ -2,12 +2,12 @@
 % Please edit documentation in R/mvmfdMethods.R
 \name{bimfdplot}
 \alias{bimfdplot}
-\title{Bivariate plot for mvmfd objects}
+\title{Bivariate plot for `mvmfd` objects}
 \usage{
 bimfdplot(mvmfd_obj, type = "l", lty = 1, xlab = "", ylab = "", main = "", ...)
 }
 \arguments{
-\item{mvmfd_obj}{An mvmfd object}
+\item{mvmfd_obj}{An `mvmfd` object}
 
 \item{type}{Type of plot ('l' for lines, 'p' for points, etc.)}
 
@@ -22,7 +22,7 @@ bimfdplot(mvmfd_obj, type = "l", lty = 1, xlab = "", ylab = "", main = "", ...)
 \item{...}{Additional arguments for the matplot function}
 }
 \description{
-Bivariate plot for mvmfd objects
+Bivariate plot for `mvmfd` objects
 }
 \seealso{
 \code{\link{mvmfd}}

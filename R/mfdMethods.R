@@ -1,28 +1,30 @@
-#' @title Compute the mean deviation of an 'mfd' object
+#' @title Compute the mean of an `mfd` object
 #'
-#' @param mfd_obj An 'mfd' object
-#' @return An 'mfd' object
+#' @param mfd_obj An `mfd` object
+#' @return An `mfd` object
 #' @seealso \code{\link{basismfd}}, \code{\link{mfd}}
 mean_mfd <- function(mfd_obj) {
   cof <- apply(mfd_obj$coefs, 1, mean)
   bs <- mfd_obj$basis
   return(Mfd(X = cof, mdbs = bs, method = "coefs"))
 }
-#' @title Compute the standard deviation of an 'mfd' object
+#' @title Compute the standard deviation of an `mfd` object
 #'
-#' @param mfd_obj An 'mfd' object
+#' @param mfd_obj An `mfd` object
 #' @seealso \code{\link{basismfd}}, \code{\link{mfd}}
 sd_mfd <- function(mfd_obj) {
   cof <- apply(mfd_obj$coefs, 1, sd)
   bs <- mfd_obj$basis
   return(Mfd(X = cof, mdbs = bs, method = "coefs"))
 }
-#' @title plot an 'mfd' object
+
+
+#' @title plot an `mfd` object
 #'
 #' @description
-#' plot an 'mfd' object
+#' plot an `mfd` object
 #'
-#' @param mfd_obj An 'mfd' object
+#' @param mfd_obj An `mfd` object
 #' @param obs Observation number to plot (default: 1)
 #' @param xlab x-axis label (default: "")
 #' @param ylab y-axis label (default: "")
@@ -39,11 +41,11 @@ plot_mfd <- function(mfd_obj, obs = 1, xlab = "", ylab = "", main = "", type = "
     X <- mfd_obj$eval(x_grids)
     matplot(x_grids, X, type = type, lty = lty, xlab = xlab, ylab = ylab, main = main, ...)
   } else {
-    y_grids <- seq(from = supp[1, 2], to =supp[2, 2], length.out = 100)
+    y_grids <- seq(from = supp[1, 2], to = supp[2, 2], length.out = 100)
     X <- mfd_obj$eval(list(x_grids, y_grids))[, , obs]
     image(X, xlab = xlab, ylab = ylab, axes = FALSE, main = paste(main, " Observation:", obs))
-    axis(side = 1, at = seq(from =0, to =1, length.out = 10), labels = round(seq(supp[1, 1], supp[2, 1], len = 10), 1))
-    axis(side = 2, at = seq(from =0, to =1, length.out = 10), labels = round(seq(supp[1, 2], supp[2, 2], len = 10), 1))
+    axis(side = 1, at = seq(from = 0, to = 1, length.out = 10), labels = round(seq(supp[1, 1], supp[2, 1], len = 10), 1))
+    axis(side = 2, at = seq(from = 0, to = 1, length.out = 10), labels = round(seq(supp[1, 2], supp[2, 2], len = 10), 1))
   }
 }
 
@@ -90,9 +92,9 @@ plot <- function(x, ...) {
 #' @param ... all `mean` function arguments.
 #' @export
 mean <- function(x, ...) {
-  if (inherits(x,"mfd")) {
+  if (inherits(x, "mfd")) {
     return(mean_mfd(x))
-  } else if(inherits(x, "mvmfd")) {
+  } else if (inherits(x, "mvmfd")) {
     return(mean_mvmfd(x))
   } else {
     return(base::mean(x, ...))
@@ -115,11 +117,11 @@ sd <- function(x, ...) {
 }
 
 
-#' @title Compute the inner product between two 'mfd' objects
+#' @title Compute the inner product between two `mfd` objects
 #'
-#' @param mfd_obj1 An 'mfd' object
-#' @param mfd_obj2 An 'mfd' object
-#' @return The inner product between the two 'mfd' objects
+#' @param mfd_obj1 An `mfd` object
+#' @param mfd_obj2 An `mfd` object
+#' @return The inner product between the two `mfd` objects
 #' @seealso \code{\link{basismfd}}, \code{\link{mfd}}
 #' @importFrom fda fd inprod
 #' @export
@@ -134,21 +136,21 @@ inprod_mfd <- function(mfd_obj1, mfd_obj2) {
   return(inpr)
 }
 
-#' @title Compute the norm of an 'mfd' object
+#' @title Compute the norm of an `mfd` object
 #'
-#' @param mfd_obj An 'mfd' object
-#' @return The norm of the 'mfd' object
+#' @param mfd_obj An `mfd` object
+#' @return The norm of the `mfd` object
 #' @seealso \code{\link{basismfd}}, \code{\link{mfd}}
 #' @export
 norm_mfd <- function(mfd_obj) {
   return(as.numeric(sqrt(inprod_mfd(mfd_obj, mfd_obj))))
 }
 
-#' @title Add two 'mfd' objects
+#' @title Add two `mfd` objects
 #'
-#' @param obj1 An 'mfd' object
-#' @param obj2 An 'mfd' object or a scalar
-#' @return The sum of the two 'mfd' objects
+#' @param obj1 An `mfd` object
+#' @param obj2 An `mfd` object or a scalar
+#' @return The sum of the two `mfd` objects
 #' @seealso \code{\link{basismfd}}, \code{\link{mfd}}
 #' @export
 "+.mfd" <- function(obj1, obj2 = NULL) {
@@ -189,11 +191,11 @@ norm_mfd <- function(mfd_obj) {
   return(mfd$new(X = coef, mdbs = obj1$basis$clone(), method = "coefs"))
 }
 
-#' @title Multiply two 'mfd' objects
+#' @title Multiply two `mfd` objects
 #'
-#' @param obj1 An 'mfd' object
-#' @param obj2 An 'mfd' object or a scalar
-#' @return The product of the two 'mfd' objects
+#' @param obj1 An `mfd` object
+#' @param obj2 An `mfd` object or a scalar
+#' @return The product of the two `mfd` objects
 #' @seealso \code{\link{basismfd}}, \code{\link{mfd}}
 #' @export
 "*.mfd" <- function(obj1, obj2) {
@@ -212,11 +214,11 @@ norm_mfd <- function(mfd_obj) {
   return(mfd$new(X = coef, mdbs = obj1$basis$clone(), method = "coefs"))
 }
 
-#' @title Subtract two 'mfd' objects
+#' @title Subtract two `mfd` objects
 #'
-#' @param obj1 An 'mfd' object
-#' @param obj2 An 'mfd' object or a scalar
-#' @return The difference between the two 'mfd' objects
+#' @param obj1 An `mfd` object
+#' @param obj2 An `mfd` object or a scalar
+#' @return The difference between the two `mfd` objects
 #' @seealso \code{\link{basismfd}}, \code{\link{mfd}}
 #' @export
 "-.mfd" <- function(obj1, obj2 = NULL) {
@@ -237,11 +239,11 @@ norm_mfd <- function(mfd_obj) {
   return(mfd$new(X = coef, mdbs = obj1$basis$clone(), method = "coefs"))
 }
 
-#' @title Extract subsets of an 'mfd' object
+#' @title Extract subsets of an `mfd` object
 #'
-#' @param mfd_obj An 'mfd' object
+#' @param mfd_obj An `mfd` object
 #' @param i An index or indices specifying the subsets to extract
-#' @return An 'mfd' object containing the specified subsets
+#' @return An `mfd` object containing the specified subsets
 #' @seealso \code{\link{basismfd}}, \code{\link{mfd}}
 #' @export
 "[.mfd" <- function(mfd_obj, i = "index") {

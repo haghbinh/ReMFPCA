@@ -13,7 +13,7 @@ eigen_approach <- function(mvmfd_obj, n, alpha, centerfns, penalty_type) {
     gcv_row <- length(alpha[[1]])
     gcv_column <- length(alpha[[2]])
   }
-  alpha <- tidyr::expand_grid(!!!alpha) #The operator !!! unquotes and splices a list, allowing you to expand the elements of a list into individual arguments
+  alpha <- tidyr::expand_grid(!!!alpha) # The operator !!! unquotes and splices a list, allowing you to expand the elements of a list into individual arguments
   penalty <- pen_fun(mvmfd_obj, type = penalty_type)
   G <- as.matrix(mvmfd_obj$basis$gram)
   G_half <- expm::sqrtm(G)

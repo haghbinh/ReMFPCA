@@ -2,20 +2,20 @@
 % Please edit documentation in R/mvmfdMethods.R
 \name{*.mvmfd}
 \alias{*.mvmfd}
-\title{Multiplication of an mvmfd object with a scalar}
+\title{Multiplication of an `mvmfd` object with a scalar}
 \usage{
 \method{*}{mvmfd}(obj1, obj2)
 }
 \arguments{
-\item{obj1}{An mvmfd object or a scalar}
+\item{obj1}{An `mvmfd` object or a scalar}
 
-\item{obj2}{An mvmfd object or a scalar}
+\item{obj2}{An `mvmfd` object or a scalar}
 }
 \value{
-An mvmfd object
+An `mvmfd` object
 }
 \description{
-Multiplication of an mvmfd object with a scalar
+Multiplication of an `mvmfd` object with a scalar
 }
 \seealso{
 \code{\link{mvmfd}}

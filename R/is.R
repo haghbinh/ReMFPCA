@@ -2,6 +2,7 @@
 #'
 #' @param fdobj The object to check.
 #' @return TRUE if the object is of class 'basismfd', FALSE otherwise.
+#' @seealso \code{\link{is.mvbasismfd}}, \code{\link{is.mfd}}, \code{\link{is.mvmfd}}
 #' @export
 is.basismfd <- function(fdobj) {
   inherits(fdobj, "basismfd")
@@ -11,6 +12,7 @@ is.basismfd <- function(fdobj) {
 #'
 #' @param fdobj The object to check.
 #' @return TRUE if the object is of class 'mvbasismfd', FALSE otherwise.
+#' @seealso \code{\link{is.basismfd}}, \code{\link{is.mfd}}, \code{\link{is.mvmfd}}
 #' @export
 is.mvbasismfd <- function(fdobj) {
   inherits(fdobj, "mvbasismfd")
@@ -20,6 +22,7 @@ is.mvbasismfd <- function(fdobj) {
 #'
 #' @param fdobj The object to check.
 #' @return TRUE if the object is of class 'mfd', FALSE otherwise.
+#' @seealso \code{\link{is.mvbasismfd}}, \code{\link{is.basismfd}}, \code{\link{is.mvmfd}}
 #' @export
 is.mfd <- function(fdobj) {
   inherits(fdobj, "mfd")
@@ -29,6 +32,7 @@ is.mfd <- function(fdobj) {
 #'
 #' @param fdobj The object to check.
 #' @return TRUE if the object is of class 'mvmfd', FALSE otherwise.
+#' @seealso \code{\link{is.mvbasismfd}}, \code{\link{is.mfd}}, \code{\link{is.basismfd}}
 #' @export
 is.mvmfd <- function(fdobj) {
   inherits(fdobj, "mvmfd")

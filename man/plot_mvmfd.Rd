@@ -2,7 +2,7 @@
 % Please edit documentation in R/mvmfdMethods.R
 \name{plot_mvmfd}
 \alias{plot_mvmfd}
-\title{Plotting method for mvmfd objects}
+\title{Plotting `mvmfd` objects}
 \usage{
 plot_mvmfd(mvmfd_obj, xlab = NULL, ylab = NULL, ...)
 }
@@ -16,7 +16,7 @@ plot_mvmfd(mvmfd_obj, xlab = NULL, ylab = NULL, ...)
 \item{...}{Additional arguments for the plot function}
 }
 \description{
-Plotting method for mvmfd objects
+Plotting  `mvmfd` objects
 }
 \seealso{
 \code{\link{mvbasismfd}}, \code{\link{mvmfd}}

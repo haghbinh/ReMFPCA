@@ -9,8 +9,12 @@ Author: c(
     person("Mehdi", "Maadooliat", email = "mehdi.maadooliat@mu.edu", role = "aut", comment = c(ORCID = "0000-0002-5408-2676"))
     )
 Maintainer: Hossein Haghbin <haghbin@pgu.ac.ir>
-Description: Methods and tools for implementing regularized multivariate functional crincipal component analysis
+Description: Methods and tools for implementing regularized multivariate functional crincipal component analysis (MFPCA)
               for multivariate functional data whose variables might be observed over different dimensional domains.
+               It provides regularized MFPCA (ReMFPCA), which employs a parameter vector to control the smoothness of 
+               each functional variable. By incorporating smoothness constraints as penalty terms within a regularized 
+               optimization framework, ReMFPCA generates smoothed multivariate functional PCs, leading to a concise and
+               interpretable representation of the multivariate functional data.
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: TRUE

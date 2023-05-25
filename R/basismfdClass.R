@@ -1,9 +1,9 @@
-#' @title A Class of Multidimensional Basis Functions
+#' @title Define a Set of Multidimensional Functional Basis 
 #'
 #' @description
-#' The basismfd class represents functional data with multidimensional basis functions.
-#'
-#' @field basis A list of basis objects from the fda library.
+#' The `basismfd` class represents a set of  multidimensional basis functions. This class utilizes basis objects 
+#' from the `fda` package, such as B-splines and Fourier bases.
+#' @field basis A list of basis objects from the `fda` package.
 #' @field dimSupp The dimension of the support domain of the `basismfd` object.
 #' @field supp The matrix representing the ranges of the dimensions.
 #' @field gram The Gram matrix.
@@ -40,7 +40,7 @@
 basismfd <- R6::R6Class("basismfd",
   public = list(
     #' @description
-    #'  Constructor for `basismfd` objects (same as Basismfd(...) )
+    #'  The constructor function for objects of the class `basismfd` (same as Basismfd(...) )
     #' @usage Basismfd(...)
     #' @param ... A list of `basisfd` objects
     initialize = function(...) {

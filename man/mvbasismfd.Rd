@@ -4,7 +4,7 @@
 \alias{mvbasismfd}
 \alias{Mvbasismfd}
 \alias{[.mvbasismfd}
-\title{A Class of Multivariate Multidimensional Basis Functions}
+\title{Define a Set of Multivariate Multidimensional Functional Basis}
 \usage{
 Mvbasismfd(basis)
 
@@ -20,12 +20,11 @@ Mvbasismfd(basis)
 \item{i}{An index or indices specifying the subsets to extract for the first dimension}
 }
 \value{
-An 'mvbasismfd' object containing the specified subsets
+An `mvbasismfd` object containing the specified subsets
 }
 \description{
-The `mvbasismfd` class represents functional data ...
-
-An object of class "mvbasismfd" is a list containing the following elements:
+The `mvbasismfd` a set of  multivariate multidimensional basis functions.
+This class utilizes basis objects `basismfd`.
 
 Constructor for `mvbasismfd` objects (same as Mvbasismfd(...) )
 }
@@ -41,15 +40,15 @@ Constructor for `mvbasismfd` objects (same as Mvbasismfd(...) )
 \describe{
 \item{\code{nvar}}{number of variables}
 
-\item{\code{basis}}{A list of mvbasisfd objects}
+\item{\code{basis}}{A list of `mvbasisfd` objects}
 
-\item{\code{dimSupp}}{A sequence of positive integers specifying the dimension...}
+\item{\code{dimSupp}}{A sequence of positive integers specifying support domain of the `mvbasismfd` object.}
 
-\item{\code{nbasis}}{A list of integers specifying the number of basis functions...}
+\item{\code{nbasis}}{A list of integers specifying the number of basis functions}
 
-\item{\code{supp}}{A list of matrices specifying the support of basis functions...}
+\item{\code{supp}}{A list of matrices specifying the support of basis functions}
 
-\item{\code{gram}}{A block diagonal matrix}
+\item{\code{gram}}{The Gram matrix.}
 }
 \if{html}{\out{</div>}}
 }
@@ -90,7 +89,7 @@ Evaluate the `mvbasismfd` object at given argument values
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{evalarg}}{A list of numeric vectors of argument values at which the `basismfd` is to be evaluated}
+\item{\code{evalarg}}{A list of numeric vectors of argument values at which the `mvbasismfd` is to be evaluated}
 }
 \if{html}{\out{</div>}}
 }
