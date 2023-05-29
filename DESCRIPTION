@@ -5,7 +5,7 @@ Version: 1.0.0
 Date: 2022-01-27
 Author: c(
     person("Hossein", "Haghbin", email = "haghbin@pgu.ac.ir", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-8416-2354")),
-    person("Yue", "Zhao", email = "yue.zhao@marquette.edu", role = "aut"),
+    person("Yue", "Zhao", email = "yue.zhao@marquette.edu", role = "aut", comment = c(ORCID = "0009-0000-4561-9163")),
     person("Mehdi", "Maadooliat", email = "mehdi.maadooliat@mu.edu", role = "aut", comment = c(ORCID = "0000-0002-5408-2676"))
     )
 Maintainer: Hossein Haghbin <haghbin@pgu.ac.ir>

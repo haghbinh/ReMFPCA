@@ -6,7 +6,7 @@
 
 #' @field pc_mfd an object of class `mvmfd` where the first indices (fields)
 #' represents harmonics (Pc's) and  second indices represents variables
-#' @field lsv = NULL,
+#' @field lsv = Left singular values vectors
 #' @field values = the set of eigenvalues
 #' @field alpha = The vector of penalties parameters
 #' @field GCVs = generalized cross validations
