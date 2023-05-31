@@ -53,25 +53,21 @@ X_2t <- PC_2 \%*\% (lambda * Z)
 noise <- rnorm(n * N, 0, 0.1)
 X_1 <- X_1t + noise
 X_2 <- X_2t + noise
-# ___________________________________________________
-
 bs <- create.bspline.basis(c(0, 1), 51)
 mdbs <- Basismfd(bs)
-mfd1t <- Mfd(X = X_1t, mdbs = mdbs)
-mfd2t <- Mfd(X = X_2t, mdbs = mdbs)
-mvmfd_objt <- Mvmfd(mfd1t, mfd2t)
 mfd1 <- Mfd(X = X_1, mdbs = mdbs)
 mfd2 <- Mfd(X = X_2, mdbs = mdbs)
 mvmfd_obj <- Mvmfd(mfd1, mfd2)
-FPC_1 <- Mfd(X = PC_1, mdbs = mdbs)
-FPC_2 <- Mfd(X = PC_2, mdbs = mdbs)
-FPC_obj <- Mvmfd(FPC_1, FPC_2)
 k <- 2
-Re0 <- Remfpca(mvmfd_obj, ncomp=k,alpha=c(0,0))
+Re0 <- Remfpca(mvmfd_obj, ncomp = k, alpha = c(0, 0))
 fpc0 <- Re0$pc_mfd
-coefs0 <- inprod_mvmfd(mvmfd_obj,fpc0)
-
-remfpca_obj <- Remfpca(mvmfd_obj, ncomp=3)
+scores0 <- inprod_mvmfd(mvmfd_obj, fpc0)
+dim(scores0)
+Re0$alpha
+Re1 <- Remfpca(mvmfd_obj, ncomp = k, alpha = alpha1)
+Re1$alpha
+Re3 <- Remfpca(mfd1, ncomp = k, alpha = list(alpha1$a1))
+Re3$alpha
 }
 \seealso{
 \code{\link{Remfpca}}, \code{\link{mvmfd}}
