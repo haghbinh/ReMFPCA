@@ -2,7 +2,7 @@
 % Please edit documentation in R/mvmfdMethods.R
 \name{inprod_mvmfd}
 \alias{inprod_mvmfd}
-\title{Inner product of two mvmfd objects}
+\title{Compute the inner product between two objects of class `mvmfd`}
 \usage{
 inprod_mvmfd(mvmfd_obj1, mvmfd_obj2)
 }
@@ -12,10 +12,10 @@ inprod_mvmfd(mvmfd_obj1, mvmfd_obj2)
 \item{mvmfd_obj2}{An `mvmfd` object}
 }
 \value{
-A matrix of inner products
+The inner products matrix between the two `mvmfd` objects
 }
 \description{
-Inner product of two mvmfd objects
+Compute the inner product between two objects of class `mvmfd`
 }
 \seealso{
 \code{\link{mvmfd}}

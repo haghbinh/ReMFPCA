@@ -11,6 +11,9 @@ mean(x, ...)
 
 \item{...}{all `mean` function arguments.}
 }
+\value{
+An object of class `mfd`
+}
 \description{
 mean of an object of classes `mfd`or `mvmfd`.
 }

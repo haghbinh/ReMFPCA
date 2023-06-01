@@ -2,22 +2,17 @@ Package: ReMFPCA
 Type: Package
 Title: Regularized Multivariate Functional Principal Component Analysis
 Version: 1.0.0
-Date: 2022-01-27
+Date: 2023-06-01
 Author: c(
     person("Hossein", "Haghbin", email = "haghbin@pgu.ac.ir", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-8416-2354")),
-    person("Yue", "Zhao", email = "yue.zhao@marquette.edu", role = "aut", comment = c(ORCID = "0009-0000-4561-9163")),
+    person("Yue", "Zhao", email = "yue.zhao@mu.edu", role = "aut", comment = c(ORCID = "0009-0000-4561-9163")),
     person("Mehdi", "Maadooliat", email = "mehdi.maadooliat@mu.edu", role = "aut", comment = c(ORCID = "0000-0002-5408-2676"))
     )
 Maintainer: Hossein Haghbin <haghbin@pgu.ac.ir>
-Description: Methods and tools for implementing regularized multivariate functional crincipal component analysis (MFPCA)
-              for multivariate functional data whose variables might be observed over different dimensional domains.
-               It provides regularized MFPCA (ReMFPCA), which employs a parameter vector to control the smoothness of 
-               each functional variable. By incorporating smoothness constraints as penalty terms within a regularized 
-               optimization framework, ReMFPCA generates smoothed multivariate functional PCs, leading to a concise and
-               interpretable representation of the multivariate functional data.
+Description: Methods and tools for implementing regularized multivariate functional principal component analysis (MFPCA) for multivariate functional data whose variables might be observed over different dimensional domains. It provides regularized MFPCA (ReMFPCA), which employs a parameter vector to control the smoothness of each functional variable. By incorporating smoothness constraints as penalty terms within a regularized optimization framework, ReMFPCA generates smooth multivariate functional PCs, leading to a concise and interpretable representation of the multivariate functional data.
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: TRUE
-Imports: fda, expm, tidyr, Matrix
+Imports: fda, expm, Matrix
 RoxygenNote: 7.2.3
 Depends: R (>= 4.0), R6

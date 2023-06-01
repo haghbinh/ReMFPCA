@@ -1,17 +1,10 @@
-#' @title Compute the mean of an `mfd` object
-#'
-#' @param mfd_obj An `mfd` object
-#' @return An `mfd` object
-#' @seealso \code{\link{basismfd}}, \code{\link{mfd}}
 mean_mfd <- function(mfd_obj) {
   cof <- apply(mfd_obj$coefs, 1, mean)
   bs <- mfd_obj$basis
   return(Mfd(X = cof, mdbs = bs, method = "coefs"))
 }
-#' @title Compute the standard deviation of an `mfd` object
-#'
-#' @param mfd_obj An `mfd` object
-#' @seealso \code{\link{basismfd}}, \code{\link{mfd}}
+
+
 sd_mfd <- function(mfd_obj) {
   cof <- apply(mfd_obj$coefs, 1, sd)
   bs <- mfd_obj$basis
@@ -19,20 +12,6 @@ sd_mfd <- function(mfd_obj) {
 }
 
 
-#' @title plot an `mfd` object
-#'
-#' @description
-#' plot an `mfd` object
-#'
-#' @param mfd_obj An `mfd` object
-#' @param obs Observation number to plot (default: 1)
-#' @param xlab x-axis label (default: "")
-#' @param ylab y-axis label (default: "")
-#' @param main Title of the plot (default: "")
-#' @param type Type of plot (default: "l")
-#' @param lty Line type (default: 1)
-#' @param ... Additional arguments passed to the plot function
-#' @seealso \code{\link{basismfd}}, \code{\link{mfd}}
 plot_mfd <- function(mfd_obj, obs = 1, xlab = "", ylab = "", main = "", type = "l", lty = 1, ...) {
   dimSupp <- mfd_obj$basis$dimSupp
   supp <- mfd_obj$basis$supp
@@ -68,7 +47,7 @@ length <- function(x, ...) {
 #' @title plots an object of classes `mfd`, `mvmfd` or `remfpca`
 #'
 #' @description
-#' plot an object of classes `mfd`, `mvmfd` or `remfpca`
+#'  plot an object of classes `mfd`, `mvmfd` or `remfpca`
 #' @param x An object of classes `mfd`, `mvmfd` or `remfpca`
 #' @param ... all `plot` function arguments.
 #' @export
@@ -90,6 +69,7 @@ plot <- function(x, ...) {
 #' mean of an object of classes `mfd`or `mvmfd`.
 #' @param x An object of classes `mfd` or `mvmfd`.
 #' @param ... all `mean` function arguments.
+#' @return An object of class `mfd`
 #' @export
 mean <- function(x, ...) {
   if (inherits(x, "mfd")) {
@@ -101,12 +81,13 @@ mean <- function(x, ...) {
   }
 }
 
-#' @title sd of an object of classes `mfa`.
+#' @title Standard deviation of an object of class `mfd`.
 #'
 #' @description
-#' sdof an object of classes `mfd`.
-#' @param x An object of classes `mfd`, `mvmfd`.
+#' Standard deviation an object of class `mfd`.
+#' @param x An object of class `mfd`
 #' @param ... all `sd` function arguments.
+#' @return An object of class `mfd`
 #' @export
 sd <- function(x, ...) {
   if (inherits(x, "mfd")) {
@@ -116,12 +97,11 @@ sd <- function(x, ...) {
   }
 }
 
-
-#' @title Compute the inner product between two `mfd` objects
+#' @title Compute the inner product between two objects of class `mfd`
 #'
 #' @param mfd_obj1 An `mfd` object
 #' @param mfd_obj2 An `mfd` object
-#' @return The inner product between the two `mfd` objects
+#' @return The inner products matrix between the two `mfd` objects
 #' @seealso \code{\link{basismfd}}, \code{\link{mfd}}
 #' @importFrom fda fd inprod
 #' @export
@@ -136,14 +116,14 @@ inprod_mfd <- function(mfd_obj1, mfd_obj2) {
   return(inpr)
 }
 
-#' @title Compute the norm of an `mfd` object
+#' @title Compute the norm of an object of class `mfd` 
 #'
-#' @param mfd_obj An `mfd` object
-#' @return The norm of the `mfd` object
+#' @param mfd_obj An object of class `mfd` 
 #' @seealso \code{\link{basismfd}}, \code{\link{mfd}}
+#' @return The norm vector of the an object of class `mfd` 
 #' @export
 norm_mfd <- function(mfd_obj) {
-  return(as.numeric(sqrt(inprod_mfd(mfd_obj, mfd_obj))))
+  return(as.numeric(sqrt(diag(inprod_mfd(mfd_obj, mfd_obj)))))
 }
 
 #' @title Add two `mfd` objects
@@ -191,11 +171,14 @@ norm_mfd <- function(mfd_obj) {
   return(mfd$new(X = coef, mdbs = obj1$basis$clone(), method = "coefs"))
 }
 
-#' @title Multiply two `mfd` objects
-#'
-#' @param obj1 An `mfd` object
-#' @param obj2 An `mfd` object or a scalar
-#' @return The product of the two `mfd` objects
+#' @title Scalar multiplication of an `mfd` object
+#' 
+#' @description
+#' Scalar multiplication of an `mfd` object. One object must be an `mfd`, and the other one a scalar
+#' 
+#' @param obj1 An `mfd` object or an scalar
+#' @param obj2 An `mfd` object or an scalar
+#' @return An `mfd` object
 #' @seealso \code{\link{basismfd}}, \code{\link{mfd}}
 #' @export
 "*.mfd" <- function(obj1, obj2) {
