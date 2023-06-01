@@ -1,24 +1,3 @@
-#' @title Plotting Method for remfpca Objects
-#'
-#' @description
-#' This function generates plots for remfpca objects, showing the functional principal components
-#' and the corresponding variability for each variable.
-#'
-#' @param remfpca_obj An object of class `remfpca` representing the results of reduced-rank functional principal component analysis.
-#' @param comp_index Numeric vector specifying the indices of the principal components to plot.
-#'                   If NULL, all components will be plotted.
-#' @param var_index Numeric vector specifying the indices of the variables to plot.
-#'                  If NULL, all variables will be plotted.
-#' @param ask Logical indicating whether to prompt the user before each plot.
-#' @param expand Numeric vector specifying the expansion factor for the width of the confidence bands.
-#'               If NULL, a default value will be used based on the eigenvalues.
-#' @param nx Integer specifying the number of points to generate along the x-axis.
-#' @param xlab Character vector specifying the labels for the x-axis.
-#' @param ylab Character vector specifying the labels for the y-axis.
-#' @param ... Additional arguments to be passed to the plot function.
-#'
-#' @return None
-#'
 plot_remfpca <- function(remfpca_obj, comp_index = NULL, var_index = NULL, ask = TRUE, expand = NULL, nx = 100, xlab = NULL, ylab = NULL, ...) {
   if (!(inherits(remfpca_obj, "remfpca"))) stop("Argument 'remfpca_obj' is not a remfpca object.")
   percentvar <- round(100 * (remfpca_obj$values) / sum(remfpca_obj$values), 1)
