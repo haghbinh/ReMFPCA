@@ -66,11 +66,11 @@ dim(scores0)
 Re0$alpha
 Re1 <- Remfpca(mvmfd_obj, ncomp = k, alpha = alpha1)
 Re1$alpha
-Re3 <- Remfpca(mfd1, ncomp = k, alpha = list(alpha1$a1))
+Re3 <- Remfpca(mfd1, ncomp = k, alpha = alpha1$a1)
 Re3$alpha
 }
 \seealso{
-\code{\link{Remfpca}}, \code{\link{mvmfd}}
+\code{\link{mvmfd}}
 }
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}

@@ -25,5 +25,5 @@ bimfdplot(mvmfd_obj, type = "l", lty = 1, xlab = "", ylab = "", main = "", ...)
 Bivariate plot for `mvmfd` objects
 }
 \seealso{
-\code{\link{mvmfd}}
+\code{\link{mvmfd}}, \code{\link{mvbasismfd}}
 }

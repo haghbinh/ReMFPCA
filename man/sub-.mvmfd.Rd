@@ -20,5 +20,5 @@ An `mvmfd` object containing the specified subsets
 Extract subsets of an `mvmfd` object
 }
 \seealso{
-\code{\link{mvmfd}}
+\code{\link{mvmfd}},\code{\link{mvbasismfd}}
 }

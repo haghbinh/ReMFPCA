@@ -126,8 +126,6 @@ mvbasismfd <- R6::R6Class("mvbasismfd",
   )
 )
 #' @rdname mvbasismfd
-#' @seealso \code{\link{basismfd}}
-
 #' @title Constructor for mvbasismfd objects
 #'
 #' @description
@@ -138,8 +136,6 @@ mvbasismfd <- R6::R6Class("mvbasismfd",
 #' @export
 Mvbasismfd <- function(basis) mvbasismfd$new(basis)
 #' @rdname mvbasismfd
-#' @seealso \code{\link{basismfd}}
-
 #'
 #' @param mvbasismfd_obj An 'mvmfd' object
 #' @param i An index or indices specifying the subsets to extract for the first dimension

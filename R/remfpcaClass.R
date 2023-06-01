@@ -45,7 +45,7 @@
 #' Re0$alpha
 #' Re1 <- Remfpca(mvmfd_obj, ncomp = k, alpha = alpha1)
 #' Re1$alpha
-#' Re3 <- Remfpca(mfd1, ncomp = k, alpha = list(alpha1$a1))
+#' Re3 <- Remfpca(mfd1, ncomp = k, alpha = alpha1$a1)
 #' Re3$alpha
 
 #' @import R6
@@ -150,7 +150,7 @@ remfpca <- R6::R6Class(
   )
 )
 #' @rdname remfpca
-#' @seealso \code{\link{Remfpca}}, \code{\link{mvmfd}}
+#' @seealso \code{\link{mvmfd}}
 
 #' @title A Class for ReMFPCA objects
 #'
@@ -169,4 +169,3 @@ Remfpca <- function(mvmfd_obj, ncomp, alpha = NULL, centerfns = TRUE, alpha_orth
   remfpca$new(mvmfd_obj, ncomp, alpha, centerfns, penalty_type)
 }
 #' @rdname remfpca
-#' @seealso \code{\link{remfpca}}, \code{\link{mvmfd}}

@@ -2,20 +2,20 @@
 % Please edit documentation in R/mfdMethods.R
 \name{*.mfd}
 \alias{*.mfd}
-\title{Multiply two `mfd` objects}
+\title{Scalar multiplication of an `mfd` object}
 \usage{
 \method{*}{mfd}(obj1, obj2)
 }
 \arguments{
-\item{obj1}{An `mfd` object}
+\item{obj1}{An `mfd` object or an scalar}
 
-\item{obj2}{An `mfd` object or a scalar}
+\item{obj2}{An `mfd` object or an scalar}
 }
 \value{
-The product of the two `mfd` objects
+An `mfd` object
 }
 \description{
-Multiply two `mfd` objects
+Scalar multiplication of an `mfd` object. One object must be an `mfd`, and the other one a scalar
 }
 \seealso{
 \code{\link{basismfd}}, \code{\link{mfd}}

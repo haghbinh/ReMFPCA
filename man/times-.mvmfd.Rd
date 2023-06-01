@@ -18,5 +18,5 @@ An `mvmfd` object
 Multiplication of an `mvmfd` object with a scalar
 }
 \seealso{
-\code{\link{mvmfd}}
+\code{\link{mvmfd}},\code{\link{mvbasismfd}}
 }

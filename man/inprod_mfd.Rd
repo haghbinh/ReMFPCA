@@ -2,7 +2,7 @@
 % Please edit documentation in R/mfdMethods.R
 \name{inprod_mfd}
 \alias{inprod_mfd}
-\title{Compute the inner product between two `mfd` objects}
+\title{Compute the inner product between two objects of class `mfd`}
 \usage{
 inprod_mfd(mfd_obj1, mfd_obj2)
 }
@@ -12,10 +12,10 @@ inprod_mfd(mfd_obj1, mfd_obj2)
 \item{mfd_obj2}{An `mfd` object}
 }
 \value{
-The inner product between the two `mfd` objects
+The inner products matrix between the two `mfd` objects
 }
 \description{
-Compute the inner product between two `mfd` objects
+Compute the inner product between two objects of class `mfd`
 }
 \seealso{
 \code{\link{basismfd}}, \code{\link{mfd}}

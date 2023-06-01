@@ -18,5 +18,5 @@ An `mvmfd` object
 Subtraction of two `mvmfd` objects
 }
 \seealso{
-\code{\link{mvmfd}}
+\code{\link{mvmfd}},\code{\link{mvbasismfd}}
 }

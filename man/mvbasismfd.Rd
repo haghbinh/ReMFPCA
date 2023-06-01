@@ -30,10 +30,6 @@ Constructor for `mvbasismfd` objects (same as Mvbasismfd(...) )
 }
 \seealso{
 \code{\link{mvmfd}}, \code{\link{basismfd}}
-
-\code{\link{basismfd}}
-
-\code{\link{basismfd}}
 }
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}

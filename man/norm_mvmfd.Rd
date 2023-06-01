@@ -2,7 +2,7 @@
 % Please edit documentation in R/mvmfdMethods.R
 \name{norm_mvmfd}
 \alias{norm_mvmfd}
-\title{Norm of an `mvmfd` object}
+\title{Compute the norm of an object of class `mvmfd`}
 \usage{
 norm_mvmfd(mvmfd_obj)
 }
@@ -10,11 +10,11 @@ norm_mvmfd(mvmfd_obj)
 \item{mvmfd_obj}{An `mvmfd` object}
 }
 \value{
-The norm of the `mvmfd` object
+The norm vector of the an object of class `mvmfd`
 }
 \description{
-Norm of an `mvmfd` object
+Compute the norm of an object of class `mvmfd`
 }
 \seealso{
-\code{\link{mvmfd}}
+\code{\link{mvmfd}},\code{\link{mvbasismfd}}
 }
