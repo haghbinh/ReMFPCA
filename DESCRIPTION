@@ -2,7 +2,7 @@ Package: ReMFPCA
 Type: Package
 Title: Regularized Multivariate Functional Principal Component Analysis
 Version: 1.0.0
-Date: 2023-06-01
+Date: 2023-06-02
 Author: c(
     person("Hossein", "Haghbin", email = "haghbin@pgu.ac.ir", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-8416-2354")),
     person("Yue", "Zhao", email = "yue.zhao@mu.edu", role = "aut", comment = c(ORCID = "0009-0000-4561-9163")),
