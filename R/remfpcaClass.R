@@ -20,7 +20,7 @@
 #' n <- 100 # number of grides
 #' t0 <- seq(0, 1, len = n)
 #' j <- 1:M
-#' alpha1 <- list(a1 = 2^seq(-20, 20, length.out = 10), a2 = 2^seq(-20, 20, length.out = 10))
+#' alpha1 <- list(a1 = 2^seq(0, 1, length.out = 3), a2 = 2^seq(0, 1, length.out = 3))
 #' psi_1 <- function(t, m) sin(m * pi * t) # eigenfunction of BB
 #' psi_2 <- function(t, m) sin((2 * m - 1) * pi / 2 * t) # eigenfunction of BM
 #' PC_1 <- outer(t0, j, FUN = psi_1) # n by M matrix
