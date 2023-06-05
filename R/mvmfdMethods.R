@@ -6,7 +6,10 @@ mean_mvmfd <- function(mvmfd_obj) {
 
 
 plot_mvmfd <- function(mvmfd_obj, xlab = NULL, ylab = NULL, ...) {
-  old <- par(no.readonly = TRUE, mfrow = c(1, 1))
+  old <- par()
+  exclude_pars <- c("cin", "cra", "csi", "cxy", "din", "page")
+  ind <- which(!(names(old) %in% exclude_pars))
+  on.exit(par(old[ind]))
   p <- mvmfd_obj$nvar
   par(mfrow = c(p, 1))
   if (is.null(ylab)) ylab <- paste("Variable ", 1:p)
@@ -14,8 +17,6 @@ plot_mvmfd <- function(mvmfd_obj, xlab = NULL, ylab = NULL, ...) {
   for (i in 1:p) {
     plot(mvmfd_obj[, i], ylab = ylab[i], xlab = xlab[i], ...)
   }
-  par(mfrow = c(1, 1))
-  on.exit(options(old))
 }
 
 #' @title Addition of two `mvmfd` objects

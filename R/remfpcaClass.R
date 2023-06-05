@@ -1,11 +1,11 @@
-#' @title A Class for ReMFPCA objects
+#' @title A Class for `ReMFPCA` objects
 #'
 #' @description
-#' The `remfpca` class represents regularized functional principal components (ReMFPCs) components.
+#' The `remfpca` class represents regularized functional principal components components.
 #'
 
 #' @field pc_mfd an object of class `mvmfd` where the first indices (fields)
-#' represents harmonics (Pc's) and  second indices represents variables
+#' represents harmonics and  second indices represents variables
 #' @field lsv = Left singular values vectors
 #' @field values = the set of eigenvalues
 #' @field alpha = The vector of penalties parameters
@@ -152,10 +152,10 @@ remfpca <- R6::R6Class(
 #' @rdname remfpca
 #' @seealso \code{\link{mvmfd}}
 
-#' @title A Class for ReMFPCA objects
+#' @title A Class for 'ReMFPCA' objects
 #'
 #' @description
-#' The `remfpca` class represents regularized functional principal components (ReMFPCs) components.
+#' The `remfpca` class represents regularized functional principal components ('ReMFPCs') components.
 #'
 #' @param mvmfd_obj An `mvmfd` object representing the multivariate functional data.
 #' @param ncomp The number of functional principal components to retain.

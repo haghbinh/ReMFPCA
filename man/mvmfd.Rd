@@ -13,7 +13,7 @@ Mvmfd(...)
 \description{
 The `mvmfd` class represents functional data ...
 
-Constructor for `mvmfd` objects (same as Mvmfd(...) )
+Constructor for `mvmfd` objects (same as `Mvmfd`)
 }
 \examples{
 require(fda)
@@ -74,7 +74,7 @@ bimfdplot(mvmfd1)
 \if{html}{\out{<a id="method-mvmfd-new"></a>}}
 \if{latex}{\out{\hypertarget{method-mvmfd-new}{}}}
 \subsection{Method \code{new()}}{
-Constructor for `mvmfd` objects (same as Mvmfd(...) )
+Constructor for `mvmfd` objects (same as 'Mvmfd')
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{mvmfd$new(...)}\if{html}{\out{</div>}}
 }

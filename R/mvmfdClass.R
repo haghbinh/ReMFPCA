@@ -44,7 +44,7 @@
 mvmfd <- R6::R6Class("mvmfd",
   public = list(
     #' @description
-    #' Constructor for `mvmfd` objects (same as Mvmfd(...) )
+    #' Constructor for `mvmfd` objects (same as 'Mvmfd')
     #'
     #' @param ... A `mfd` objects which have separated by comma
     #'
@@ -145,7 +145,7 @@ mvmfd <- R6::R6Class("mvmfd",
 #' @title A Class of Multivariate Multidimensional Functional Data objects
 #'
 #' @description
-#' Constructor for `mvmfd` objects (same as Mvmfd(...) )
+#' Constructor for `mvmfd` objects (same as `Mvmfd`)
 #'
 #' @param ... A `mfd` objects which have separated by comma
 #' @export

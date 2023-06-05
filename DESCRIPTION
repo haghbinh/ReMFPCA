@@ -8,7 +8,7 @@ Authors@R: c(
     person("Mehdi", "Maadooliat", email = "mehdi.maadooliat@mu.edu", role = "aut", comment = c(ORCID = "0000-0002-5408-2676"))
     )
 Maintainer: Hossein Haghbin <haghbin@pgu.ac.ir>
-Description: Methods and tools for implementing regularized multivariate functional principal component analysis (ReMFPCA) for multivariate functional data whose variables might be observed over different dimensional domains. ReMFPCA is an object-oriented (OO) interface leveraging the extensibility and scalability of R6. It employs a parameter vector to control the smoothness of each functional variable. By incorporating smoothness constraints as penalty terms within a regularized optimization framework, ReMFPCA generates smooth multivariate functional PCs, offering a concise and interpretable representation of the data.
+Description: Methods and tools for implementing regularized multivariate functional principal component analysis ('ReMFPCA') for multivariate functional data whose variables might be observed over different dimensional domains. ReMFPCA is an object-oriented interface leveraging the extensibility and scalability of R6. It employs a parameter vector to control the smoothness of each functional variable. By incorporating smoothness constraints as penalty terms within a regularized optimization framework, ReMFPCA generates smooth multivariate functional PCs, offering a concise and interpretable representation of the data.
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: TRUE

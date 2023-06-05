@@ -3,7 +3,7 @@
 \name{remfpca}
 \alias{remfpca}
 \alias{Remfpca}
-\title{A Class for ReMFPCA objects}
+\title{A Class for `ReMFPCA` objects}
 \usage{
 Remfpca(
   mvmfd_obj,
@@ -29,9 +29,9 @@ If NULL, the regularization parameter is estimated internally.}
 \item{penalty_type}{The type of penalty to be applied on the coefficients. The types "coefpen" and "basispen" is supported. Default is "coefpen".}
 }
 \description{
-The `remfpca` class represents regularized functional principal components (ReMFPCs) components.
+The `remfpca` class represents regularized functional principal components components.
 
-The `remfpca` class represents regularized functional principal components (ReMFPCs) components.
+The `remfpca` class represents regularized functional principal components ('ReMFPCs') components.
 }
 \examples{
 require(fda)
@@ -76,7 +76,7 @@ Re3$alpha
 \if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
 \item{\code{pc_mfd}}{an object of class `mvmfd` where the first indices (fields)
-represents harmonics (Pc's) and  second indices represents variables}
+represents harmonics and  second indices represents variables}
 
 \item{\code{lsv}}{= Left singular values vectors}
 

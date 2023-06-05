@@ -26,7 +26,7 @@ An `mvbasismfd` object containing the specified subsets
 The `mvbasismfd` a set of  multivariate multidimensional basis functions.
 This class utilizes basis objects `basismfd`.
 
-Constructor for `mvbasismfd` objects (same as Mvbasismfd(...) )
+Constructor for `mvbasismfd` objects (same as `Mvbasismfd`)
 }
 \seealso{
 \code{\link{mvmfd}}, \code{\link{basismfd}}

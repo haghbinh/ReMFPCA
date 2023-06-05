@@ -129,7 +129,7 @@ mvbasismfd <- R6::R6Class("mvbasismfd",
 #' @title Constructor for mvbasismfd objects
 #'
 #' @description
-#' Constructor for `mvbasismfd` objects (same as Mvbasismfd(...) )
+#' Constructor for `mvbasismfd` objects (same as `Mvbasismfd`)
 #'
 #' @import R6
 #' @param basis A list of basisfd objects

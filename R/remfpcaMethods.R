@@ -14,11 +14,13 @@ plot_remfpca <- function(remfpca_obj, comp_index = NULL, var_index = NULL, ask =
   if (is.null(ylab)) ylab <- paste("Variable", var_index)
   if (is.null(xlab)) xlab <- rep("time", length(var_index))
   if (is.null(expand)) expand <- 2 * sqrt(remfpca_obj$values[comp_index])
-  
+  old <- par()
+  exclude_pars <- c("cin", "cra", "csi", "cxy", "din", "page")
+  ind <- which(!(names(old) %in% exclude_pars))
+  on.exit(par(old[ind]))
   if (flag) {
+    par(mfrow = c(length(var_index), 1), ask = ask)
     for (ipc in comp_index) {
-      op <- par(mfrow = c(length(var_index), 1), ask = ask)
-      on.exit(par(op))
       for (j in var_index) {
         dimSupp <- pc_mfd[ipc, j]$basis$dimSupp
         supp <- pc_mfd[ipc, j]$basis$supp
@@ -35,8 +37,7 @@ plot_remfpca <- function(remfpca_obj, comp_index = NULL, var_index = NULL, ask =
       }
     }
   } else {
-    op <- par(mfrow = c(length(var_index), length(comp_index)))
-    on.exit(par(op))
+    par(mfrow = c(length(var_index), length(comp_index)))
     for (j in var_index) {
       for (ipc in comp_index) {
         dimSupp <- pc_mfd[ipc, j]$basis$dimSupp
@@ -55,3 +56,5 @@ plot_remfpca <- function(remfpca_obj, comp_index = NULL, var_index = NULL, ask =
     }
   }
 }
+
+
