@@ -1,4 +1,5 @@
 # ReMFPCA
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/combinIT)](https://cran.r-project.org/package=ReMFPCA)
 
 ### Installation
 
