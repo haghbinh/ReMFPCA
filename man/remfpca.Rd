@@ -7,26 +7,58 @@
 \usage{
 Remfpca(
   mvmfd_obj,
+  method = "power",
   ncomp,
-  alpha = NULL,
+  smooth_tuning = NULL,
+  sparse_tuning = NULL,
   centerfns = TRUE,
-  alpha_orth = TRUE,
-  penalty_type = "coefpen"
+  alpha_orth = FALSE,
+  smoothing_type = "basispen",
+  sparse_type = "soft",
+  K_fold = 30,
+  sparse_CV = TRUE,
+  smooth_GCV = TRUE
 )
 }
 \arguments{
 \item{mvmfd_obj}{An `mvmfd` object representing the multivariate functional data.}
 
+\item{method}{A character string specifying the approach to be used for MFPCA computation.
+Options are "power" (the default), which uses the power algorithm, or "eigen",
+which uses the eigen decomposition approach.}
+
 \item{ncomp}{The number of functional principal components to retain.}
 
-\item{alpha}{A list or vector specifying the regularization parameter(s) for each variable.
-If NULL, the regularization parameter is estimated internally.}
+\item{smooth_tuning}{A list or vector specifying the smoothing regularization parameter(s) for each variable.
+If NULL, non-smoothing MFPCA is estimated.}
 
-\item{centerfns}{Logical indicating whether to center the functional data before analysis.}
+\item{sparse_tuning}{A list or vector specifying the sparsity regularization parameter(s) for each variable.
+If NULL, non-sparse MFPCA is estimated.}
 
-\item{alpha_orth}{Logical indicating whether to perform orthogonalization of the regularization parameters.}
+\item{centerfns}{Logical indicating whether to center the functional data before analysis. Default is TRUE.}
 
-\item{penalty_type}{The type of penalty to be applied on the coefficients. The types "coefpen" and "basispen" is supported. Default is "coefpen".}
+\item{alpha_orth}{Logical indicating whether to perform orthogonalization of the regularization parameters.
+If `method` is "power", setting `alpha_orth = FALSE` (default) uses the sequential power approach,
+while setting `alpha_orth = TRUE` uses the joint power approach.}
+
+\item{smoothing_type}{The type of smoothing penalty to be applied on the estimated functional PCs. The types "basispen" and "coefpen" is supported. Default is "basispen".}
+
+\item{sparse_type}{The type of sparse penalty to be applied on the estimated functional PCs. The types "soft-threshold", "hard-threshold" and "SCAD" is supported. Default is "soft-threshold".}
+
+\item{K_fold}{An integer specifying the number of folds in the sparse cross-validation process. Default is 30.}
+
+\item{sparse_CV}{@param sparse_CV Logical indicating whether cross-validation should be applied to select the optimal sparse tuning parameter in sequential power approach.
+If `sparse_CV = TRUE`, a series of tuning parameters should be provided as a vector with positive number with max equals to number of subjects.
+If `sparse_CV = FALSE`, specific tuning parameters are given directly to each principal components. Tuning parameters should be provided as a vector with length equal to `ncomp`.
+If the dimensions of input tuning parameters are incorrect, it will be converted to a list internally, and a warning will be issued.}
+
+\item{smooth_GCV}{@param smooth_GCV Logical indicating whether generalized cross-validation should be applied to select the optimal smooth tuning parameter.
+If `smooth_GCV = TRUE`, a series of tuning parameters should be provided as a list with length equal to the number of variables.
+If a list with incorrect dimensions is provided, it will be converted to a correct list internally, and a warning will be issued.
+If `smooth_GCV = FALSE`, specific tuning parameters are given directly. If `method` is "power" and `alpha_orth = FALSE` (sequential power),
+tuning parameters should be provided as a list with length equal to the number of variables, where each element is a vector of length `ncomp`.
+If `method` is "power" and `alpha_orth = TRUE` (joint power), tuning parameters should be provided as a vector with length equal to the number of variables.
+If the dimensions of input tuning parameters are incorrect, it will be converted to a list internally, and a warning will be issued.}
 }
 \description{
 The `remfpca` class represents regularized functional principal components components.
@@ -42,6 +74,7 @@ n <- 100 # number of grides
 t0 <- seq(0, 1, len = n)
 j <- 1:M
 alpha1 <- list(a1 = 2^seq(0, 1, length.out = 3), a2 = 2^seq(0, 1, length.out = 3))
+sparse_tuning = as.integer(seq(1, N-1, length.out = 10))
 psi_1 <- function(t, m) sin(m * pi * t) # eigenfunction of BB
 psi_2 <- function(t, m) sin((2 * m - 1) * pi / 2 * t) # eigenfunction of BM
 PC_1 <- outer(t0, j, FUN = psi_1) # n by M matrix
@@ -59,15 +92,19 @@ mfd1 <- Mfd(X = X_1, mdbs = mdbs)
 mfd2 <- Mfd(X = X_2, mdbs = mdbs)
 mvmfd_obj <- Mvmfd(mfd1, mfd2)
 k <- 2
-Re0 <- Remfpca(mvmfd_obj, ncomp = k, alpha = c(0, 0))
+# Non Regularized MFPCA based on sequential power algorithm
+Re0 <- Remfpca(mvmfd_obj, ncomp = k, smooth_GCV = FALSE, sparse_CV = FALSE)
 fpc0 <- Re0$pc_mfd
 scores0 <- inprod_mvmfd(mvmfd_obj, fpc0)
 dim(scores0)
-Re0$alpha
-Re1 <- Remfpca(mvmfd_obj, ncomp = k, alpha = alpha1)
-Re1$alpha
-Re3 <- Remfpca(mfd1, ncomp = k, alpha = alpha1$a1)
-Re3$alpha
+# Smooth MFPCA based on sequential power algorithm
+Re1 <- Remfpca(mvmfd_obj, ncomp = k, smooth_tuning = alpha1)
+# Smooth and sparse MFPCA based on sequential power algorithm
+Re2 <- Remfpca(mvmfd_obj, ncomp = k, smooth_tuning = alpha1, sparse_tuning = sparse_tuning)
+# Smooth MFPCA based on joint power algorithm
+Re3 <- Remfpca(mvmfd_obj, ncomp = k, smooth_tuning = alpha1, alpha_orth = TRUE)
+# Smooth MFPCA based on eigen decomposition algorithm
+Re4 <- Remfpca(mvmfd_obj, ncomp = k, smooth_tuning = alpha1, method = "eigen")
 }
 \seealso{
 \code{\link{mvmfd}}
@@ -75,18 +112,25 @@ Re3$alpha
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
-\item{\code{pc_mfd}}{an object of class `mvmfd` where the first indices (fields)
+\item{\code{pc_mfd}}{An object of class `mvmfd` where the first indices (fields)
 represents harmonics and  second indices represents variables}
 
 \item{\code{lsv}}{= Left singular values vectors}
 
-\item{\code{values}}{= the set of eigenvalues}
+\item{\code{values}}{= The set of eigenvalues}
 
-\item{\code{alpha}}{= The vector of penalties parameters}
+\item{\code{smooth_tuning}}{= The list of smoothing penalties parameters}
 
-\item{\code{GCVs}}{= generalized cross validations}
+\item{\code{sparse_tuning}}{= The list of sparse penalties parameters}
 
-\item{\code{mean_mfd}}{a multivariate functional data object giving the mean function}
+\item{\code{GCVs}}{= Generalized cross validations scores of smoothing penalties parameters.
+If both smoothing and sparse tuning penalties are used in the ReMFPCA method,
+this represents the conditional generalized cross-validation scores, which
+means it is computed based on the optimal sparse tuning parameter selected via cross validation.}
+
+\item{\code{CVs}}{= Cross validations scores of sparse penalties parameters}
+
+\item{\code{mean_mfd}}{A multivariate functional data object giving the mean function}
 }
 \if{html}{\out{</div>}}
 }
@@ -101,14 +145,21 @@ represents harmonics and  second indices represents variables}
 \if{html}{\out{<a id="method-remfpca-new"></a>}}
 \if{latex}{\out{\hypertarget{method-remfpca-new}{}}}
 \subsection{Method \code{new()}}{
+Initialize the `remfpca` class.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{remfpca$new(
   mvmfd_obj,
+  method = "power",
   ncomp,
-  alpha = NULL,
+  smooth_tuning = NULL,
+  sparse_tuning = NULL,
   centerfns = TRUE,
-  alpha_orth = TRUE,
-  penalty_type = "coefpen"
+  alpha_orth = FALSE,
+  smoothing_type = "coefpen",
+  sparse_type = "soft",
+  K_fold = 30,
+  sparse_CV,
+  smooth_GCV
 )}\if{html}{\out{</div>}}
 }
 
@@ -117,16 +168,28 @@ represents harmonics and  second indices represents variables}
 \describe{
 \item{\code{mvmfd_obj}}{An `mvmfd` object representing the multivariate functional data.}
 
+\item{\code{method}}{A character string specifying the approach to be used for MFPCA computation.
+Options are "power" (the default) or "eigen".}
+
 \item{\code{ncomp}}{The number of functional principal components to retain.}
 
-\item{\code{alpha}}{A list or vector specifying the regularization parameter(s) for each variable.
-If NULL, the regularization parameter is estimated internally.}
+\item{\code{smooth_tuning}}{A list or vector specifying the smoothing regularization parameter(s).}
 
-\item{\code{centerfns}}{Logical indicating whether to center the functional data before analysis.}
+\item{\code{sparse_tuning}}{A list or vector specifying the sparsity regularization parameter(s).}
 
-\item{\code{alpha_orth}}{Logical indicating whether to perform orthogonalization of the regularization parameters.}
+\item{\code{centerfns}}{Logical. Whether to center the functional data before analysis.}
 
-\item{\code{penalty_type}}{The type of penalty to be applied on the coefficients. The types "coefpen" and "basispen" is supported. Default is "coefpen".}
+\item{\code{alpha_orth}}{Logical. Whether to perform orthogonalization of the regularization parameters.}
+
+\item{\code{smoothing_type}}{The type of smoothing penalty to be applied.}
+
+\item{\code{sparse_type}}{The type of sparse penalty to be applied.}
+
+\item{\code{K_fold}}{An integer specifying the number of folds in cross-validation.}
+
+\item{\code{sparse_CV}}{Logical. Whether cross-validation should be applied for sparse tuning.}
+
+\item{\code{smooth_GCV}}{Logical. Whether generalized cross-validation should be applied for smoothing tuning.}
 }
 \if{html}{\out{</div>}}
 }
